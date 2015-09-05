@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <div style="height: 50px; display: block; clear: both; margin-bottom: 5px; background:url(../resource/images/header_pattern.jpg) repeat;">
+        <h:graphicImage url="/resource/images/logo.png" height="50" style="float: left"/>
+        <h:form>
+            <div style="float: right">
+                <h:commandLink value="#{cookieBean.usernameLogin}" style="font-size: 20px;" action="#"/>
+                <br/>
+                <h:commandLink value="Đăng xuất" action="#{quanTriVienView.dangXuat()}"/>
+            </div>
+        </h:form>
+    </div>
+    <h:form>  
+        <p:growl id="messages"/>
+        <p:menubar>
+            <p:menuitem value="Trang chủ" url="trang_chu.xhtml"/>
+            <p:submenu label="QL Người dùng">
+                <p:menuitem value="Quản trị viên" url="ql_quan_tri_vien.xhtml" rendered="#{quanTriVienView.master}"/>
+                <p:menuitem value="Người dùng" url="ql_nguoi_dung.xhtml"/>
+            </p:submenu>
+            <p:menuitem value="QL Sản phẩm" url="ql_san_pham.xhtml"/>
+            <p:menuitem value="QL Tỉnh thành" url="ql_tinh_thanh.xhtml"/>
+            <p:menuitem value="QL Tin tức" url="ql_tin_tuc.xhtml"/>
+            <p:menuitem value="QL Mua - Bán" url="ql_mua_ban.xhtml"/>
+            <p:menuitem value="QL Mẹo vặt" url="ql_meo_vat.xhtml"/>
+            <f:facet name="options">
+                <p:inputText style="margin-right:10px" placeholder="Tìm kiếm" disabled="true"/>
+                <p:commandButton type="button" value="Tìm" icon="ui-icon-search" disabled="true"/>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+</html>

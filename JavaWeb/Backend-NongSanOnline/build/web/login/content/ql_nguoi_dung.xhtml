@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <link rel="stylesheet" href="../../css/default.css" type="text/css"/>
+    </h:head>
+    <h:body>
+        <p:growl autoUpdate="true"/>
+        <p:tabView id="tabview">
+            <p:tab title="Danh sách người dùng">
+                <h:form id="from_list">
+                    <p:dataTable var="khachHang"
+                                id="list"
+                                rowIndexVar="rowIndex"
+                                value="#{khachHangView.khachHangs}"
+                                selection="#{khachHangView.selectedKhachHangs}"
+                                rows="10"
+                                paginator="true"
+                                paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="5,10,15"
+                                rowKey="#{khachHang.id}">
+                        <f:facet name="header">
+                            <p:outputPanel autoUpdate="true" style="width: 100%; clear: both; height: 30px; border: none; background: none; margin:0; padding: 0" id="action">
+                                <p:commandButton value="Xóa" style="float: left" disabled="#{khachHangView.deleteDisable}" update="tabview:multiDetail" oncomplete="PF('deleteMultiItem').show();"/>
+                                <p:commandButton value="Làm mới" style="float: left" onclick="window.location.replace(window.location.href)"/>
+                            </p:outputPanel >
+                        </f:facet>
+                        <p:ajax event="rowSelectCheckbox" listener="#{khachHangView.onRowCheckboxSelect}" update="tabview:from_list:list:action"/>
+                        <p:ajax event="rowSelect" listener="#{khachHangView.onRowCheckboxSelect}" update="tabview:from_list:list:action"/>
+                        <p:column headerText="STT" width="30">
+                            <h:outputText value="#{rowIndex+1}" />
+                        </p:column>
+
+                        <p:column headerText="Tên khách hàng">
+                            <h:outputText value="#{khachHang.fullname}" />
+                        </p:column>
+                        <p:column headerText="Tên đăng nhập">
+                            <h:outputText value="#{khachHang.username}" />
+                        </p:column>
+                        <p:column headerText="Địa chỉ">
+                            <h:outputText value="#{khachHang.address}" />
+                        </p:column>
+                        <p:column headerText="Email">
+                            <h:outputText value="#{khachHang.email}" />
+                        </p:column>
+                        <p:column headerText="Hành động" style="width: 160px;">
+                            <p:commandButton value="#{khachHang.statusName}" action="#{khachHangView.setSelectedKhachHang(khachHang)}" update="tabview:update" oncomplete="PF('updateItem').show();"/>
+                            <p:commandButton value="Xóa" action="#{khachHangView.setSelectedKhachHang(khachHang)}" update="tabview:itemDetail" oncomplete="PF('deleteOneItem').show();"/>
+                        </p:column>
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog widgetVar="deleteMultiItem" modal="true" header="Hệ thống" resizable="false">
+                    <p:outputPanel id="multiDetail" style="text-align:center;">
+                        <h:outputText value="Bạn có thật sự muốn xóa #{khachHangView.selectedKhachHangsSize} bản ghi?"/>
+                    </p:outputPanel>
+                    <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('deleteMultiItem').hide();"/>
+                    <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 10px" oncomplete="PF('deleteMultiItem').hide();" action="#{khachHangView.delete()}" update="tabview:from_list:list"/>
+                </p:dialog>
+                <p:dialog widgetVar="deleteOneItem" modal="true" header="Hệ thống" resizable="false">
+                    <p:outputPanel id="itemDetail" style="text-align:center;">
+                        <h:outputText value="Bạn có thật sự muốn xóa #{khachHangView.selectedKhachHang.fullname}?"/>
+                    </p:outputPanel>
+                    <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('deleteOneItem').hide();"/>
+                    <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 10px" action="#{khachHangView.deleteOneItem()}" update="tabview:from_list:list" oncomplete="PF('deleteOneItem').hide();"/>
+                </p:dialog>
+                <p:dialog header="Hệ thống" resizable="false" widgetVar="updateItem" modal="true">
+                    <p:outputPanel id="update" style="text-align:center;">
+                        <h:outputText value="Thay đổi trạng thái?"/>
+                    </p:outputPanel>
+                    <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('updateItem').hide();"/>
+                    <p:commandButton value="Tiếp tục" icon="ui-icon-check" style="margin-top: 10px" action="#{khachHangView.changeStatus()}" update="tabview tabview:from_list tabview:from_list:list" oncomplete="PF('updateItem').hide(); window.location.replace(window.location.href);"/>
+                </p:dialog>
+            </p:tab>
+        </p:tabView>
+    </h:body>
+</html>

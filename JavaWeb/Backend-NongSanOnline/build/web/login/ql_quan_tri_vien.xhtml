@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Nông sản Online - Quản lý quản trị viên</title>
+        <link rel="stylesheet" href="../css/default.css" type="text/css"/>
+    </h:head>
+    <h:body>
+        <ui:include src="template/header.xhtml"/>
+        <p:layout style="min-width:400px; height:550px; margin-top: 5px;" id="layout" >
+            <!--LEFT-->
+            <p:layoutUnit position="west" resizable="true" size="200" minSize="200" maxSize="300" header="Quản lý quản trị viên" collapsible="true">
+                <h:form>
+                    <p:panelMenu>
+                        <p:submenu label="Quyền">
+                            <p:menuitem value="Tất cả" actionListener="#{quanTriVienView.loc('all')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search" />
+                            <p:menuitem value="Master" actionListener="#{quanTriVienView.loc('master')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search" />
+                            <p:menuitem value="Admin" actionListener="#{quanTriVienView.loc('admin')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search" />
+                        </p:submenu>
+                        <p:submenu label="Trạng thái">
+                            <p:menuitem value="Tất cả" actionListener="#{quanTriVienView.loc('all')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search" />
+                            <p:menuitem value="Kích hoạt" actionListener="#{quanTriVienView.loc('kichhoat')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search"/>
+                            <p:menuitem value="Tạm dừng" actionListener="#{quanTriVienView.loc('tamdung')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+            <!--CENTER-->
+            <p:layoutUnit position="center">
+                <p:growl autoUpdate="true"/>
+                <p:tabView id="tabview">
+                    <p:tab title="Danh sách người quản trị">
+                        <h:form id="form-list">
+                            <p:dataTable var="quanTriVien"
+                                        resizableColumns="true" resizeMode="expand"
+                                        scrollable="true" scrollHeight="410"
+                                        id="list"
+                                        rowIndexVar="rowIndex"
+                                        value="#{quanTriVienView.arrQuanTriVien}"
+                                        selection="#{quanTriVienView.arrSelectedQTV}"
+                                        rowKey="#{quanTriVien.id}"
+                                        rows="20"
+                                        paginator="true"
+                                        paginatorPosition="bottom"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="20,50,100">
+                                <p:column headerText="STT" width="30">
+                                    <h:outputText value="#{rowIndex+1}" />
+                                </p:column>
+
+                                <p:column headerText="Tên đăng nhập">
+                                    <p:commandLink value="#{quanTriVien.tenDangNhap}" action="#{quanTriVienView.setSelectedQTV(quanTriVien)}" update="form-detail" onclick="PF('dialogDetailItem').show();"/>
+                                </p:column>
+                                <p:column headerText="Họ và tên">
+                                    <h:outputText value="#{quanTriVien.hoVaTen}" />
+                                </p:column>
+                                <p:column headerText="Quyền">
+                                    <h:outputText value="#{quanTriVien.tenQuyen}" />
+                                </p:column>
+                                <p:column headerText="Trạng thái">
+                                    <h:outputText value="#{quanTriVien.tenTrangThai}" />
+                                </p:column>
+
+                                <p:column headerText="Hành động" style="width: 120px;">
+                                    <p:commandButton action="#{quanTriVienView.setSelectedQTV(quanTriVien)}" icon="ui-icon ui-icon-pencil" update="form-update" oncomplete="PF('dialogUpdateItem').show();"/>
+                                    <p:commandButton action="#{quanTriVienView.setSelectedQTV(quanTriVien)}" icon="ui-icon-trash" update="form-delete" oncomplete="PF('dialogDelOneItem').show();"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </p:tab>
+                    <p:tab title="Thêm người quản trị">
+                        <h:form id="form-insert">
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Họ và tên *:"/>
+                                <p:inputText value="#{quanTriVienView.hoVaTen}" placeholder="Họ và tên"></p:inputText>
+                                <h:outputText value="Tên đăng nhập *:"/>
+                                <p:inputText value="#{quanTriVienView.tenDangNhap}" placeholder="Tên đăng nhập"></p:inputText>
+                                <h:outputText value="Mật khẩu *:"/>
+                                <p:password value="#{quanTriVienView.matKhau}" placeholder="Mật khẩu"></p:password>
+                                <h:outputText value="Nhập lại mật khẩu *:"/>
+                                <p:password value="#{quanTriVienView.reMatKhau}" placeholder="Nhập lại mật khẩu"></p:password>
+                                <h:outputText value="Quyền *:"/>
+                                <p:selectOneMenu value="#{quanTriVienView.quyen}">
+                                    <f:selectItem itemLabel="--Chọn quyền--" itemValue="" />
+                                    <f:selectItem itemLabel="Master" itemValue="master" />
+                                    <f:selectItem itemLabel="Admin" itemValue="admin" />
+                                </p:selectOneMenu>
+                                <p:commandButton value="Thêm" actionListener="#{quanTriVienView.them()}" update="form-insert :tabview:form-list"></p:commandButton>
+                                <p:commandButton value="Nhập lại" type="reset"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </p:tab>
+                </p:tabView>
+            </p:layoutUnit>
+        </p:layout>
+        <ui:include src="template/footer.xhtml"/>
+        <!--Show dialog xac nhan xoa 1 item-->
+        <p:dialog widgetVar="dialogDelOneItem" modal="true" header="Xác nhận xóa" resizable="false" draggable="false">
+            <h:form id="form-delete">
+                <p:outputPanel id="itemDetail" style="text-align:center;">
+                    <h:outputText value="Bạn có thật sự muốn xóa #{quanTriVienView.selectedQTV.tenDangNhap}?"/>
+                </p:outputPanel>
+                <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 10px" action="#{quanTriVienView.xoa()}" update=":tabview:form-list" oncomplete="PF('dialogDelOneItem').hide();"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogDelOneItem').hide();"/>
+            </h:form>
+        </p:dialog>
+        <!--Show dialog chinh sua-->
+        <p:dialog widgetVar="dialogUpdateItem" modal="true" header="Cập nhật thông tin" resizable="false" draggable="false">
+            <h:form id="form-update">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Họ và tên *:"/>
+                    <p:inputText value="#{quanTriVienView.hoVaTen}" placeholder="Họ và tên"></p:inputText>
+                    <h:outputText value="Tên đăng nhập *:"/>
+                    <p:inputText value="#{quanTriVienView.tenDangNhap}" disabled="true" placeholder="Tên đăng nhập"></p:inputText>
+                    <h:outputText value="Mật khẩu *:"/>
+                    <p:password value="#{quanTriVienView.matKhau}" placeholder="Mật khẩu"></p:password>
+                    <h:outputText value="Nhập lại mật khẩu *:"/>
+                    <p:password value="#{quanTriVienView.reMatKhau}" placeholder="Nhập lại mật khẩu"></p:password>
+                    <h:outputText value="Quyền *:"/>
+                    <p:selectOneMenu value="#{quanTriVienView.quyen}">
+                        <f:selectItem itemLabel="--Chọn quyền--" itemValue="" />
+                        <f:selectItem itemLabel="Master" itemValue="master" />
+                        <f:selectItem itemLabel="Admin" itemValue="admin" />
+                    </p:selectOneMenu>
+                    <h:outputText value="Trạng thái *:"/>
+                    <p:selectOneMenu value="#{quanTriVienView.trangThai}">
+                        <f:selectItem itemLabel="--Chọn trạng thái--" itemValue="" />
+                        <f:selectItem itemLabel="Kích hoạt" itemValue="kichhoat" />
+                        <f:selectItem itemLabel="Tạm dừng" itemValue="tamdung" />
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <p:commandButton value="Cập nhật" icon="ui-icon-check" style="margin-top: 10px" action="#{quanTriVienView.sua()}" update=":tabview:form-list"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogUpdateItem').hide();"/>
+            </h:form>
+        </p:dialog>
+        <!--Show dialog chi tiet-->
+        <p:dialog widgetVar="dialogDetailItem" modal="true" header="Cập nhật thông tin" resizable="false" draggable="false">
+            <h:form id="form-detail">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Họ và tên:"/>
+                    <h:outputText value="#{quanTriVienView.selectedQTV.hoVaTen}"/>
+                    <h:outputText value="Tên đăng nhập:"/>
+                    <h:outputText value="#{quanTriVienView.selectedQTV.tenDangNhap}"/>
+                    <h:outputText value="Quyền:"/>
+                    <h:outputText value="#{quanTriVienView.selectedQTV.tenQuyen}"/>
+                    <h:outputText value="Trạng thái:"/>
+                    <h:outputText value="#{quanTriVienView.selectedQTV.tenTrangThai}"/>
+                </h:panelGrid>
+                <p:commandButton value="Đóng" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogDetailItem').hide();"/>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

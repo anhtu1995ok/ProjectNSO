@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title><ui:insert name="title">Nông sản Online - Đăng nhập</ui:insert></title>
+        <link rel="stylesheet" href="css/default.css" type="text/css"/>
+    </h:head>
+    <h:body style="padding: 0; margin: 0; background: #eaeaea">
+        <div style="width: 450px; margin: 200px auto;">
+            <p:growl autoUpdate="true"/>
+            <h:form>
+                <p:panel header="Đăng nhập">
+                    <h:panelGrid columns="2" style="margin: 0 auto;">
+                        <h:outputLabel value="Tên đăng nhập:"/>
+                        <p:inputText id="username" placeholder="Tên đăng nhập" value="#{quanTriVienView.tenDangNhap}"/>
+                        <h:outputLabel value="Mật khẩu:"/>
+                        <p:password id="password" placeholder="Mật khẩu" value="#{quanTriVienView.matKhau}"/>
+                        <h:outputLabel value=""/>
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox value="#{quanTriVienView.nhoMatKhau}"/>
+                            <p:outputLabel value=" Nhớ mật khẩu"/>
+                        </h:panelGroup>
+                        <h:outputLabel value=""/>
+                        <h:panelGroup>
+                            <p:commandButton id="login" value="Đăng nhập" action="#{quanTriVienView.dangNhap()}"/>
+                            <h:outputLabel value=" "/>
+                            <p:commandButton value="Nhập lại" type="reset"/>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+    </h:body>
+</html>

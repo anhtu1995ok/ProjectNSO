@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <link rel="stylesheet" href="../../css/default.css" type="text/css"/>
+    </h:head>
+    <h:body>
+        <p:growl autoUpdate="true"/>
+        <p:tabView id="tabview">
+            <p:tab title="Danh sách người quản trị">
+                <h:form id="form-list">
+                    <p:dataTable var="quanTriVien"
+                                id="list"
+                                rowIndexVar="rowIndex"
+                                value="#{quanTriVienView.arrQuanTriVien}"
+                                selection="#{quanTriVienView.arrSelectedQTV}"
+                                rowKey="#{quanTriVien.id}"
+                                rows="10"
+                                paginator="true"
+                                paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="STT" width="30">
+                            <h:outputText value="#{rowIndex+1}" />
+                        </p:column>
+
+                        <p:column headerText="Tên đăng nhập">
+                            <h:outputText value="#{quanTriVien.tenDangNhap}" />
+                        </p:column>
+                        <p:column headerText="Họ và tên">
+                            <h:outputText value="#{quanTriVien.hoVaTen}" />
+                        </p:column>
+                        <p:column headerText="Quyền">
+                            <h:outputText value="#{quanTriVien.quyen}" />
+                        </p:column>
+                        <p:column headerText="Trạng thái">
+                            <h:outputText value="#{quanTriVien.trangThai}" />
+                        </p:column>
+                        
+                        <p:column headerText="Hành động" style="width: 120px;">
+                            <p:commandButton action="#{quanTriVienView.setSelectedQTV(quanTriVien)}" icon="ui-icon ui-icon-pencil"/>
+                            <p:commandButton action="#{quanTriVienView.setSelectedQTV(quanTriVien)}" icon="ui-icon-trash" update=":tabview:form-delete:itemDetail" oncomplete="PF('dialogDelOneItem').show();"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <!--Show dialog xac nhan xoa 1 item-->
+                <p:dialog widgetVar="dialogDelOneItem" modal="true" header="Hệ thống" resizable="false">
+                    <h:form id="form-delete">
+                        <p:outputPanel id="itemDetail" style="text-align:center;">
+                            <h:outputText value="Bạn có thật sự muốn xóa #{quanTriVienView.selectedQTV.tenDangNhap}?"/>
+                        </p:outputPanel>
+                        <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogDelOneItem').hide();"/>
+                        <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 10px" action="#{quanTriVienView.xoa()}" update=":tabview:form-list" oncomplete="PF('dialogDelOneItem').hide();"/>
+                    </h:form>
+                </p:dialog>
+            </p:tab>
+            <p:tab title="Thêm người quản trị">
+                <h:form id="insert">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Tên đăng nhập *:"/>
+                        <p:inputText value="#{adminView.username}" placeholder="Tên đăng nhập"></p:inputText>
+                        <h:outputText value="Mật khẩu *:"/>
+                        <p:password value="#{adminView.password}" placeholder="Mật khẩu"></p:password>
+                        <h:outputText value="Nhập lại mật khẩu *:"/>
+                        <p:password value="#{adminView.rePassword}" placeholder="Nhập lại mật khẩu"></p:password>
+                        <p:commandButton value="Thêm" actionListener="#{adminView.insert()}"></p:commandButton>
+                        <p:commandButton value="Nhập lại" type="reset"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:tab>
+        </p:tabView>
+    </h:body>
+</html>

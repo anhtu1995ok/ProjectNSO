@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <h:form id="title">
+            <title>Nông sản Online - Trang chủ</title>
+        </h:form>
+        <link rel="stylesheet" href="../css/default.css" type="text/css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:growl autoUpdate="true"/>
+        </h:form>
+        <ui:include src="template/header.xhtml"/>
+        <p:layout style="min-width:400px; height:550px; margin-top: 5px;" id="layout" >
+            <!--LEFT-->
+            <p:layoutUnit position="west" resizable="true" size="200" minSize="250" maxSize="300" header="Thông tin cá nhân" collapsible="true">
+                <h:form id="account-info">
+                    <p:panelGrid columns="2" >
+                        <f:facet name="header">
+                            <h:graphicImage url="/resource/images/no_ava_boy.jpg" width="230" />
+                        </f:facet>
+
+                        <h:outputText value="Tài khoản:" />
+                        <h:outputText value="#{quanTriVienView.loginQTV.tenDangNhap}" />
+
+                        <h:outputText value="Tên đầy đủ:" />
+                        <h:outputText value="#{quanTriVienView.loginQTV.hoVaTen}" />
+
+                        <h:outputText value="Quyền:" />
+                        <h:outputText value="#{quanTriVienView.loginQTV.tenQuyen}" />
+
+                        <h:outputText value="Trạng thái:" />
+                        <h:outputText value="#{quanTriVienView.loginQTV.tenTrangThai}" />
+                            <p:commandLink value="Thay đổi TT" onclick="PF('dialogUpdate').show();"/>
+                            <p:commandLink value="Đổi mật khẩu" onclick="PF('dialogChangePassword').show();" />
+                    </p:panelGrid>
+                </h:form>
+            </p:layoutUnit>
+            <!--CENTER-->
+            <p:layoutUnit position="center">
+                <div style="margin-top: 130px;">
+                    <div style="font-size: 40px; font-weight: bold; color: #eaeaea; margin: 20px auto; text-align: center;">Trang quản lý</div>
+                    <div style="font-size: 100px; font-weight: bold; color: #AFAFAF; margin: 0px auto; text-align: center;">NÔNG SẢN</div>
+                    <div style="font-size: 100px; font-weight: bold; color: #AFAFAF; margin: 0 auto; text-align: center;">ONLINE</div>
+                </div>
+            </p:layoutUnit>
+        </p:layout>
+        <ui:include src="template/footer.xhtml"/>
+        <!--Show dialog doi mat khau-->
+        <p:dialog widgetVar="dialogChangePassword" modal="true" header="Đổi mật khẩu" resizable="false" draggable="false">
+            <h:form id="form-change-password">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Mật khẩu cũ *:"/>
+                    <p:password value="#{quanTriVienView.matKhauCu}" placeholder="Mật khẩu cũ"></p:password>
+                    <h:outputText value="Mật khẩu mới *:"/>
+                    <p:password value="#{quanTriVienView.matKhau}" placeholder="Mật khẩu mới"></p:password>
+                    <h:outputText value="Nhập lại mật khẩu mới *:"/>
+                    <p:password value="#{quanTriVienView.reMatKhau}" placeholder="Nhập lại mật khẩu mới"></p:password>
+                </h:panelGrid>
+                <p:commandButton value="Cập nhật" icon="ui-icon-check" style="margin-top: 10px" action="#{quanTriVienView.doiMatKhau()}"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogChangePassword').hide();"/>
+            </h:form>
+        </p:dialog>
+        <!--Show dialog chinh sua-->
+        <p:dialog widgetVar="dialogUpdate" modal="true" header="Thay đổi thông tin" resizable="false" draggable="false">
+            <h:form id="form-update">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Họ và tên *:"/>
+                    <p:inputText value="#{quanTriVienView.hoVaTen}" placeholder="Họ và tên"></p:inputText>
+                </h:panelGrid>
+                <p:commandButton value="Cập nhật" icon="ui-icon-check" style="margin-top: 10px" action="#{quanTriVienView.thayDoiThongTin()}" update=":account-info"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogUpdate').hide();"/>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

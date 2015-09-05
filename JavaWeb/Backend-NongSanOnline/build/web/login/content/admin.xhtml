@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>APPVN - Người dùng</title>
+        <link rel="stylesheet" href="../css/default.css" type="text/css"/>
+    </h:head>
+    <h:body>
+        <p:growl autoUpdate="true"/>
+        <p:tabView style="min-height: 463px;" id="tabview">
+            <p:tab title="Danh sách người quản trị">
+                <h:form id="from_list">
+                    <p:dataTable var="admin"
+                                id="list"
+                                rowIndexVar="rowIndex"
+                                value="#{adminView.admins}"
+                                selection="#{adminView.selectedAdmins}"
+                                rows="10"
+                                paginator="true"
+                                paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="5,10,15"
+                                rowKey="#{admin.id}">
+                        <f:facet name="header">
+                            <p:outputPanel autoUpdate="true" style="width: 100%; clear: both; height: 30px; border: none; background: none; margin:0; padding: 0" id="action">
+                                <p:commandButton value="Xóa" style="float: left" disabled="#{adminView.deleteDisable}" update="tabview:multiDetail" oncomplete="PF('deleteMultiItem').show();"/>
+                                <p:commandButton value="Làm mới" style="float: left" onclick="window.location.replace(window.location.href)"/>
+                            </p:outputPanel >
+                        </f:facet>
+                        <p:ajax event="rowSelectCheckbox" listener="#{adminView.onRowCheckboxSelect}" update="tabview:from_list:list:action"/>
+                        <p:ajax event="rowSelect" listener="#{adminView.onRowCheckboxSelect}" update="tabview:from_list:list:action"/>
+                        <p:column headerText="STT" width="30">
+                            <h:outputText value="#{rowIndex+1}" />
+                        </p:column>
+
+                        <p:column headerText="Tên đăng nhập">
+                            <h:outputText value="#{admin.name}" />
+                        </p:column>
+                        <p:column headerText="Hành động" style="width: 120px;">
+                            <p:commandButton value="Sửa" action="#{adminView.setSelectedAdmin(admin)}" update="tabview:update" oncomplete="PF('edit').show();"/>
+                            <p:commandButton value="Xóa" action="#{adminView.setSelectedAdmin(admin)}" update="tabview:itemDetail" oncomplete="PF('deleteOneItem').show();"/>
+                        </p:column>
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog widgetVar="deleteMultiItem" modal="true" header="Hệ thống" resizable="false">
+                    <p:outputPanel id="multiDetail" style="text-align:center;">
+                        <h:outputText value="Bạn có thật sự muốn xóa #{adminView.selectedAdminsSize} bản ghi?"/>
+                    </p:outputPanel>
+                    <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('deleteMultiItem').hide();"/>
+                    <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 10px" oncomplete="PF('deleteMultiItem').hide();" action="#{adminView.delete()}" update="tabview:from_list:list"/>
+                </p:dialog>
+                <p:dialog widgetVar="deleteOneItem" modal="true" header="Hệ thống" resizable="false">
+                    <p:outputPanel id="itemDetail" style="text-align:center;">
+                        <h:outputText value="Bạn có thật sự muốn xóa #{adminView.selectedAdmin.name}?"/>
+                    </p:outputPanel>
+                    <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('deleteOneItem').hide();"/>
+                    <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 10px" action="#{adminView.deleteOneItem()}" update="tabview:from_list:list" oncomplete="PF('deleteOneItem').hide();"/>
+                </p:dialog>
+                <p:dialog header="Chỉnh sửa" resizable="false" widgetVar="edit" modal="true">
+                    <h:form id="update">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Tên đăng nhập *:"/>
+                            <p:inputText value="#{adminView.selectedAdmin.name}" disabled="true" placeholder="Tên đăng nhập"></p:inputText>
+                            <h:outputText value="Mật khẩu mới*:"/>
+                            <p:password value="#{adminView.password}" placeholder="Mật khẩu"></p:password>
+                            <h:outputText value="Nhập lại mật khẩu *:"/>
+                            <p:password value="#{adminView.rePassword}" placeholder="Nhập lại mật khẩu"></p:password>
+                            <p:commandButton value="Thay đổi" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('edit').hide();" action="#{adminView.update()}" update="update tabview:from_list:list"></p:commandButton>
+                            <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('edit').hide();"/>
+                        </h:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </p:tab>
+            <p:tab title="Thêm người quản trị">
+                <h:form id="insert">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Tên đăng nhập *:"/>
+                        <p:inputText value="#{adminView.username}" placeholder="Tên đăng nhập"></p:inputText>
+                        <h:outputText value="Mật khẩu *:"/>
+                        <p:password value="#{adminView.password}" placeholder="Mật khẩu"></p:password>
+                        <h:outputText value="Nhập lại mật khẩu *:"/>
+                        <p:password value="#{adminView.rePassword}" placeholder="Nhập lại mật khẩu"></p:password>
+                        <p:commandButton value="Thêm" actionListener="#{adminView.insert()}" update="insert tabview:from_list:list"></p:commandButton>
+                        <p:commandButton value="Nhập lại" type="reset"/>
+                    </h:panelGrid>
+                </h:form>
+                
+            </p:tab>
+        </p:tabView>
+    </h:body>
+</html>

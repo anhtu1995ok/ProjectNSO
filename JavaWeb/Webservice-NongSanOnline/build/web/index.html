@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h3>danh sach quan tri vien</h3>
+        <form action="http://localhost:8084/Webservice-NongSanOnline/webresources/backend/danhsachquantrivien" method="POST">
+            <input type="text" name="ctendangnhap" placeholder="ctendangnhap"/>
+            <input type="text" name="cid" placeholder="cid"/>
+            <input type="submit" value="POST"/>
+        </form>
+        <h3>them quan tri vien</h3>
+        <form action="http://localhost:8084/Webservice-NongSanOnline/webresources/backend/themquantrivien" method="POST">
+            <input type="text" name="ctendangnhap" placeholder="ctendangnhap"/>
+            <input type="text" name="cid" placeholder="cid"/>
+            <input type="text" name="tendangnhap" placeholder="tendangnhap"/>
+            <input type="text" name="matkhau" placeholder="matkhau"/>
+            <input type="text" name="hovaten" placeholder="hovaten"/>
+            <select name="quyen">
+                <option value="master">Master</option>
+                <option value="admin">Admin</option>
+            </select>
+            <input type="text" name="anhdaidien" placeholder="anhdaidien"/>
+            <input type="submit" value="POST"/>
+        </form>
+        <h3>xoa quan tri vien</h3>
+        <form action="http://localhost:8084/Webservice-NongSanOnline/webresources/backend/xoaquantrivien" method="POST">
+            <input type="text" name="ctendangnhap" placeholder="ctendangnhap"/>
+            <input type="text" name="cid" placeholder="cid"/>
+            <input type="text" name="id" placeholder="id"/>
+            <input type="submit" value="POST"/>
+        </form>
+        <h3>sua quan tri vien</h3>
+        <form action="http://localhost:8084/Webservice-NongSanOnline/webresources/backend/suaquantrivien" method="POST">
+            <input type="text" name="ctendangnhap" placeholder="ctendangnhap"/>
+            <input type="text" name="cid" placeholder="cid"/>
+            <input type="text" name="id" placeholder="id"/>
+            <input type="text" name="matkhau" placeholder="matkhau"/>
+            <input type="text" name="hovaten" placeholder="hovaten"/>
+            <select name="quyen">
+                <option value="master">Master</option>
+                <option value="admin">Admin</option>
+            </select>
+            <select name="trangthai">
+                <option value="kichhoat">Kích hoạt</option>
+                <option value="tamdung">Tạm dừng</option>
+            </select>
+            <input type="text" name="anhdaidien" placeholder="anhdaidien"/>
+            <input type="submit" value="POST"/>
+        </form>
+        <h3>dangnhap</h3>
+        <form action="http://localhost:8084/Webservice-NongSanOnline/webresources/backend/dangnhap" method="POST">
+            <input type="text" name="tendangnhap" placeholder="tendangnhap"/>
+            <input type="text" name="matkhau" placeholder="matkhau"/>
+            <input type="submit" value="POST"/>
+        </form>
+        <h3>thong tin quan tri vien</h3>
+        <form action="http://localhost:8084/Webservice-NongSanOnline/webresources/backend/thongtinquantrivien" method="POST">
+            <input type="text" name="ctendangnhap" placeholder="ctendangnhap"/>
+            <input type="text" name="cid" placeholder="cid"/>
+            <input type="text" name="id" placeholder="id"/>
+            <input type="submit" value="POST"/>
+        </form>
+        <h3>danh sach nguoi dungs</h3>
+        <form action="http://localhost:8084/Webservice-NongSanOnline/webresources/backend/danhsachnguoidung" method="POST">
+            <input type="text" name="ctendangnhap" placeholder="ctendangnhap"/>
+            <input type="text" name="cid" placeholder="cid"/>
+            <input type="submit" value="POST"/>
+        </form>
+    </body>
+</html>

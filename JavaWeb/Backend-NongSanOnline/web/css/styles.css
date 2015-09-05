@@ -1,0 +1,27 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 13, 2015, 11:02:13 AM
+    Author     : Thanh Tu
+*/
+
+.ui-panelgrid {
+    border: none;
+}
+.ui-widget-content .ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
+.ui-panelgrid tr,
+.ui-panelgrid td {
+    border: none;
+}
+.body{
+    font-family: UVNSaigon;
+}
+@font-face {
+    font-family: UVNSaigon;
+    src: url("/fonts/UVNSaigon.TTF");
+}
