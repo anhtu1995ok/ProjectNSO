@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Nông sản Online - Quản lý tỉnh thành</title>
+        <link rel="stylesheet" href="../css/default.css" type="text/css"/>
+    </h:head>
+    <h:body>
+        <ui:include src="template/header.xhtml"/>
+        <p:layout style="min-width:400px; height:550px; margin-top: 5px;" id="layout" >
+            <!--LEFT-->
+            <p:layoutUnit position="west" resizable="true" size="200" minSize="200" maxSize="300" header="Quản lý quản trị viên" collapsible="true" rendered="false">
+                left
+            </p:layoutUnit>
+            <!--CENTER-->
+            <p:layoutUnit position="center">
+                <p:growl autoUpdate="true"/>
+                <p:tabView id="tabview">
+                    <p:tab title="Danh sách vùng miền, tỉnh thành">
+                        <h:form id="form-list">
+                            <p:treeTable value="#{tinhThanhView.treeNodeTT}" var="tinhThanh" scrollable="true" resizableColumns="true" scrollHeight="403">
+                                <f:facet name="header">
+                                    <p:outputPanel autoUpdate="true" style="width: 100%; clear: both; height: 30px; border: none; background: none; margin:0; padding: 0" id="action">
+                                        <p:commandButton value="Danh mục mới" style="float: right" icon="ui-icon-plusthick" onclick="PF('dialogAddVM').show();" update=":form-add-vm"/>
+                                    </p:outputPanel >
+                                </f:facet>
+                                <p:column headerText="Tên">
+                                    <h:outputText value="#{tinhThanh.ten}#{tinhThanhView.getStTinhThanh(tinhThanh.parentId, tinhThanh.id)}" />
+                                </p:column>
+                                <p:column headerText="Hành động" style="width: 160px">
+                                    <p:commandButton style="float: left" icon="ui-icon-plusthick" action="#{tinhThanhView.setSelectedTT(tinhThanh)}" oncomplete="PF('dialogAdd').show();" update=":form-add" rendered="#{tinhThanhView.isParent(tinhThanh.parentId)}"/>
+                                    <p:commandButton style="float: left" icon="ui-icon-pencil" action="#{tinhThanhView.setSelectedTT(tinhThanh)}" oncomplete="PF('dialogUpdate').show();" update=":form-update"/>
+                                    <p:commandButton style="float: left" icon="ui-icon-trash" action="#{tinhThanhView.setSelectedTT(tinhThanh)}" oncomplete="PF('dialogDelOneItem').show();" update=":form-delete"/>
+                                </p:column>
+                            </p:treeTable>
+                        </h:form>
+                    </p:tab>
+                </p:tabView>
+            </p:layoutUnit>
+        </p:layout>
+        <ui:include src="template/footer.xhtml"/>
+        <!--Show dialog xac nhan xoa 1 item-->
+        <p:dialog widgetVar="dialogDelOneItem" modal="true" header="Xác nhận xóa" resizable="false" draggable="false">
+            <h:form id="form-delete">
+                <p:outputPanel id="itemDetail" style="text-align:center;">
+                    <h:outputText escape="false" value="#{tinhThanhView.getMessageDelete(tinhThanhView.selectedTT.parentId, tinhThanhView.selectedTT.ten)}"/>
+                </p:outputPanel>
+                <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 10px" action="#{tinhThanhView.xoa()}" update=":tabview:form-list" oncomplete="PF('dialogDelOneItem').hide();"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogDelOneItem').hide();"/>
+            </h:form>
+        </p:dialog>
+        <!--Show dialog chinh sua-->
+        <h:form id="form-update">
+            <p:dialog widgetVar="dialogUpdate" modal="true" header="Đổi tên: #{tinhThanhView.selectedTT.ten}" resizable="false" draggable="false">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Tên mới *:"/>
+                    <p:inputText value="#{tinhThanhView.ten}" placeholder="Nhập tên mới"></p:inputText>
+                </h:panelGrid>
+                <p:commandButton value="Cập nhật" icon="ui-icon-check" style="margin-top: 10px" action="#{tinhThanhView.doiTen()}" update=":tabview:form-list"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogUpdate').hide();"/>  
+            </p:dialog>
+        </h:form>
+        <!--Show dialog them-->
+        <p:dialog widgetVar="dialogAdd" modal="true" header="Thêm tỉnh thành mới" resizable="false" draggable="false">
+            <h:form id="form-add">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Tên *:"/>
+                    <p:inputText value="#{tinhThanhView.ten}" placeholder="Nhập tên tỉnh thành"></p:inputText>
+                </h:panelGrid>
+                <p:commandButton value="Thêm" icon="ui-icon-plusthick" style="margin-top: 10px" action="#{tinhThanhView.themTinhThanh()}" update=":tabview:form-list"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogAdd').hide();"/>
+            </h:form>
+        </p:dialog>
+        <!--Show dialog them-->
+        <p:dialog widgetVar="dialogAddVM" modal="true" header="Thêm vùng miền mới" resizable="false" draggable="false">
+            <h:form id="form-add-vm">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Tên *:"/>
+                    <p:inputText value="#{tinhThanhView.ten}" placeholder="Nhập tên vùng miền"></p:inputText>
+                </h:panelGrid>
+                <p:commandButton value="Thêm" icon="ui-icon-plusthick" style="margin-top: 10px" action="#{tinhThanhView.themVungMien()}" update=":tabview:form-list"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogAddVM').hide();"/>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

@@ -538,6 +538,192 @@ public class BackendResource {
         return error("Sảy ra lỗi.");
     }
     //-----------------------Người dùng - END--------------------------//
+    //-----------------------Tỉnh thành--------------------------//
+    @POST
+    @Path("danhsachtinhthanh")
+    @Produces("application/json"+";charset=utf-8")
+    public String getDSTinhThanh(
+            @FormParam("ctendangnhap") String cTenDangNhap, 
+            @FormParam("cid") String cId){
+        if(cTenDangNhap == null || cId == null)
+            return error("Không thể gửi lên 1 giá trị \"null\", vui lòng kiểm tra lại.");
+        
+        if(cTenDangNhap.isEmpty() || cId.isEmpty())
+            return error("Thông tin gửi lên không chính xác, vui lòng kiểm tra lại.");
+        
+        if(check2(cTenDangNhap, cId)){
+            JSONObject result = new JSONObject();
+            result.put("success", 1);
+            result.put("error", 0);
+
+            JSONArray rows = new JSONArray();
+            String sql = "SELECT * FROM tinhthanh ORDER BY ten ASC;";
+            try {
+                ResultSet rs = statement.executeQuery(sql);
+                while (rs.next()) {
+                    JSONObject tinhthanh = new JSONObject();
+                    tinhthanh.put("id", rs.getInt(rs.findColumn("id")));
+                    tinhthanh.put("ten", rs.getString(rs.findColumn("ten")));
+                    tinhthanh.put("parent_id", rs.getString(rs.findColumn("parent_id")));
+                    rows.add(tinhthanh);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(BackendResource.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            result.put("total", rows.size());
+            result.put("rows", rows);
+            return result.toJSONString();
+        }
+        return error("Sảy ra lỗi.");
+    }
+    
+    @POST
+    @Path("themtinhthanh")
+    @Produces("application/json"+";charset=utf-8")
+    public String themTinhThanh(
+            @FormParam("ctendangnhap") String cTenDangNhap, 
+            @FormParam("cid") String cId,
+            @FormParam("ten") String ten,
+            @FormParam("parentid") String parentId){
+        if(cTenDangNhap == null || cId == null || ten == null || parentId == null)
+            return error("Không thể gửi lên 1 giá trị \"null\", vui lòng kiểm tra lại.");
+        
+        if(cTenDangNhap.isEmpty() || cId.isEmpty() || ten.isEmpty() || parentId.isEmpty())
+            return error("Thông tin gửi lên không chính xác, vui lòng kiểm tra lại.");
+        
+        if(!check2(cTenDangNhap, cId)){
+            return error("Thông tin đăng nhập không chính xác hoặc tài khoản chưa được kích hoạt hoặc bạn không đủ quyền để truy cập.");
+        }
+        
+        String sql = "SELECT * FROM tinhthanh WHERE LOWER(ten) = LOWER(N'"+ten+"');";
+        try {
+            ResultSet rs = statement.executeQuery(sql);
+            int row = 0;
+            if(rs.next()){
+                return error("Vùng miền, tỉnh thành đã tồn tại.");
+            }else{
+                sql = "INSERT INTO tinhthanh VALUES(N'"+ten+"', '"+parentId+"');";
+                preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                int affectedRows = preparedStatement.executeUpdate();
+                if(affectedRows!=0){
+                    rs = preparedStatement.getGeneratedKeys();
+                    rs.next();
+                    
+                    JSONObject result = new JSONObject();
+                    result.put("success", 1);
+                    result.put("error", 0);
+                    result.put("id", rs.getInt(1));
+                    
+                    return result.toJSONString(); 
+                }else{
+                    return error("Sảy ra lỗi.");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BackendResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return error("Sảy ra lỗi.");
+    }
+    
+    @POST
+    @Path("xoatinhthanh")
+    @Produces("application/json"+";charset=utf-8")
+    public String xoaTinhThanh(
+            @FormParam("ctendangnhap") String cTenDangNhap, 
+            @FormParam("cid") String cId,
+            @FormParam("id") String id){
+        if(cTenDangNhap == null || cId == null || id == null)
+            return error("Không thể gửi lên 1 giá trị \"null\", vui lòng kiểm tra lại.");
+        
+        if(cTenDangNhap.isEmpty() || cId.isEmpty() || id.isEmpty())
+            return error("Thông tin gửi lên không chính xác, vui lòng kiểm tra lại.");
+        
+        if(Integer.parseInt(id)<=0)
+            return error("Bản ghi không tồn tại.");
+        
+        if(!check2(cTenDangNhap, cId)){
+            return error("Thông tin đăng nhập không chính xác hoặc tài khoản chưa được kích hoạt hoặc bạn không đủ quyền để truy cập.");
+        }
+        
+        String sql = "SELECT * FROM tinhthanh WHERE id = '"+id+"';";
+        try {
+            ResultSet rs = statement.executeQuery(sql);
+            int row = 0;
+            if(rs.next()){
+                if(rs.getInt(rs.findColumn("parent_id"))==0){
+                    sql = "DELETE FROM tinhthanh WHERE parent_id = '"+rs.getInt(rs.findColumn("id"))+"';";
+                    preparedStatement = connection.prepareStatement(sql);
+                    preparedStatement.executeUpdate();
+                }
+                sql = "DELETE FROM tinhthanh WHERE id = '"+rs.getInt(rs.findColumn("id"))+"';";
+                preparedStatement = connection.prepareStatement(sql);
+                int affectedRows = preparedStatement.executeUpdate();
+                if(affectedRows!=0){
+                    JSONObject result = new JSONObject();
+                    result.put("success", 1);
+                    result.put("error", 0);
+                    return result.toJSONString(); 
+                }else{
+                    return error("Sảy ra lỗi.");
+                }
+            }else{
+                return error("Bản ghi không tồn tại.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BackendResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return error("Sảy ra lỗi.");
+    }
+    
+    @POST
+    @Path("doitentinhthanh")
+    @Produces("application/json"+";charset=utf-8")
+    public String doiTenTinhThanh(
+            @FormParam("ctendangnhap") String cTenDangNhap, 
+            @FormParam("cid") String cId,
+            @FormParam("id") String id,
+            @FormParam("ten") String ten){
+        if(cTenDangNhap == null || cId == null || id == null || ten == null)
+            return error("Không thể gửi lên 1 giá trị \"null\", vui lòng kiểm tra lại.");
+        
+        if(cTenDangNhap.isEmpty() || cId.isEmpty() || id.isEmpty() || ten.isEmpty())
+            return error("Thông tin gửi lên không chính xác, vui lòng kiểm tra lại.");
+        
+        if(Integer.parseInt(id)<=0)
+            return error("Bản ghi không tồn tại.");
+        
+        if(!check2(cTenDangNhap, cId)){
+            return error("Thông tin đăng nhập không chính xác hoặc tài khoản chưa được kích hoạt hoặc bạn không đủ quyền để truy cập.");
+        }
+        
+        String sql = "SELECT * FROM tinhthanh WHERE id = '"+id+"';";
+        try {
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.next()){
+                sql = "SELECT * FROM tinhthanh WHERE LOWER(ten) = LOWER(N'"+ten+"');";
+                rs = statement.executeQuery(sql);
+                if(rs.next())
+                    return error("Đã tồn tại.");
+                sql = "UPDATE tinhthanh SET ten = N'"+ten+"' WHERE id = '"+id+"';";
+                preparedStatement = connection.prepareStatement(sql);
+                int affectedRows = preparedStatement.executeUpdate();
+                if(affectedRows!=0){
+                    JSONObject result = new JSONObject();
+                    result.put("success", 1);
+                    result.put("error", 0);
+                    return result.toJSONString(); 
+                }else{
+                    return error("Sảy ra lỗi.");
+                }
+            }else{
+                return error("Bản ghi không tồn tại.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BackendResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return error("Sảy ra lỗi.");
+    }
+    //-----------------------Tỉnh thành - END--------------------------//
     //-----------------------Utils--------------------------//
     private String error(String error_msg){
         JSONObject error = new JSONObject();
