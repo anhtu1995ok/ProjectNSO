@@ -5,6 +5,13 @@
  */
 package tunt.ws.nongsanonline;
 
+import com.sun.jersey.multipart.FormDataBodyPart;
+import com.sun.jersey.multipart.FormDataMultiPart;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,13 +19,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import tunt.ws.nongsanonline.utils.DBUtil;
@@ -32,7 +41,7 @@ import tunt.ws.nongsanonline.utils.DBUtil;
 public class BackendResource {
 
     @Context
-    private UriInfo context;
+    private ServletContext context; 
     private Connection connection;
     private Statement statement;
     private PreparedStatement preparedStatement;
@@ -723,6 +732,31 @@ public class BackendResource {
         }
         return error("Sảy ra lỗi.");
     }
+    
+    @POST
+    @Path("upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces("application/json"+";charset=utf-8")
+    public String upload(FormDataMultiPart form){
+        if(form!=null){
+            FormDataBodyPart file = form.getField("file");
+            if(file!=null){
+                String fileName = file.getContentDisposition().getFileName();
+                if(!fileName.toLowerCase().endsWith(".png")&&!fileName.toLowerCase().endsWith(".jpg")&&!fileName.toLowerCase().endsWith(".jpeg")&&!fileName.toLowerCase().endsWith(".gif"))
+                    return error("Tệp tin tải lên không đúng định dạng, định dạng cho phép .jpg, .jpeg, .png, .gif");
+                
+                InputStream fileInputStream = file.getValueAs(InputStream.class);
+                if(copyFile(fileName, fileInputStream)){
+                    JSONObject success = new JSONObject();
+                    success.put("success", 1);
+                    success.put("error", 0);
+                    return success.toJSONString();
+                }else
+                    return error("Không thành công.");
+            }
+        }
+        return error("Sảy ra lỗi.");
+    }
     //-----------------------Tỉnh thành - END--------------------------//
     //-----------------------Utils--------------------------//
     private String error(String error_msg){
@@ -760,6 +794,29 @@ public class BackendResource {
             }
         }catch (SQLException ex){
             return false;
+        }
+        return false;
+    }
+    //sao chep file vao he thong
+    public boolean copyFile(String fileName, InputStream in) {
+        String destination = context.getRealPath("/")+"\\..\\..\\..\\Backend-NongSanOnline\\build\\web\\resource\\uploads";
+        try {
+            // write the inputStream to a FileOutputStream
+            OutputStream out = new FileOutputStream(new File(destination+"/"+ fileName));
+
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+
+            in.close();
+            out.flush();
+            out.close();
+            return true;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
         return false;
     }

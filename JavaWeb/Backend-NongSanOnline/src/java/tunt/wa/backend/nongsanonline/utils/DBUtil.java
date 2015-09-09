@@ -22,7 +22,7 @@ public class DBUtil {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 //            String dbURL = "jdbc:sqlserver://localhost\\TELSOFT;databaseName=itplus;integratedSecurity=true";
-            String dbURL = "jdbc:sqlserver://localhost\\TUNTINSTANCE;databaseName=webservice";
+            String dbURL = "jdbc:sqlserver://localhost\\TUNTINSTANCE;databaseName=nongsanonline";
             String user = "tunt";
             String pass = "123456";
             conn = DriverManager.getConnection(dbURL, user, pass);

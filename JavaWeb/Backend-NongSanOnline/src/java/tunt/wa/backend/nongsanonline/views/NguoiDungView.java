@@ -5,21 +5,22 @@
  */
 package tunt.wa.backend.nongsanonline.views;
 
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.ws.rs.core.MultivaluedMap;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONException;
 import org.primefaces.json.JSONObject;
 import tunt.wa.backend.nongsanonline.beans.CookieBean;
 import tunt.wa.backend.nongsanonline.models.NguoiDung;
 import tunt.wa.backend.nongsanonline.models.QuanTriVien;
-import tunt.wa.backend.nongsanonline.utils.AsyncHttpClient;
 import tunt.wa.backend.nongsanonline.utils.MessageUtil;
+import tunt.wa.backend.nongsanonline.utils.WebserviceUtil;
 
 /**
  *
@@ -89,12 +90,12 @@ public class NguoiDungView implements Serializable{
     
     public ArrayList<NguoiDung> getDSNguoiDung(){
         ArrayList<NguoiDung> data = new ArrayList<>();
-        String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/danhsachnguoidung";
-        HashMap<String, String> params = new HashMap<>();
-        params.put("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
-        params.put("cid", CookieBean.getValueCookieStatic("id"));
-        AsyncHttpClient client = new AsyncHttpClient();
-        String json = client.post(url, params);
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
+        params.add("cid", CookieBean.getValueCookieStatic("id"));
+
+        WebserviceUtil ws = new WebserviceUtil();
+        String json = ws.post("danhsachnguoidung", params);
         try {
             JSONObject jSONObject = new JSONObject(json);
             int success = jSONObject.getInt("success");
@@ -127,13 +128,13 @@ public class NguoiDungView implements Serializable{
     
     public void thayDoiTrangThai(){
         if(selectedND!=null){
-            String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/thaydoitrangthainguoidung";
-            HashMap<String, String> params = new HashMap<>();
-            params.put("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
-            params.put("cid", CookieBean.getValueCookieStatic("id"));
-            params.put("id", Integer.toString(selectedND.getId()));
-            AsyncHttpClient client = new AsyncHttpClient();
-            String json = client.post(url, params);
+            MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+            params.add("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
+            params.add("cid", CookieBean.getValueCookieStatic("id"));
+            params.add("id", Integer.toString(selectedND.getId()));
+
+            WebserviceUtil ws = new WebserviceUtil();
+            String json = ws.post("thaydoitrangthainguoidung", params);
             try {
                 JSONObject jSONObject = new JSONObject(json);
                 int success = jSONObject.getInt("success");
@@ -158,13 +159,13 @@ public class NguoiDungView implements Serializable{
     
     public void xoa(){
         if(selectedND!=null){
-            String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/xoanguoidung";
-            HashMap<String, String> params = new HashMap<>();
-            params.put("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
-            params.put("cid", CookieBean.getValueCookieStatic("id"));
-            params.put("id", ""+selectedND.getId());
-            AsyncHttpClient client = new AsyncHttpClient();
-            String json = client.post(url, params);
+            MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+            params.add("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
+            params.add("cid", CookieBean.getValueCookieStatic("id"));
+            params.add("id", ""+selectedND.getId());
+
+            WebserviceUtil ws = new WebserviceUtil();
+            String json = ws.post("xoanguoidung", params);
             try {
                 JSONObject jSONObject = new JSONObject(json);
                 int success = jSONObject.getInt("success");

@@ -5,23 +5,24 @@
  */
 package tunt.wa.backend.nongsanonline.views;
 
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.ws.rs.core.MultivaluedMap;
 import org.primefaces.context.RequestContext;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONException;
 import org.primefaces.json.JSONObject;
 import tunt.wa.backend.nongsanonline.beans.CookieBean;
 import tunt.wa.backend.nongsanonline.models.QuanTriVien;
-import tunt.wa.backend.nongsanonline.utils.AsyncHttpClient;
 import tunt.wa.backend.nongsanonline.utils.MessageUtil;
+import tunt.wa.backend.nongsanonline.utils.WebserviceUtil;
 
 /**
  *
@@ -181,12 +182,12 @@ public class QuanTriVienView implements Serializable{
     
     public ArrayList<QuanTriVien> getDSQuanTriVien(){
         ArrayList<QuanTriVien> data = new ArrayList<>();
-        String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/danhsachquantrivien";
-        HashMap<String, String> params = new HashMap<>();
-        params.put("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
-        params.put("cid", CookieBean.getValueCookieStatic("id"));
-        AsyncHttpClient client = new AsyncHttpClient();
-        String json = client.post(url, params);
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
+        params.add("cid", CookieBean.getValueCookieStatic("id"));
+
+        WebserviceUtil ws = new WebserviceUtil();
+        String json = ws.post("danhsachquantrivien", params);
 //        try {
 //            Client client = Client.create();
 //
@@ -231,12 +232,12 @@ public class QuanTriVienView implements Serializable{
     
     public String dangNhap(){
         if(!tenDangNhap.trim().isEmpty() && !matKhau.isEmpty() ){
-            String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/dangnhap";
-            HashMap<String, String> params = new HashMap<>();
-            params.put("tendangnhap", tenDangNhap.trim().toLowerCase());
-            params.put("matkhau", matKhau);
-            AsyncHttpClient client = new AsyncHttpClient();
-            String json = client.post(url, params);
+            MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+            params.add("tendangnhap", tenDangNhap.trim().toLowerCase());
+            params.add("matkhau", matKhau);
+            
+            WebserviceUtil ws = new WebserviceUtil();
+            String json = ws.post("dangnhap", params);
             try {
                 JSONObject jSONObject = new JSONObject(json);
                 int success = jSONObject.getInt("success");
@@ -275,13 +276,13 @@ public class QuanTriVienView implements Serializable{
     
     public void xoa(){
         if(selectedQTV!=null){
-            String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/xoaquantrivien";
-            HashMap<String, String> params = new HashMap<>();
-            params.put("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
-            params.put("cid", CookieBean.getValueCookieStatic("id"));
-            params.put("id", ""+selectedQTV.getId());
-            AsyncHttpClient client = new AsyncHttpClient();
-            String json = client.post(url, params);
+            MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+            params.add("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
+            params.add("cid", CookieBean.getValueCookieStatic("id"));
+            params.add("id", ""+selectedQTV.getId());
+
+            WebserviceUtil ws = new WebserviceUtil();
+            String json = ws.post("xoaquantrivien", params);
             try {
                 JSONObject jSONObject = new JSONObject(json);
                 int success = jSONObject.getInt("success");
@@ -305,17 +306,17 @@ public class QuanTriVienView implements Serializable{
         if(hoVaTen!=null&&tenDangNhap!=null&&matKhau!=null&&quyen!=null&&reMatKhau!=null){
             if(!hoVaTen.isEmpty()&&!tenDangNhap.isEmpty()&&!matKhau.isEmpty()&&!quyen.isEmpty()&&!reMatKhau.isEmpty()){
                 if(reMatKhau.equals(matKhau)){
-                    String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/themquantrivien";
-                    HashMap<String, String> params = new HashMap<>();
-                    params.put("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
-                    params.put("cid", CookieBean.getValueCookieStatic("id"));
-                    params.put("tendangnhap", tenDangNhap);
-                    params.put("matkhau", matKhau);
-                    params.put("hovaten", hoVaTen);
-                    params.put("quyen", quyen);
-                    params.put("anhdaidien", "");
-                    AsyncHttpClient client = new AsyncHttpClient();
-                    String json = client.post(url, params);
+                    MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+                    params.add("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
+                    params.add("cid", CookieBean.getValueCookieStatic("id"));
+                    params.add("tendangnhap", tenDangNhap);
+                    params.add("matkhau", matKhau);
+                    params.add("hovaten", hoVaTen);
+                    params.add("quyen", quyen);
+                    params.add("anhdaidien", "");
+
+                    WebserviceUtil ws = new WebserviceUtil();
+                    String json = ws.post("themquantrivien", params);
                     try {
                         JSONObject jSONObject = new JSONObject(json);
                         int success = jSONObject.getInt("success");
@@ -348,19 +349,18 @@ public class QuanTriVienView implements Serializable{
             if(!hoVaTen.isEmpty()&&!trangThai.isEmpty()&&!quyen.isEmpty()){
                 if(matKhau!=null&&!matKhau.isEmpty()){
                     if(reMatKhau!=null&&matKhau.equals(reMatKhau)){
-                        String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/suaquantrivien";
-                        HashMap<String, String> params = new HashMap<>();
-                        params.put("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
-                        params.put("cid", CookieBean.getValueCookieStatic("id"));
-                        params.put("id", ""+selectedQTV.getId());
-                        params.put("matkhau", matKhau);
-                        params.put("hovaten", hoVaTen);
-                        params.put("quyen", quyen);
-                        params.put("anhdaidien", "");
-                        params.put("trangthai", trangThai);
-                        
-                        AsyncHttpClient client = new AsyncHttpClient();
-                        String json = client.post(url, params);
+                        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+                        params.add("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
+                        params.add("cid", CookieBean.getValueCookieStatic("id"));
+                        params.add("id", ""+selectedQTV.getId());
+                        params.add("matkhau", matKhau);
+                        params.add("hovaten", hoVaTen);
+                        params.add("quyen", quyen);
+                        params.add("anhdaidien", "");
+                        params.add("trangthai", trangThai);
+
+                        WebserviceUtil ws = new WebserviceUtil();
+                        String json = ws.post("suaquantrivien", params);
                         try {
                             JSONObject jSONObject = new JSONObject(json);
                             int success = jSONObject.getInt("success");
@@ -383,18 +383,18 @@ public class QuanTriVienView implements Serializable{
                         MessageUtil.addWarnMessage("Hai mật khẩu không giống nhau.");
                     }  
                 }else{
-                    String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/suaquantrivien";
-                    HashMap<String, String> params = new HashMap<>();
-                    params.put("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
-                    params.put("cid", CookieBean.getValueCookieStatic("id"));
-                    params.put("id", ""+selectedQTV.getId());
-                    params.put("matkhau", "");
-                    params.put("hovaten", hoVaTen);
-                    params.put("quyen", quyen);
-                    params.put("anhdaidien", "");
-                    params.put("trangthai", trangThai);
-                    AsyncHttpClient client = new AsyncHttpClient();
-                    String json = client.post(url, params);
+                    MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+                    params.add("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
+                    params.add("cid", CookieBean.getValueCookieStatic("id"));
+                    params.add("id", ""+selectedQTV.getId());
+                    params.add("matkhau", "");
+                    params.add("hovaten", hoVaTen);
+                    params.add("quyen", quyen);
+                    params.add("anhdaidien", "");
+                    params.add("trangthai", trangThai);
+
+                    WebserviceUtil ws = new WebserviceUtil();
+                    String json = ws.post("suaquantrivien", params);
                     try {
                         JSONObject jSONObject = new JSONObject(json);
                         int success = jSONObject.getInt("success");
@@ -426,14 +426,14 @@ public class QuanTriVienView implements Serializable{
         if(matKhauCu != null && matKhau !=null && reMatKhau!= null){
             if(!matKhauCu.isEmpty() && !matKhau.isEmpty() && !reMatKhau.isEmpty()){
                 if(matKhau.equals(reMatKhau)){
-                    String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/doimatkhau";
-                    HashMap<String, String> params = new HashMap<>();
-                    params.put("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
-                    params.put("cid", CookieBean.getValueCookieStatic("id"));
-                    params.put("matkhaucu", matKhauCu);
-                    params.put("matkhaumoi", matKhau);
-                    AsyncHttpClient client = new AsyncHttpClient();
-                    String json = client.post(url, params);
+                    MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+                    params.add("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
+                    params.add("cid", CookieBean.getValueCookieStatic("id"));
+                    params.add("matkhaucu", matKhauCu);
+                    params.add("matkhaumoi", matKhau);
+
+                    WebserviceUtil ws = new WebserviceUtil();
+                    String json = ws.post("doimatkhau", params);
                     try {
                         JSONObject jSONObject = new JSONObject(json);
                         int success = jSONObject.getInt("success");
@@ -461,13 +461,13 @@ public class QuanTriVienView implements Serializable{
         if(hoVaTen != null){
             if(!hoVaTen.trim().isEmpty()){
                 hoVaTen = hoVaTen.trim();
-                String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/thaydoithongtin";
-                HashMap<String, String> params = new HashMap<>();
-                params.put("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
-                params.put("cid", CookieBean.getValueCookieStatic("id"));
-                params.put("hovaten", hoVaTen);
-                AsyncHttpClient client = new AsyncHttpClient();
-                String json = client.post(url, params);
+                MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+                params.add("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
+                params.add("cid", CookieBean.getValueCookieStatic("id"));
+                params.add("hovaten", hoVaTen);
+
+                WebserviceUtil ws = new WebserviceUtil();
+                String json = ws.post("thaydoithongtin", params);
                 try {
                     JSONObject jSONObject = new JSONObject(json);
                     int success = jSONObject.getInt("success");
@@ -491,13 +491,13 @@ public class QuanTriVienView implements Serializable{
     }
     
     private QuanTriVien getThongTinQuanTriVien(String id){
-        String url = "http://localhost:8084/Webservice-NongSanOnline/webresources/backend/thongtinquantrivien";
-        HashMap<String, String> params = new HashMap<>();
-        params.put("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
-        params.put("cid", CookieBean.getValueCookieStatic("id"));
-        params.put("id", id);
-        AsyncHttpClient client = new AsyncHttpClient();
-        String json = client.post(url, params);
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("ctendangnhap", CookieBean.getValueCookieStatic("ten_dang_nhap"));
+        params.add("cid", CookieBean.getValueCookieStatic("id"));
+        params.add("id", id);
+
+        WebserviceUtil ws = new WebserviceUtil();
+        String json = ws.post("thongtinquantrivien", params);
         try {
             JSONObject jSONObject = new JSONObject(json);
             int success = jSONObject.getInt("success");

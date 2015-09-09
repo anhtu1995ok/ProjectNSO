@@ -68,6 +68,8 @@ public class UploadFileBean implements Serializable{
  
     public void copyFile(String fileName, InputStream in) {
         String destination = extContext.getRealPath("/resource/uploads/");
+        System.out.println("extContext: "+extContext);
+        System.out.println("destination: "+destination);
         try {
             // write the inputStream to a FileOutputStream
             OutputStream out = new FileOutputStream(new File(destination+"/"+ fileName));

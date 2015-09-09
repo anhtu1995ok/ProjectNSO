@@ -89,5 +89,21 @@ and open the template in the editor.
             <input type="text" name="parentid" placeholder="parentid"/>
             <input type="submit" value="POST"/>
         </form>
+        
+        <h3>upload</h3>
+        <form action="http://localhost:8084/Webservice-NongSanOnline/webresources/backend/upload" enctype="multipart/form-data" method="POST">
+            <input type="file" name="file"/>
+            <input type="submit" value="POST"/>
+        </form>
+        <h1>File Upload with Jersey</h1>
+ 
+	<form action="http://localhost:8084/Webservice-NongSanOnline/webresources/backend/upload" method="post">
+ 
+	   <p>
+		Select a file : <input type="file" name="file" size="45" />
+	   </p>
+ 
+	   <input type="submit" value="Upload It" />
+	</form>
     </body>
 </html>
