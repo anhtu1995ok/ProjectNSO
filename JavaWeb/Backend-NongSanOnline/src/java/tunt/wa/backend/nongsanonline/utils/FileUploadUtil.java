@@ -44,6 +44,30 @@ public class FileUploadUtil {
         return false;
     }
     
+    public static boolean copyFile(String path, String fileName, InputStream in) {
+        ExternalContext extContext=FacesContext.getCurrentInstance().getExternalContext();
+        String destination = extContext.getRealPath(path);
+        try {
+            // write the inputStream to a FileOutputStream
+            OutputStream out = new FileOutputStream(new File(destination+"/"+ fileName));
+
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+
+            in.close();
+            out.flush();
+            out.close();
+            return true;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    
     public static boolean deleteFile(String fileName){
         ExternalContext extContext=FacesContext.getCurrentInstance().getExternalContext();
         String destination = extContext.getRealPath("/resource/uploads/");

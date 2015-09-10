@@ -5,18 +5,12 @@
  */
 package tunt.wa.backend.nongsanonline.views;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import org.primefaces.context.RequestContext;
@@ -326,6 +320,7 @@ public class SanPhamView implements Serializable{
             sanPham.setDiaChi(diaChi);
             sanPham.setMota(moTa);
             sanPham.setTinhThanh(tinhThanhId);
+            sanPham.setTrangThai(trangThai);
             HashMap<String, Object> result = sanPham.sua();
             if((int)result.get("success") == 1){
                 selectedSP.setTen(ten);
@@ -333,6 +328,7 @@ public class SanPhamView implements Serializable{
                 selectedSP.setDiaChi(diaChi);
                 selectedSP.setMota(moTa);
                 selectedSP.setTinhThanh(tinhThanhId);
+                selectedSP.setTrangThai(trangThai);
                 selectedSP.setTenTinhThanh((String) result.get("ten_tinh_thanh"));
                 selectedSP.setTenVungMien((String) result.get("ten_vung_mien"));
                 selectedSP.setNgayCapNhat((String) result.get("ngay_cap_nhat"));

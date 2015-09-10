@@ -44,3 +44,22 @@ TRUNCATE TABLE sanpham_anh
 SELECT * FROM sanpham_anh
 SELECT * FROM tinhthanh ORDER BY parent_id ASC
 SELECT a.*, b.ten as 'tentinhthanh', (SELECT ten FROM tinhthanh WHERE id = b.parent_id) as 'tenvungmien' FROM sanpham a INNER JOIN tinhthanh b ON a.tinhthanh_id = b.id ORDER BY a.ten ASC;
+
+
+INSERT INTO tintuc VALUES (N'Tiêu đề 1', N'Nội dung 1', N'Mô tả 1', GETDATE(), 'kichhoat');
+INSERT INTO tintuc VALUES (N'Tiêu đề 2', N'Nội dung 2', N'Mô tả 2', GETDATE(), 'kichhoat');
+INSERT INTO tintuc VALUES (N'Tiêu đề 3', N'Nội dung 3', N'Mô tả 3', GETDATE(), 'kichhoat');
+INSERT INTO tintuc VALUES (N'Tiêu đề 4', N'Nội dung 4', N'Mô tả 4', GETDATE(), 'kichhoat');
+INSERT INTO tintuc VALUES (N'Tiêu đề 5', N'Nội dung 5', N'Mô tả 5', GETDATE(), 'kichhoat');
+INSERT INTO tintuc VALUES (N'Tiêu đề 6', N'Nội dung 6', N'Mô tả 6', GETDATE(), 'kichhoat');
+
+SELECT * FROM tintuc ORDER BY ngaytao DESC
+SELECT * FROM tintuc;
+TRUNCATE TABLE tintuc;
+
+INSERT INTO tintuc_anh VALUES ('default', -1);
+INSERT INTO tintuc_anh VALUES ('default', -1);
+INSERT INTO tintuc_anh VALUES ('default', -1);
+INSERT INTO tintuc_anh VALUES ('default', -1);
+INSERT INTO tintuc_anh VALUES ('14418678890881792621.jpg', -1);
+SELECT * FROM tintuc_anh;

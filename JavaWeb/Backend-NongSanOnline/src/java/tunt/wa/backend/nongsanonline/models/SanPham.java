@@ -333,9 +333,9 @@ public class SanPham {
     public HashMap<String, Object> sua(){
         if(id<=0)
             return error("Bản ghi không tồn tại.");
-        if(ten==null||mota==null||diaChi==null)
+        if(ten==null||mota==null||diaChi==null||trangThai==null)
             return error("Không thể gửi lên 1 giá trị \"null\", vui lòng kiểm tra lại.");
-        if(ten.isEmpty()||mota.isEmpty()||diaChi.isEmpty())
+        if(ten.isEmpty()||mota.isEmpty()||diaChi.isEmpty()||trangThai.isEmpty())
             return error("Có vẻ như bạn chưa điền đầy đủ thông tin.");
         if(tinhThanh<=0)
             return error("Bạn chưa chọn tỉnh thành.");
@@ -346,13 +346,14 @@ public class SanPham {
         try {
             ResultSet rs = statement.executeQuery(sql);
             if(rs.next()){
-                sql = "UPDATE sanpham SET ten=?, gia=?, mota=?, ngaycapnhat=GETDATE(), diachi=?, tinhthanh_id=? WHERE id = '"+rs.getInt(rs.findColumn("id"))+"';";
+                sql = "UPDATE sanpham SET ten=?, gia=?, mota=?, ngaycapnhat=GETDATE(), diachi=?, tinhthanh_id=?, trangthai=? WHERE id = '"+rs.getInt(rs.findColumn("id"))+"';";
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, ten);
                 preparedStatement.setLong(2, gia);
                 preparedStatement.setString(3, mota);
                 preparedStatement.setString(4, diaChi);
                 preparedStatement.setInt(5, tinhThanh);
+                preparedStatement.setString(6, trangThai);
                 int affectedRows = preparedStatement.executeUpdate();
                 if(affectedRows!=0){
                     sql = "SELECT a.*, b.ten as 'tentinhthanh', (SELECT ten FROM tinhthanh WHERE id = b.parent_id) as 'tenvungmien' FROM sanpham a INNER JOIN tinhthanh b ON a.tinhthanh_id = b.id WHERE a.id='"+id+"'";

@@ -120,7 +120,7 @@
             </h:form>
         </p:dialog>
         <!--Show dialog chinh sua-->
-        <p:dialog widgetVar="dialogUpdateItem" modal="true" header="Cập nhật thông tin" resizable="false" draggable="false" height="400">
+        <p:dialog widgetVar="dialogUpdateItem" modal="true" header="Cập nhật thông tin" resizable="false" draggable="false">
             <h:form id="form-update">
                 <h:panelGrid columns="2">
                     <h:outputText value="Tên sản phẩm *:"/>
@@ -128,13 +128,19 @@
                     <h:outputText value="Giá *:"/>
                     <p:inputText type="number" value="#{sanPhamView.gia}" placeholder="Nhập giá"/>
                     <h:outputText value="Mô tả *:"/>
-                    <p:inputTextarea value="#{sanPhamView.moTa}" placeholder="Nhập mô tả"/>
+                    <p:inputTextarea value="#{sanPhamView.moTa}" autoResize="false" placeholder="Nhập mô tả"/>
                     <h:outputText value="Địa chỉ *:"/>
-                    <p:inputTextarea value="#{sanPhamView.diaChi}" placeholder="Nhập địa chỉ"/>
+                    <p:inputTextarea value="#{sanPhamView.diaChi}" autoResize="false" placeholder="Nhập địa chỉ"/>
                     <h:outputText value="Tỉnh thành *:"/>
-                    <p:selectOneMenu id="car" value="#{sanPhamView.tinhThanhId}">
+                    <p:selectOneMenu value="#{sanPhamView.tinhThanhId}">
                         <f:selectItem itemLabel="Chọn tỉnh thành" itemValue="0" />
                         <f:selectItems value="#{sanPhamView.arrTinhThanh}" />
+                    </p:selectOneMenu>
+                    <h:outputText value="Trạng thái *:"/>
+                    <p:selectOneMenu value="#{sanPhamView.trangThai}">
+                        <f:selectItem itemLabel="Chọn trạng thái" itemValue="" />
+                        <f:selectItem itemLabel="Kích hoạt" itemValue="kichhoat" />
+                        <f:selectItem itemLabel="Tạm dừng" itemValue="tamdung" />
                     </p:selectOneMenu>
                 </h:panelGrid>
                 <p:commandButton value="Cập nhật" icon="ui-icon-check" style="margin-top: 10px" action="#{sanPhamView.sua()}" update=":tabview:form-list"/>
