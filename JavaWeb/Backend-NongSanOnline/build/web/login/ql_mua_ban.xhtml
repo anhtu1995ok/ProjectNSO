@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Nông sản Online - Quản lý mua - bán</title>
+        <link rel="stylesheet" href="../css/fileupload.css" type="text/css"/>
+        <link rel="stylesheet" href="../css/default.css" type="text/css"/>
+    </h:head>
+    <h:body>
+        <ui:include src="template/header.xhtml"/>
+        <p:layout style="min-width:400px; height:550px; margin-top: 5px;" id="layout" >
+            <!--LEFT-->
+            <p:layoutUnit position="west" resizable="true" size="200" minSize="200" maxSize="300" header="Quản lý quản trị viên" collapsible="true" visible="false">
+                <h:form>
+                    <p:panelMenu>
+                        <p:submenu label="Trạng thái">
+                            <p:menuitem value="Tất cả" actionListener="#{quanTriVienView.loc('all')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search" />
+                            <p:menuitem value="Kích hoạt" actionListener="#{quanTriVienView.loc('kichhoat')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search"/>
+                            <p:menuitem value="Tạm dừng" actionListener="#{quanTriVienView.loc('tamdung')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+            <!--CENTER-->
+            <p:layoutUnit position="center">
+                <p:growl autoUpdate="true"/>
+                <p:tabView id="tabview" activeIndex="#{sanPhamView.activeIndexTabView}">
+                    <p:tab title="DS mua - bán cần duyệt">
+                        <h:form id="form-list">
+                            <p:dataTable var="muaBan"
+                                        resizableColumns="true" resizeMode="expand"
+                                        scrollable="true" scrollHeight="410"
+                                        id="list"
+                                        rowIndexVar="rowIndex"
+                                        value="#{muaBanView.arrCanDuyet}"
+                                        rowKey="#{muaBan.id}"
+                                        rows="20"
+                                        paginator="true"
+                                        paginatorPosition="bottom"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="20,50,100">
+                                <p:column headerText="STT" width="30">
+                                    <h:outputText value="#{rowIndex+1}" />
+                                </p:column>
+
+                                <p:column headerText="Tiêu đề">
+                                    <p:commandLink value="#{muaBan.tieuDe}" action="#{muaBanView.setSelectedMB(muaBan)}" update="form-detail" oncomplete="PF('dialogDetailItem').show();"/>
+                                </p:column>
+                                <p:column headerText="Giá (VNĐ)">
+                                    <h:outputText value="#{muaBan.gia}đ/#{muaBan.tenDonVi}"/>
+                                </p:column>
+                                <p:column headerText="Địa chỉ">
+                                    <h:outputText value="#{muaBan.diaChi}"/>
+                                </p:column>
+                                <p:column headerText="Tỉnh thành">
+                                    <h:outputText value="#{muaBan.tenTinhThanh}"/>
+                                </p:column>
+                                <p:column headerText="Vùng miền">
+                                    <h:outputText value="#{muaBan.tenVungMien}"/>
+                                </p:column>
+
+                                <p:column headerText="Phê duyệt" style="width: 210px;">
+                                    <p:commandButton action="#{muaBanView.kiemDuyet(muaBan, 'chapnhan')}" value="Chấp nhận" icon="ui-icon ui-icon-pencil" update=":tabview:form-list :tabview:form-list-2 :tabview:form-list-3"/>
+                                    <p:commandButton action="#{muaBanView.kiemDuyet(muaBan, 'khongchapnhan')}" value="Từ chối" icon="ui-icon-trash" update=":tabview:form-list :tabview:form-list-2 :tabview:form-list-3"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </p:tab>
+                    <p:tab title="DS mua - bán đã chấp nhận">
+                        <h:form id="form-list-2">
+                            <p:dataTable var="muaBan2"
+                                        resizableColumns="true" resizeMode="expand"
+                                        scrollable="true" scrollHeight="410"
+                                        id="list"
+                                        rowIndexVar="rowIndex"
+                                        value="#{muaBanView.arrChapNhan}"
+                                        rowKey="#{muaBan2.id}"
+                                        rows="20"
+                                        paginator="true"
+                                        paginatorPosition="bottom"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="20,50,100">
+                                <p:column headerText="STT" width="30">
+                                    <h:outputText value="#{rowIndex+1}" />
+                                </p:column>
+
+                                <p:column headerText="Tiêu đề">
+                                    <p:commandLink value="#{muaBan2.tieuDe}" action="#{muaBanView.setSelectedMB(muaBan2)}" update="form-detail" oncomplete="PF('dialogDetailItem').show();"/>
+                                </p:column>
+                                <p:column headerText="Giá (VNĐ)">
+                                    <h:outputText value="#{muaBan2.gia}đ/#{muaBan2.tenDonVi}"/>
+                                </p:column>
+                                <p:column headerText="Địa chỉ">
+                                    <h:outputText value="#{muaBan2.diaChi}"/>
+                                </p:column>
+                                <p:column headerText="Tỉnh thành">
+                                    <h:outputText value="#{muaBan2.tenTinhThanh}"/>
+                                </p:column>
+                                <p:column headerText="Vùng miền">
+                                    <h:outputText value="#{muaBan2.tenVungMien}"/>
+                                </p:column>
+                                <p:column headerText="Trạng thái">
+                                    <h:outputText value="#{muaBan2.tenTrangThai}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </p:tab>
+                    <p:tab title="DS mua - bán đã từ chối">
+                        <h:form id="form-list-3">
+                            <p:dataTable var="muaBan3"
+                                        resizableColumns="true" resizeMode="expand"
+                                        scrollable="true" scrollHeight="410"
+                                        id="list"
+                                        rowIndexVar="rowIndex"
+                                        value="#{muaBanView.arrTuChoi}"
+                                        rowKey="#{muaBan3.id}"
+                                        rows="20"
+                                        paginator="true"
+                                        paginatorPosition="bottom"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="20,50,100">
+                                <p:column headerText="STT" width="30">
+                                    <h:outputText value="#{rowIndex+1}" />
+                                </p:column>
+
+                                <p:column headerText="Tiêu đề">
+                                    <p:commandLink value="#{muaBan3.tieuDe}" action="#{muaBanView.setSelectedMB(muaBan3)}" update="form-detail" oncomplete="PF('dialogDetailItem').show();"/>
+                                </p:column>
+                                <p:column headerText="Giá (VNĐ)">
+                                    <h:outputText value="#{muaBan3.gia}đ/#{muaBan3.tenDonVi}"/>
+                                </p:column>
+                                <p:column headerText="Địa chỉ">
+                                    <h:outputText value="#{muaBan3.diaChi}"/>
+                                </p:column>
+                                <p:column headerText="Tỉnh thành">
+                                    <h:outputText value="#{muaBan3.tenTinhThanh}"/>
+                                </p:column>
+                                <p:column headerText="Vùng miền">
+                                    <h:outputText value="#{muaBan3.tenVungMien}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </p:tab>
+                </p:tabView>
+            </p:layoutUnit>
+        </p:layout>
+        <ui:include src="template/footer.xhtml"/>
+        <!--Show dialog xac nhan xoa 1 item-->
+        <p:dialog widgetVar="dialogDelOneItem" modal="true" header="Xác nhận xóa" resizable="false" draggable="false">
+            <h:form id="form-delete">
+                <p:outputPanel id="itemDetail" style="text-align:center;">
+                    <h:outputText value="Bạn có thật sự muốn xóa #{sanPhamView.selectedSP.ten}?"/>
+                </p:outputPanel>
+                <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 10px" action="#{sanPhamView.xoa()}" update=":tabview:form-list" oncomplete="PF('dialogDelOneItem').hide();"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogDelOneItem').hide();"/>
+            </h:form>
+        </p:dialog>
+        <!--Show dialog chi tiet-->
+        <h:form id="form-detail">
+            <p:dialog widgetVar="dialogDetailItem" modal="true" header="Chi tiết: #{muaBanView.selectedMB.tieuDe}" resizable="false" draggable="false" position="center" dynamic = "true">
+                <p:layout style="width: 600px; height: 400px">
+                    <p:layoutUnit position="west" resizable="false" size="262" style="width: 260px; height: 160px">
+                        <p:galleria value="#{muaBanView.selectedMB.anh}" var="anh" panelHeight="150" panelWidth="250"  showCaption="false">
+                            <p:graphicImage url="#{anh.url}" alt="#{anh.url}" title="#{anh.url}" height="150"/>
+                        </p:galleria>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Tiêu đề:"/>
+                            <h:outputText value="#{muaBanView.selectedMB.tieuDe}"/>
+                            <h:outputText value="Giá:"/>
+                            <h:outputText value="#{muaBanView.selectedMB.gia}"/>
+                            <h:outputText value="Địa chỉ:"/>
+                            <h:outputText value="#{muaBanView.selectedMB.diaChi}"/>
+                            <h:outputText value="Tỉnh thành:"/>
+                            <h:outputText value="#{muaBanView.selectedMB.tenTinhThanh}"/>
+                            <h:outputText value="Vùng miền:"/>
+                            <h:outputText value="#{muaBanView.selectedMB.tenVungMien}"/>
+                            <h:outputText value="Người đăng:"/>
+                            <h:outputText value="#{muaBanView.selectedMB.taoBoiTen}"/>
+                            <h:outputText value="Đối tượng:"/>
+                            <h:outputText value="#{muaBanView.selectedMB.tenDoiTuong}"/>
+                            <h:outputText value="Loại:"/>
+                            <h:outputText value="#{muaBanView.selectedMB.tenLoai}"/>
+                            <h:outputText value="Trạng thái:"/>
+                            <h:outputText value="#{muaBanView.selectedMB.tenTrangThai}"/>
+                            <h:outputText value="Ngày tạo:"/>
+                            <h:outputText value="#{muaBanView.selectedMB.ngayTao}"/>
+                            <h:outputText value="Ngày hết hạn:"/>
+                            <h:outputText value="#{muaBanView.selectedMB.ngayHetHan}"/>
+                        </h:panelGrid>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" size="175">
+                        <h:outputText value="Nội dung: "/>
+                        <h:outputText value="#{muaBanView.selectedMB.noiDung}"/>
+                    </p:layoutUnit>
+                </p:layout>
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>

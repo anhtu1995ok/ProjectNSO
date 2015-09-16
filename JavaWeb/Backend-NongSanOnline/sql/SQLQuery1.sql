@@ -63,3 +63,36 @@ INSERT INTO tintuc_anh VALUES ('default', -1);
 INSERT INTO tintuc_anh VALUES ('default', -1);
 INSERT INTO tintuc_anh VALUES ('14418678890881792621.jpg', -1);
 SELECT * FROM tintuc_anh;
+
+INSERT INTO muaban VALUES (N'Tiêu đề 1', 200, 'cay', N'Cầu giấy, Hà Nội', '6', '2', 'canhan', 'canban', N'Nội dung 1', GETDATE(), GETDATE(), 'dangban', 'chapnhan');
+INSERT INTO muaban VALUES (N'Tiêu đề 2', 200, 'cay', N'Cầu giấy, Hà Nội', '4', '2', 'congty', 'canban', N'Nội dung 2', GETDATE(), GETDATE(), 'daban', 'chapnhan');
+INSERT INTO muaban VALUES (N'Tiêu đề 3', 200, 'cay', N'Cầu giấy, Hà Nội', '6', '2', 'canhan', 'canban', N'Nội dung 3', GETDATE(), GETDATE(), 'tamdung', 'khongchapnhan');
+INSERT INTO muaban VALUES (N'Tiêu đề 4', 200, 'cay', N'Cầu giấy, Hà Nội', '5', '2', 'canhan', 'canban', N'Nội dung 4', GETDATE(), GETDATE(), 'dangban', 'chapnhan');
+INSERT INTO muaban VALUES (N'Tiêu đề 5', 200, 'cay', N'Cầu giấy, Hà Nội', '6', '2', 'congty', 'canban', N'Nội dung 5', GETDATE(), GETDATE(), 'dangban', 'chapnhan');
+INSERT INTO muaban VALUES (N'Tiêu đề 6', 200, 'cay', N'Cầu giấy, Hà Nội', '7', '2', 'congty', 'canban', N'Nội dung 6', GETDATE(), GETDATE(), 'tamdung', 'khongchapnhan');
+INSERT INTO muaban VALUES (N'Tiêu đề 7', 200, 'cay', N'Cầu giấy, Hà Nội', '6', '2', 'canhan', 'canban', N'Nội dung 7', GETDATE(), GETDATE(), 'dangban', 'chapnhan');
+INSERT INTO muaban VALUES (N'Tiêu đề 8', 200, 'cay', N'Cầu giấy, Hà Nội', '8', '2', 'canhan', 'canban', N'Nội dung 8', GETDATE(), GETDATE(), 'dangban', 'chapnhan');
+INSERT INTO muaban VALUES (N'Tiêu đề 9', 200, 'cay', N'Cầu giấy, Hà Nội', '8', '2', 'canhan', 'canban', N'Nội dung 9', GETDATE(), GETDATE(), 'dangban', 'chuaduyet');
+TRUNCATE TABLE muaban;
+SELECT * FROM muaban;
+
+INSERT INTO muaban_anh VALUES ('aa.jpg', 1);
+INSERT INTO muaban_anh VALUES ('aa.jpg', 1);
+INSERT INTO muaban_anh VALUES ('aa.jpg', 1);
+INSERT INTO muaban_anh VALUES ('aa.jpg', 2);
+INSERT INTO muaban_anh VALUES ('aa.jpg', 2);
+INSERT INTO muaban_anh VALUES ('aa.jpg', 3);
+INSERT INTO muaban_anh VALUES ('aa.jpg', 4);
+INSERT INTO muaban_anh VALUES ('aa.jpg', 5);
+INSERT INTO muaban_anh VALUES ('aa.jpg', 5);
+INSERT INTO muaban_anh VALUES ('aa.jpg', 5);
+
+UPDATE muaban SET kiemduyet = 'chuaduyet'
+
+SELECT a.*, b.ten as 'tentinhthanh', (SELECT ten FROM tinhthanh WHERE id = b.parent_id) as 'tenvungmien' , c.hovaten as 'taoboiten'
+FROM muaban a INNER JOIN tinhthanh b 
+ON a.tinhthanh_id = b.id 
+INNER JOIN nguoidung c
+ON a.taoboi = c.id
+WHERE kiemduyet = 'chuaduyet'
+ORDER BY id ASC;
