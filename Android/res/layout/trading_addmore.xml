@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f0f0f0"
+    android:fillViewport="false"
+    android:isScrollContainer="true"
+    android:paddingBottom="20dp"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/trading_addmore"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_larger" />
+
+        <EditText
+            android:id="@+id/input_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@xml/input_bg_onselected"
+            android:ems="10"
+            android:hint="@string/input_title_hint"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_color_disable"
+            android:textSize="@dimen/text_medium" />
+
+        <EditText
+            android:id="@+id/input_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@xml/input_bg"
+            android:ems="10"
+            android:hint="@string/input_price_hint"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_color_disable"
+            android:textSize="@dimen/text_medium" />
+
+        <EditText
+            android:id="@+id/input_expired_at"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@xml/input_bg"
+            android:ems="10"
+            android:hint="@string/input_expired_at_hint"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_color_disable"
+            android:textSize="@dimen/text_medium" />
+
+        <EditText
+            android:id="@+id/input_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@xml/input_bg"
+            android:ems="10"
+            android:hint="@string/input_content_hint"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_color_disable"
+            android:textSize="@dimen/text_medium" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <RadioButton
+                android:id="@+id/radio0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/need_to_buy"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_medium" />
+
+            <RadioButton
+                android:id="@+id/radio1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/need_to_sell"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_medium" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@xml/trick_listview_bg"
+            android:orientation="vertical"
+            android:padding="7dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/address"
+                    android:textColor="@color/text_color_disable"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="147 Cau Giay Ha Noi"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/email"
+                    android:textColor="@color/text_color_disable"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="gs.hbsky@gmail.com"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/phone"
+                    android:textColor="@color/text_color_disable"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="0985942382"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tap_to_change"
+                    android:textColor="@color/secondary_action_bar"
+                    android:textSize="@dimen/text_large" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_forward" />
+            </LinearLayout>
+        </LinearLayout>
+        <!-- End of UserProfile -->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="25dp" >
+
+            <Button
+                android:id="@+id/publish"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@xml/signup"
+                android:text="@string/publish"
+                android:textAllCaps="false"
+                android:textColor="@color/secondary_action_bar"
+                android:textSize="@dimen/text_medium" />
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:indeterminateDrawable="@drawable/progressbar"
+                android:padding="3dp"
+                android:visibility="gone" />
+        </FrameLayout>
+    </LinearLayout>
+
+</ScrollView>

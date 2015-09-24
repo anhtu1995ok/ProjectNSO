@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App -->
+    <string name="app_name">Nông sản Online</string>
+    <string name="activity_news">Tin tức Nông sản</string>
+    <string name="activity_product">Sản phẩm Nông sản</string>
+    <string name="activity_trick">Mẹo vặt Nông sản</string>
+    <string name="activity_trading">Rao vặt Nông sản</string>
+    <string name="activity_user">Người dùng</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="search_hint">Từ khóa tìm kiếm</string>
+    <string name="tip_1">Vuốt từ trên xuống để Tải lại Dữ liệu</string>
+    <string name="tip_2">Vuốt từ trái qua phải để Quay lại</string>
+    <string name="add">Thêm</string>
+    <string name="required">Xin hãy nhập đầy đủ thông tin</string>
+    <string name="password_error_1">Mật khẩu bạn nhập lại chưa chính xác</string>
+    <string name="email_error">Email bạn nhập chưa chính xác</string>
+    <string name="login_error">Tên tài khoản bạn nhập chưa chính xác hoặc đã tồn tại</string>
+    <string name="name_error">Tên tài khoản phải từ 5 đến 20 kí tự và không chứa kí tự đặc biệt</string>
+    <string name="password_error">Mật tài khoản phải từ 6 đến 20 kí tự và không chứa kí tự đặc biệt</string>
+    <string name="fullname_error">Bạn có chắc chắn đây là tên thật của bạn?</string>
+    <string name="address_error">Xin hãy chắc chắn đây là địa chỉ chính xác của bạn</string>
+    <string name="phone_error">Số điện thoại bạn nhập chưa chính xác, hãy chắc chắn rằng nó có thể sử dụng tại Việt Nam</string>
+    <!-- NewFragment -->
+    <string name="publish_by">Đăng bởi: </string>
+    <string name="readmore">Đọc tiếp</string>
+    <string name="endoflist">Lên trên</string>
+    <!-- ProductFragment -->
+    <string name="vnd">VNĐ</string>
+    <string name="address">Địa chỉ:</string>
+    <string name="price">Giá:</string>
+    <string name="updated_at">Cập nhật lúc:</string>
+    <string name="region">Vùng miền:</string>
+    <string name="test_des">Cà rốt là một loại cây có củ, thường có màu vàng cam, đỏ, vàng, trắng hay tía. Phần ăn được của cà rốt là củ, thực chất là rễ cái của nó, chứa nhiều tiền tố của vitamin A tốt cho mắt.Trong tự nhiên, nó là loại cây sống hai năm, phát triển một nơ chứa lá trong mùa xuân và mùa hè, trong khi đó vẫn tích lũy một lượng lớn đường trong rễ cái to mập, tích trữ năng lượng để ra hoa trong năm thứ hai. Thân cây mang hoa có thể cao tới 1 m (3 ft), với hoa tán chứa các hoa nhỏ màu trắng, sinh ra quả, được các nhà thực vật học gọi là quả nẻ</string>
+    <string name="product_title_1">Sp đang giảm giá</string>
+    <string name="product_title_2">Sp mới</string>
+    <string name="product_title_3">Rau</string>
+    <string name="product_title_4">Củ</string>
+    <string name="product_title_5">Quả</string>
+    <string name="product_title_6">Khác</string>
+    <!-- TrickFragment -->
+    <string name="target">Đối tượng:</string>
+    <string name="trick_title_0">Tất cả</string>
+    <string name="trick_title_1">Tin ngày hôm nay</string>
+    <string name="trick_title_2">Tin đăng trong 3 ngày gần đây</string>
+    <string name="trick_title_3">Tin đăng trong 7 ngày gần đây</string>
+    <string name="trick_title_4">Tin đăng trong 30 ngày gần đây</string>
+    <string name="result">kết quả</string>
+    <string name="contact">Liên hệ</string>
+    <string name="mail">Gửi tin nhắn</string>
+    <string name="user_profile">Người đăng</string>
+    <!-- TradingFragment -->
+    <string name="trading_addmore">Nhập đầy đủ <b>Dữ liệu </b>để đăng Tin rao vặt</string>
+    <string name="input_title_hint">Tiêu đề</string>
+    <string name="input_price_hint">Giá</string>
+    <string name="input_expired_at_hint">Ngày hết hạn</string>
+    <string name="input_content_hint">Nội dung</string>
+    <string name="created_at">Ngày đăng:</string>
+    <string name="expired_at">Ngày hết hạn:</string>
+    <string name="email">Email:</string>
+    <string name="phone">Số điện thoại:</string>
+    <string name="tap_to_change">Thay đổi thông tin</string>
+    <string name="publish">Đăng</string>
+    <string name="all">Tất cả</string>
+    <string name="need_to_buy">Cần mua</string>
+    <string name="need_to_sell">Cần bán</string>
+    <!-- UserFragment -->
+    <string name="or">hoặc</string>
+    <string name="input_name_hint">Tên đăng nhập</string>
+    <string name="input_pass_hint">Mật khẩu</string>
+    <string name="input_submit_pass_hint">Nhập lại Mật khẩu</string>
+    <string name="input_email_hint">Email</string>
+    <string name="input_fullname_hint">Họ và tên</string>
+    <string name="input_address_hint">Địa chỉ</string>
+    <string name="input_phone_hint">Số điện thoại</string>
+    <string name="exit">Nhấn back thêm 1 lần nữa để thoát</string>
+    <string name="sign_hint">Đăng kí để bắt đầu sử dụng Ứng dụng và nhận những <b>Ưu đãi</b> đặc biệt</string>
+    <!-- SearchFragment -->
+    <string name="search_history">Lịch sử Tìm kiếm</string>
+    <!-- Fragment name -->
+    <string name="trick_fragment">Mẹo vặt</string>
+    <string name="product_fragment">Sản phẩm</string>
+    <string name="news_fragment">Tin tức</string>
+    <string name="trading_fragment">Rao vặt</string>
+    <string name="user_fragment">Tôi</string>
+    <string name="trick1">Mẹo sản xuất</string>
+    <string name="trick2">Mẹo chế biến</string>
+
+    <!-- UserFragment -->
+    <string name="signup">Đăng kí</string>
+    <string name="login">Đăng nhập</string>
+    <string name="logout">Đăng xuất</string>
+
+    <string-array name="trick_spinner_array">
+        <item>Tất cả</item>
+        <item>Cần mua</item>
+        <item>Cần bán</item>
+    </string-array>
+
+    <string name="test_new_title">Việt Nam có thể chiếm ngôi đầu về xuất khẩu chuối của Philippines</string>
+    <string name="test_new_des">Truyền thông Philippines đưa tin Việt Nam và các nước sản xuất chuối khác ở khu vực châu Á có thể giành thị phần của Philippines - quốc gia xuất khẩu chuối tươi lớn nhất khu vực.</string>
+    
+    <string name="test_new_title_1">Mỹ giảm thuế chống bán phá giá tôm cho Việt Nam</string>
+    <string name="test_new_des_1">Bộ Thương mại Mỹ (DOC) đã công bố kết quả cuối cùng rà soát hành chính lần thứ 9 (POR9) thuế chống bán phá giá tôm đông lạnh nhập khẩu từ Việt Nam với mức thuế trung bình là 0,91%, thấp hơn 0,02 điểm phần trăm so với mức trung bình của lần công bố kết quả sơ bộ vào tháng 3-2015, theo Hiệp hội chế biến và xuất khẩu thủy sản Việt Nam (Vasep).</string>
+	
+    <string name="test_product_title_1">Gạo Nàng thơm chợ Đào</string>
+    <string name="test_product_address_1">Tiền Giang</string>
+    
+    <string name="test_product_title_2">Xoài cát thường</string>
+    <string name="test_product_address_2">Hà Nội</string>
+    
+    <string name="test_product_title_3">Bưởi Năm Roi loại 1</string>
+    <string name="test_product_price_1">quả</string>
+    
+     <string name="test_trick_title_1">Mô hình nuôi cá Lóc nuôi vèo giúp làm giàu</string>
+     <string name="test_trick_content_2">Anh Nguyễn Văn Dũng ở ấp Bình Thanh, xã Hoà Nghĩa có thu nhập hàng năm khoảng 150 triệu đồng từ 190 gốc bưởi da xanh. Anh đạt danh hiệu nông dân sản xuất giỏi cấp huyện năm 2010. Mới đây, Viện Nghiên cứu cây ăn quả Miền Nam và cơ quan cấp giấy chứng nhận VietGAP tiến hành kiểm tra thẩm định và đánh giá đạt yêu cầu đối với quy trình sản xuất theo tiêu chuẩn Viet GAP trên vườn bưởi da xanh của anh Dũng – Từ 40 nhánh bưởi da xanh ban đầu, anh trồng xen với măng cụt và nhãn tiêu Huế, sau thời gian chăm sóc và thu hoạch trái, anh nhận thấy ưu điểm và hiệu quả kinh tế nổi trội của cây bưởi da xanh so với nhiều loại cây ăn trái khác, từ đó anh quyết định đốn bỏ cây mặt cụt và nhãn tiêu Huế để trồng chuyên canh bưởi da xanh trên diện tích 3.200m2 đất vườn. Để duy trì và nâng cao năng suất vườn bưởi, anh chủ động đốn bỏ những cây bưởi lâu năm đã suy kiệt thay thế bằng cây bưởi da xanh được trồng mới. Hiện tại, cây lớn nhất đã 13 năm và nhỏ nhất là 4 năm tuổi.
+
+– Anh cho biết, bưởi da xanh trồng khoảng 3-4 năm sẽ cho trái chiến, từ năm thu hoạch thứ 2 trở đi cây cho trái ổn định. Nếu canh tác theo đúng kỹ thuật, cây sẽ cho năng suất rất cao. Thị trường tiêu thụ ổn định, sức mua khá mạnh đã đưa giá trị trái bưởi da xanh lên vị trí hàng đầu trong nhóm các loại cây ăn trái có giá kinh kinh tế cao hiện nay. Thời gian qua, giá bưởi da xanh thường dao động ở mức từ 23.000-27.000đ/kg đối với loại 1. Với sản lượng thu hoạch khoảng 500kg, mỗi tháng đem về thu nhập cho anh hơn 12,5 triệu đồng – thu nhập đáng mơ ước đối với nông dân.
+
+– Anh Dũng là thành viên của tổ hợp tác sản xuất bưởi da xanh theo tiêu chuẩn VietGAP xã Hoà Nghĩa, là tổ hợp tác sản xuất bưởi da xanh theo tiêu chuẩn VietGAP đầu tiên ở huyện Chợ Lách, tổ có 19 thành viên, được phát triển từ tổ liên kết sản xuất bưởi da xanh theo hướng GAP. Tham gia tổ hợp tác, anh Dũng đã được Viện Nghiên cứu cây ăn quả Miền Nam và Phòng Nông nghiệp huyện hướng dẫn sản xuất bưởi da xanh theo quy trình VietGAP, với nhiều hạng mục và chỉ tiêu khác nhau. Anh Dũng lý giải, khó nhất là việc ghi chép nhật ký sử dụng phân bón, điều này đã làm thay đổi tập quán canh tác trước đây của anh nói riêng và nông dân nói chung. Ngày tháng sử dụng, loại, liều lượng phân bón, phương pháp bón phân đều phải ghi chép rõ ràng.
+
+– Để tránh lãng phí, anh chỉ sử dụng phân bón vô cơ khi cần thiết và bón đủ cho mỗi lần bón. Anh thường sử dụng 20-20-15 để bổ sung dinh dưỡng cho cây, tuỳ vào quá trình sinh trưởng và tuổi của cây mà bón với liều lượng và vào thời điểm phù hợp. Bên cạnh sử dụng phân vi sinh bón 4 lần trong năm, mỗi lần bón liều lượng 1-4kg/gốc. Anh ít khi sử dụng thuốc bảo vệ thực vật, nếu có, anh chỉ sử dụng các loại thuốc bảo vệ thực vật chuyên dụng đã được đăng ký, chú trọng việc áp dụng các biện pháp quản lý dịch hại tổng hợp (IPM), quản lý cây trồng tổng hợp (ICM) mà anh đã được tham gia tập huấn. Ngoài ra, anh còn đầu tư xây dựng kho chứa hoá chất ở nơi thoáng mát, an toàn theo quy định.
+
+– Sau gần 2 năm sản xuất theo tiêu chuẩn VietGAP, hiệu quả bước đầu đã được ghi nhận: “môi trường sản xuất an toàn hơn, sản phẩm không để lại dư lượng thuốc trừ sâu, bảo đảm chất lượng và sức khoẻ người tiêu dùng”. Đặc biệt, sau khi đạt được chứng nhận VietGAP, cơ sở Hương Miền Tây cam kết thu mua giá cao hơn 20% so với giá của thị trường, mở ra một hướng đi mới đầy triển vọng không riêng cho anh Dũng mà còn cho những thành viên của tổ hợp tác bưởi da xanh theo tiêu chuẩn VietGAP xã Hoà Nghĩa.
+
+Nguồn: Trung tâm Khuyến nông Bến Tre</string>
+    <string name="test_trick_title_2">Làm giàu từ mô hình trồng Bưởi da xanh</string>
+	<string name="test_trick_content_1">Trong khoảng 2 năm gần đây, bà con nông dân xã Trường Thắng, huyện Thới Lai, TP. Cần Thơ đã thu được nhiều kết quả phấn khởi nhờ vào mô hình nuôi cá lóc trong vèo. Mô hình này đã giải quyết tốt việc làm tại chỗ và là một trong những phương thức góp phần xóa đói giảm nghèo cho bà con nghèo có ít đất canh tác. – Theo đánh giá của Chi cục Thuỷ sản Cần Thơ và những hộ dân trực tiếp chăn nuôi, đây là mô hình sản xuất khá thuận lợi và phù hợp cho những người nghèo tham gia sản xuất tăng thu nhập, góp phần tích cực cho công tác xóa đói giảm nghèo. Vì trước hết mô hình sản xuất này với phương thức đầu tư đơn giản, không cần diện tích lớn, có thể tận dụng thức ăn sẵn có và quan trọng nhất là chi phí đầu tư thấp.
+
+– Chúng tôi tìm gặp anh Lê Văn Khanh là một trong những hộ tiên phong thực hiện mô hình nuôi cá lóc vèo ở ấp Trường Thuận, xã Trường Thắng, huyện Thới Lai, TP. Cần Thơ. Theo anh Khanh, mô hình này có nhiều thuận lợi như cá lóc khá dễ nuôi, ít bệnh và có thể tận dụng diện tích mặt nước xung quanh nhà và thức ăn sẵn có để nuôi. Đối với mô hình của anh Khanh, với diện tích 28 m2, mỗi năm anh sản xuất 3 vụ, mỗi vụ anh đầu tư khoảng 8 triệu đồng cho 1.000 con cá lóc giống và thức ăn. Sau 3 tháng rưỡi đến 4 tháng là có thể thu hoạch 400 – 450 kg với trọng lượng bình quân 450 – 500g/con. Thuận lợi của bà con chăn nuôi là được thương lái đến tận nhà thu mua nên người chăn nuôi tiết kiệm được khoảng chi phí vận chuyển. Mặc dù, giá cá lóc tuy có dao động, từng thời điểm nhưng nhìn chung vẫn ở mức cao. Theo giá thị trường hiện nay là 38.000 đồng/kg thì với 3 vụ nuôi, anh Khanh có thu nhập ổn định từ 20 đến 24 triệu đồng/năm. Anh cho biết: “Trước đây gia đình tôi rất khó khăn, thu nhập từ việc cắt lúa mướn không đủ để trang trải cuộc sống hàng ngày; Có lần tôi được mời tham dự lớp tập huấn kỹ thuật nuôi cá lóc trong vèo do cán bộ Chi cục Thuỷ sản Cần Thơ tổ chức. Nhận thấy đây là mô hình đơn giản, dễ nuôi lại không cần nhiều vốn nên tôi thử sức trong công việc mới mẻ này. Lúc đầu còn khó khăn về kỹ thuật, cũng may được các cán bộ của Liên Trạm thuỷ sản Ô Môn- Thới Lai-Cờ Đỏ tận tình hướng dẫn và học hỏi kinh nghiệm từ các hộ nuôi khác nên bước đầu đã gặt hái được kết quả đáng phấn phởi. Hiện nay tôi đã có đủ kinh nghiệm và nguồn vốn để tiếp tục mở rộng thêm diện tích thả nuôi. Tôi cũng đã hướng dẫn một số bà con xung quanh kỹ thuật nuôi cá lóc trong vèo và họ cũng đã thành công. Tôi hy vọng mô hình nuôi cá lóc trong vèo sẽ được nhân rộng không chỉ ấp Trường Thuận, xã Trường Thắng mà còn ở nhiều nơi khác để người dân có hoàn cảnh khó khăn có thể thoát nghèo.”
+
+– Thành công từ mô hình cá lóc vèo góp phần đa dạng mô hình nuôi thủy sản ở xã Trường Thắng. Có thể nói, nuôi cá lóc trong vèo là mô hình đã đáp ứng được nhu cầu cải thiện cuộc sống của bà con nghèo có ít đất sản xuất, giải quyết việc làm, xóa đói giảm nghèo và có thể giúp bà con nông dân vươn lên làm giàu.
+
+Nguồn: K.S Phan Hoàng Đông, Chi cục Thủy sản Cần Thơ</string>
+
+	
+	<string name="test_trick_title_3">Cải bó xôi – loại rau thần kỳ  </string>
+	<string name="test_trick_content_3">PNO - Cải bó xôi được các em thiếu nhi biết đến nhiều qua  bộ phim hoạt hình nổi tiếng Thủy thủ Popoye. Các em nhỏ được cười thoải mái mỗi khi chàng thủy thủ cơ bắp cuồn cuộn "xử lý" đối thủ cạnh tranh của mình sau khi đã được chén rau thần. Không chỉ là hư cấu, tác dụng của loại rau thường xuất hiện từ tháng 12 đến tháng 3 hàng năm này, đúng là nhiều không kể hết. Theo các nhà nghiên cứu, trong rau cải bó xôi có một loại hóa chất steroid tên khoa học là phutoecdy có tác dụng thúc đẩy sự sản xuất protein tự nhiên trong cơ thể lên tới 20%. Rau rất giàu  thành phần beta carotine, can xi, tốt cho xương và răng.Chất sắt, phốt pho có trong rau cũng rất có lợi trong việc bổ sung lượng máu cho cơ thể. Đặc biệt lượng vitamin C, vitamin A tự nhiên có nhiều trong rau có công dụng giải độc tố ra khỏi cơ thể, ngăn ngừa cảm cúm, tăng cường khả năng trao đổi chất, loại bỏ chứng táo bón. Một số nghiên cứu cũng cho thấy rau cải bó xôi giúp giảm nguy cơ đau tim.
+Với nhiều lợi ích như thế nên người Nhật đặc biệt ưa thích loại rau này. Từng có thời gian trong bất kỳ tủ lạnh của gia đình nào ở Nhật cũng có cải bó xôi. Thậm chí Nhật còn có cả công nghệ sấy khô cải bó xôi để dùng cho những tháng không có loại rau này. Sự yêu thích đó không chỉ do ảnh hưởng của bộ phim Thủy thủ Popopye, mà còn vì loại rau này đặc biệt dễ ăn bởi rất mềm và ngọt.
+Sau đây, xin giới thiệu một số cách chế biến rất đơn giản giúp bạn thưởng thức loại rau đặc biệt này"
+Đồ uống: Sinh tố rau cải bó xôiNguyên liệu: Rau cải bó xôi (1 cây), táo tây (1/2 quả), cam (1 quả), dầu dừa (1 chút), nước. Nếu muốn uống ngọt, bạn có thể cho thêm một chút đường.
+Cách làm: Rau rửa sạch, cắt nhỏ, táo gọt vỏ cắt nhỏ, cam vắt lấy nước. Cho rau, táo đã cắt nhỏ vào máy xay sinh tố, đổ nước cam, nước và dầu dừa vào. Xay nhuyễn.
+ Món ăn 1: Salat rau cải bó xôi với vừng trắng (mè trắng)Nguyên liệu : Cải bó xôi (2 cây), hạt vừng (mè) trắng (1 thìa to), dầu mè (1 thìa nhỏ), tỏi bằm nhỏ (tùy ý), hành hoa thái nhỏ (tùy ý), xì dầu (1 thìa nhỏ), muối tiêu (tùy ý).
+Cách chế biến:
+Cắt rau thành những đoạn khoảng 3cm, cho vào luộc qua nước sôi với một chút muối. Sau đó vớt ra, để nguội, vắt bớt nước.
+Cho rau đã sơ chế vào tô, cho một chút muối tiêu, dầu mè, xì dầu, tỏi bằm vào đảo đều. Sau đó cho hạt vừng vào. Dùng tay bóp đều cho gia vị ngấm kỹ vào rau. Nêm nếm cho vừa miệng. Bày ra đĩa và rắc một chút hành hoa thái nhỏ vào.
+Món ăn 2 : Salat trộn rau cải bó xôi với thịt xông khóiNguyên liệu : Rau cải bó xôi (2 cây), thịt xông khói (30g), dầu ô liu hoặc bơ (1 chút), salat dressing (1 chút), bánh mỳ nướng (20g), muối tiêu (1 chút).
+Cách chế biên :
+Rau cải bó xôi rửa thật sạch, để ráo nước rồi cắt thành đoạn khoảng 3 - 4cm.
+Cho dầu oliu hoặc bơ vào chảo, khi dầu nóng cho thịt xông khói vào đảo sơ với một chút muối tiêu.
+Bày rau và thịt đã sơ chế ra đĩa, cho một chút muối tiêu, salat dressing vào. Rắc bánh mỳ nướng lên trên cùng.
+Món ăn 3 : Rau cải bó xôi xào với thịt ba rọi xông khóiNguyên liệu : Cải bó xôi (2 cây), thịt ba rọi xông khói (30g), bơ (10g), tỏi bằm (tùy ý), muối tiêu (một chút)
+Cách chế biến :
+Cắt rau thành những đoạn khoảng 3cm, cho vào luộc qua nước sôi với một chút muối. Sau đó vớt ra, để nguội, vắt bớt nước.
+Cho bơ vào chảo, khi bơ nóng chảy cho tỏi và thịt ba rọi xông khói vào đảo đều đến khi thịt hơi xém cạnh thì cho rau vừa sơ chế ở bước một vào. Nêm muối tiêu vừa ăn và bày ra đĩa.Món ăn 4: Rau cải bó xôi đút lò
+ 
+Nguyên liêu: Rau cải bó xôi (3 cây), thịt ba rọi xông khói (20g), hành tây (1/4 củ), ngô hạt (tùy ý), tỏi (1 chút), trứng (2 quả), sữa tươi (80cc), mayoness (1 thìa to), bơ (1 chút), muối tiêu (1 chút)
+Cách chế biến:
+Rau cải bó xôi rửa sạch, cắt thành đoạn dài khoảng 5cm; Thịt ba rọi xông khói cắt thành miếng dài khoảng 4 cm, hành lạng mỏng 5mm.
+Cho bơ vào chảo, phi thơm tỏi, cho thịt ba rọi xông khói vào đảo sơ, rồi cho hành vào đảo cùng. Khi hành gần chín cho rau chân vịt vào đảo qua rồi tắt bếp.
+Trứng đánh bông cùng sữa tươi và mayoness.
+Cho thịt xông khói và rau vào một cái thố có thể dùng cho lò nướng, rồi đổ trứng đã đánh bông lên trên. Cho thêm 1 ít bơ đã đun chảy lên trên cùng.
+Cho thố vào lò, nướng trong khoảng 15 phút, với nhiệt độ 150 độ.</string>
+
+	
+	<string name="test_trick_title_4">Cách chế biến món rau chùm ngây lạ miệng giải nhiệt hè</string>
+	<string name="test_trick_content_4">Hạ nhiệt vẫn đủ chất
+
+Những món canh chua thanh mát được coi là món chủ lực trong bữa cơm mùa hè, giúp cơ thể giải nhiệt, bớt nóng và ăn ngon miệng hơn.
+
+Ngoài ra các bà nội trợ cần ưu tiên các loại rau củ quả có tính mát như dưa leo, cà chua, táo, cà rốt, rau má, rau ngót, dền, mã đề, atiso, bí đỏ… vì chúng cung cấp nhiều dưỡng chất cho cơ thể, giúp không bị táo bón.
+
+Bên cạnh các món canh rau thì các món luộc (thịt, cá, đậu... luộc) hay thịt, tôm rim… ăn kèm rất phù hợp.Nhưng hiện nay để nâng cao sức khỏe, chống mỏi mệt, giúp ăn ngon, ngủ ngon... mùa hè này nhiều người dân sống ở các đô thị, thành phố coi rau chùm ngây là một loại rau mới, sạch, bổ dưỡng sẽ tìm mua, gieo trồng để đưa vào bữa ăn hàng ngày của gia đình vừa mát, bổ vừa giải nhiệt.
+
+Theo Giáo sư Nguyễn Lân Dũng, rau chùm ngây là món ăn của một số địa phương miền Trung, nhưng gần đây các nhà khoa học phát hiện ra nhiều dược tính trong rau chùm ngây, đặc biệt là kích thích tiêu hóa, giàu dinh dưỡng (vitamin A, C), tốt cho tim và tuần hoàn), đẹp da, tốt cho sức khỏe… Lượng khoáng chất trong rau chùm ngây khá cao: Vitamin C gấp 7 lần cam, Vitamin A gấp 4 lần cà rốt, Calcium gấp 4 lần sữa, Sắt gấp 0.75 lần so cải bó xôi, đạm gấp 2 lần protein của sữa chua, Potassium nhiều hơn 3 lần so với chuối.
+
+Trừ phụ nữ có thai không nên ăn rau chùm ngây. Còn với người bình thường chùm ngây là rau sạch, bổ dưỡng, có thể ăn thường xuyên và chế biến thành nhiều món ngon như ăn sống, làm gỏi rau, đặc biệt là nấu canh tôm rất thơm mát.
+
+Những món đơn giản
+
+Nếu làm rau sống, lựa lá rau chùm ngây tươi, trộn ăn sống như rau xà lách.
+
+Nếu nấu canh, nhà 4 người chỉ cần 100g lá rau chùm ngây tươi là đủ một nồi canh. Nấu canh với tôm, cua, thịt bò, thịt lợn, hoặc nấu chay với 100gr nấm, hoặc nấu suông đều rất thơm ngon, bổ dưỡng, vị ngọt bùi và thanh.
+
+Lưu ý là rau chùm ngây rất mau chín nên chỉ cho rau vào khi nước sôi, đun khoảng 2 – 3 phút là đủ độ và mới giữ được dinh dưỡng.
+
+
+Rau chùm ngây nấu tôm là ngon nhất.
+Rau chùm ngây nấu tôm
+
+- Rau chùm ngây nhặt rửa sạch.
+
+-Tôm tươi bóc vỏ, chẻ lưng, rút chỉ đen, băm nhỏ.
+
+-Nước dùng:500 ml.
+
+Hành thái nhỏ, gia vị, hạt nêm
+
+-Hạt nêm: 1/2 muỗng canh
+
+Hành phi vàng. Cho tôm vào xào thơm. Đổ nước dùng vào đun sôi thì nêm gia vị, hạt nêm rồi thả rau chùm ngây vào đun 2 phút. Ăn nóng.
+
+
+Rau chùm ngây nấu giò sống.
+Rau chùm ngây nấu thịt, hoặc giò sống
+
+-Rau chùm ngây, thịt nạc, gia vị (dầu ăn, hành, bột canh, mì chính).
+
+Rau chùm ngây tuốt lá, rửa sạch. Thịt lợn rửa sạch, băm nhỏ. Phi thơm hành khô.cho thịt băm vào xào săn.
+
+Cho rau vào nước sôi, đun 1-2 phút. Nêm gia vị vừa ăn rồi múc ra ăn cơm. Vị ngọt của thịt, vị bùi của rau chùm ngây khiến nước canh ngọt đậm, thanh mát, rất dễ ăn.
+
+
+Rau chùm ngây xào trứng.
+Rau chùm ngây xào thịt bò, hoặc trứng
+
+Món ăn này rất lạ miệng mà mang lại nhiều giá trị dinh dưỡng.
+
+-200gr rau chùm ngây
+
+-200gr thịt bò
+
+-Gia vị: dầu ăn, tỏi, bột canh, hạt nêm, bột ngọt, tiêu.
+
+Rau chùm ngây tuốt lá, rửa sạch. Thịt bò rửa sạch, thái miếng mỏng. Cho 1 thìa cà phê hạt nêm, 1/2 thìa cà phê tiêu vào thịt bò đảo đều, để 15 phút cho ngấm vào thịt. Phi thơm tỏi. Cho thịt bò vào xào với lửa lớn. Thịt chín tái trút ra đĩa.
+
+Cho tiếp dầu vào chảo, cho rau chùm ngây vào xào nhanh tay cho chín, rồi đổ thịt bò vào đảo đều, nêm gia vị vừa ăn. Đổ thức ăn ra đĩa, rắc tiêu, ăn nóng với cơm rất ngon miệng.
+
+
+Gỏi rau chùm ngây.
+Gỏi chùm ngây trộn tôm thịt
+
+-1 chiếc đùi gà, 150gr tôm, 100gr rau chùm ngây, cà rốt, dưa leo, rau răm, lạc
+
+- Gia vị: nước mắm, muối, đường, chanh, tỏi, ớt, dấm.
+
+Đầu tiên sơ chế sạch thịt gà, luộc chín, xé nhỏ. Tôm hấp chín, lột vỏ, bỏ đầu, chẻ đôi.
+
+Cà rốt, dưa leo rửa rồi bào nhỏ, ngâm nước muối. Rau chùm ngây tuốt lá, rửa sạch, trụng sơ nước sôi rồi thả ngay vào nước lạnh để rau giòn, giữ được màu xanh rồi vớt rau ra rổ, để ráo. Rau răm rửa sạch, thái rối.
+
+Lạc cho vào chảo rang chín, bỏ vỏ, giã giập. Cho các loại rau (trừ răm) vào trộn với 1 muỗng dấm, 1 thìa cà phê đường, 1 chút muối vào trộn, đảo đều.
+
+Pha nước mắm chua cay mặn ngọt theo tỷ lệ: 1 mắm, 1 đường, 1 chanh, 4 nước lọc (tùy khẩu vị mà gia giảm), rồi cho ớt, tỏi băm nhỏ đổ vào rau. Cho tôm, thịt vào thố rồi rưới nước mắm vào đảo đều, để 15 phút cho ngấm.
+
+Trước khi ăn hãy cho rau răm, lạc rang giã trộn lên rồi ăn. Gỏi rau chùm ngây trộn tôm thịt thanh mát, vị ngọt của tôm, vị thơm của thịt, vị bùi của rau chùm ngây, vị cay cay của rau răm rất lạ và ngon miệng.
+
+Rau chùm ngây làm nước uống
+
+Xay 20gr lá chung với 2 muỗng cafe sữa, 2 muỗng café đường sữa uống như uống sinh tố.
+
+Món canh
+
+Canh nghêu nấu chua
+
+-1kg nghêu sống, 1 cây bạc hà (hoặc dọc mùng), 5 trái đậu bắp, 1 trái cà chua, 1/4 thơm (dứa), 50g me, ớt sừng, tỏi, muối, mắm, bột nêm, đường, dầu ăn, rau ngò gai, ngổ.
+
+-Ngâm nghêu trong nước muối loãng 2 giờ, mỗi giờ thay nước 1 lần cho sạch cát rồi luộc, tách thịt, bỏ vỏ. Giữ lại nước luộc nghêu.
+
+-Sơ chế các loại rau nguyên liệu.
+
+Phi thơm tỏi. Xào cà chua nhuyễn. Vắt nước me và đổ dứa đã cắt nhỏ vào nồi nước luộc nghêu. Đổ nghêu vào nồi đun sôi thì cho tiếp bạc hà, đậu bắp. Nêm muối, mắm, bột nêm, đường vừa ăn. Đun sôi thêm 2 phút thì tắt bếp.
+
+-Ăn nóng cùng ngò gai, ngổ thái nhỏ, ớt sừng cắt lát.
+
+Canh ngao mùng tơi
+
+-Ngao: 1 kg
+
+-Mồng tơi nhặt sạch (nên để cả lá ăn sẽ ngon hơn).
+
+-Gia vị (bột canh, bột nêm, mì chính).
+
+Ngao tươi sơ chế. Nhặt ruột, bỏ vỏ. Gạn nước luộc đun sôi. Thả rau mồng
+
+tơi vào (nhớ đun lửa to để rau xanh) đun 2-3 phút. Cho thịt ngao vào. Nêm vừa ăn.
+
+Canh cá nấu chua kiểu miền Trung
+
+-Cá diêu hồng (cá trắm, cá quả…), cà chua, dọc mùng, dứa, đậu bắp, giá đỗ.
+
+- Nước mắm, gia vị, chút đường. Me khô, ớt, hành lá, hành tím, rau ngổ.
+
+Cá sơ chế, cắt khúc. Dọc mùng tước vỏ, thái lát, bóp muối.
+
+Cà chua bổ múi cau, dứa thái lát. Đậu bắp cắt bỏ cuống, thái lát.
+
+Phi thơm hành tím, cho cà chua vào xào chín, nêm chút mắm. Đổ nước sôi vào, nêm gia vị vừa ăn.
+
+Đổ nước me lọc từ từ vào nồi cá. Cho dứa vào trước để nước nấu ngọt và thơm. Trút cá vào nấu chín rồi vớt ra để riêng.
+
+Đổ dọc mùng, đậu bắp vào nấu 3 phút cho mềm rồi mới cho giá đỗ vào tiếp. Đun sôi nước lại rồi đổ cá vào nồi, rắc hành ngổ, ăn nóng.
+
+Vài nguyên tắc nấu ăn mùa hè
+-Mùa hè nóng nực thực phẩm dễ ôi thiu, người dân cần chọn mua thực phẩm tươi, sạch để có bữa ăn ngon, an toàn.
+Thịt, tôm, cá… mua về nên rửa sạch, cho vào túi ni lông, hộp nhựa cất vào tủ lạnh. Rau xanh cần rửa dưới vòi nước sạch nhiều lần, ngâm kỹ rồi mới chế biến để không mất vitamin. Rau quả tươi để vào ngăn mát của tủ lạnh.
+-Nên dùng nhiều loại thức ăn, thường xuyên thay đổi món ăn để trẻ và mọi người dễ ăn, ngon miệng, và đủ dinh dưỡng.
+-Hãy nấu nhiều hơn ngày thường nhóm thực phẩm có tính giải nhiệt như rau ngót, rau muống, rau bí, rau rền, mướp, mứơp đắng, dưa chuột…
+-Trẻ em và người già cần ăn các món nhiều nước như cháo, súp, bún, mì, phở… Hoặc bổ sung bữa ăn phụ bổ mát như chè hạt sen, sữa, sữa chua… Ăn sữa chua 1-2 cốc/ngày để tiêu hoá tốt, hoặc uống thêm 400- 500ml sữa/ngày. Có thể uống sữa tươi, sữa bột nguyên kem.
+-Mùa hè nên giảm chất béo, hạn chế các món xào, rán dùng các chất mỡ bão hòa, dầu mỡ động vật.
+Nếu muốn ăn nên dùng chất béo lành tính dễ hấp thu có trong dầu thực vật, cá hồi, cá sa ba, cá ngừ…
+-Bảo đảm vệ sinh khi chế biến thức ăn (rửa tay sạch, sơ chế và bảo quản thực phẩm tốt…) để tránh nhiễm khuẩn.
+-Thức ăn cần nấu chín kỹ và ăn ngay sau khi nấu.
+Nếu chưa ăn ngay cần để nơi thoáng mát, đậy kín để tránh ruồi muỗi. Khi thức ăn đã nguội mới cất trong tủ lạnh.</string>
+
+	<string name="trading_title_1">Nông sản sấy khô</string>
+	<string name="trading_content_1">Chung tôi tìm đối tác có năng lực xk nông sản và dược liệu sấy khô 
+( tiêu chuổn korea)!
+- sx bột mỷ phẩm, hương mỷ phẩm
+- sx trà đóng gói và đóng hộp
+- sx thực phẩm chức năng 
+- sx bào chế thuốc đông y và tây y
+- sx bột và hương vị thực phẩm
+TÊN SẢN PHẪM
+1: KHỔ QUA CẮT LÁT SẤY KHÔ(mướp đắng) 
+- dạng lát (A)
+- dạng lát (B) 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+2: DƯA LEO SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+3: MƯỚP HƯƠNG SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+4: CÀ RỐT SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+5: CỦ CẢI SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+6: ĐU ĐỦ CẮT LÁT SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+7: CÂY SẢ SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+8: BẮP CẢI SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+9: LÁ DIẾP CÁ SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+10: CAU SỌ PHƠI KHÔ
+- dạng sọ cau 
+- dạng cát lát
+- dạng chẻ hai 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+11: SỌ CAU NON SẤY KHÔ
+- dạng lát 
+- dạng chẻ hai 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+12: CAU NON NGUYÊN QUẢ SẤY KHÔ
+- nguyên quả khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+13: VỎ CAU SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+14: VỎ CHÔM CHÔM SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+15: VỎ MĂNG CỤT SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+16: VỎ BƯỞI SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+17: VỎ CAM SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+18: VỎ QUÝT SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+19: VỎ CHANH ZAY SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+20: VỎ KACAO SẤY KHÔ
+- dạng vỏ 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+21: LÁ MẢNG CẦU SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+22: LÁ CHÔM CHÔM SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+23: VỎ XOÀI SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+24: GỪNG SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+25: CỦ NGHỆ SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+26: CÂY LỤC BÌNH SẤY KHÔ
+- dạng thân và lá khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+27: CÂY CỎ NGỌT SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+28: CÂY CHÙM SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+29: RAU MUỐNG SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+30: CÂY MÔN SẤY KHÔ
+- dạng bào lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+30: KHOAI LANG SẤY KHÔ
+- dạng lát 
+- Dạng bột cám
+- dạng bột mịn
+>>> LHP: Quốc Tế để biết chi tiết gia cả.</string>
+<string name="trading_title_2">Cung cấp khổ qua bột</string>
+<string name="trading_content_2">Chung tôi tìm đối tác có năng lực xk nông sản và dược liệu sấy khô 
+( tiêu chuổn korea)!
+- sx bột mỷ phẩm, hương mỷ phẩm
+- sx trà đóng gói và đóng hộp
+- sx thực phẩm chức năng 
+- sx bào chế thuốc đông y và tây y
+- sx bột và hương vị thực phẩm
+TÊN SẢN PHẪM
+1: KHỔ QUA CẮT LÁT SẤY KHÔ(mướp đắng) 
+- dạng lát (A)
+- dạng lát (B) 
+- dạng lát phơi khô (C)
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+2: DƯA LEO SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+3: MƯỚP HƯƠNG SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+4: CÀ RỐT SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+5: CỦ CẢI SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+6: ĐU ĐỦ CẮT LÁT SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+7: CÂY SẢ SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+8: BẮP CẢI SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+9: LÁ DIẾP CÁ SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+10: CAU SỌ PHƠI KHÔ
+- dạng sọ cau 
+- dạng cát lát
+- dạng chẻ hai 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+11: SỌ CAU NON SẤY KHÔ
+- dạng lát 
+- dạng chẻ hai 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+12: CAU NON NGUYÊN QUẢ SẤY KHÔ
+- nguyên quả khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+13: VỎ CAU SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+14: VỎ CHÔM CHÔM SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+15: VỎ MĂNG CỤT SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+16: VỎ BƯỞI SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+17: VỎ CAM SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+18: VỎ QUÝT SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+19: VỎ CHANH ZAY SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+20: VỎ KACAO SẤY KHÔ
+- dạng vỏ 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+21: LÁ MẢNG CẦU SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+22: LÁ CHÔM CHÔM SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+23: VỎ XOÀI SẤY KHÔ
+- dạng vỏ khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+24: GỪNG SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+25: CỦ NGHỆ SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+26: CÂY LỤC BÌNH SẤY KHÔ
+- dạng thân và lá khô 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+27: CÂY CỎ NGỌT SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+28: CÂY CHÙM SẤY KHÔ
+- dạng lá 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+29: RAU MUỐNG SẤY KHÔ
+- dạng lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+30: CÂY MÔN SẤY KHÔ
+- dạng bào lát 
+- Dạng bột trà 
+- Dạng bột cám
+- dạng bột mịn
+30: KHOAI LANG SẤY KHÔ
+- dạng lát 
+- Dạng bột cám
+- dạng bột mịn</string>
+</resources>

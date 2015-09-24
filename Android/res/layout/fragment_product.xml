@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingBottom="10dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/product_title_1"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_largest"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/add_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@xml/add_bg"
+                    android:gravity="center"
+                    android:text="@string/add"
+                    android:textColor="@color/list_background"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+
+            <com.android.nso.extras.ExpandableHeightGridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:dividerHeight="0dp"
+                android:horizontalSpacing="7dp"
+                android:verticalSpacing="7dp"
+                android:numColumns="2"
+                android:scrollbarSize="10dp"
+                android:scrollbars="none"/>
+
+            <!-- GridView 2 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/product_title_2"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_largest"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/add_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@xml/add_bg"
+                    android:gravity="center"
+                    android:text="@string/add"
+                    android:textColor="@color/list_background"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+
+            <com.android.nso.extras.ExpandableHeightGridView
+                android:id="@+id/gridView_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:dividerHeight="0dp"
+                android:horizontalSpacing="7dp"
+                android:verticalSpacing="7dp"
+                android:numColumns="2"
+                android:scrollbarSize="10dp"
+                android:scrollbars="none" />
+            <!-- GridView 3 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/product_title_3"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_largest"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/add_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@xml/add_bg"
+                    android:gravity="center"
+                    android:text="@string/add"
+                    android:textColor="@color/list_background"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+
+            <com.android.nso.extras.ExpandableHeightGridView
+                android:id="@+id/gridView_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:dividerHeight="0dp"
+                android:horizontalSpacing="7dp"
+                android:verticalSpacing="7dp"
+                android:numColumns="2"
+                android:scrollbarSize="10dp"
+                android:scrollbars="none" />
+
+            <!-- GridView 4 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/product_title_4"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_largest"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/add_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@xml/add_bg"
+                    android:gravity="center"
+                    android:text="@string/add"
+                    android:textColor="@color/list_background"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+
+            <com.android.nso.extras.ExpandableHeightGridView
+                android:id="@+id/gridView_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:dividerHeight="0dp"
+                android:horizontalSpacing="7dp"
+                android:verticalSpacing="7dp"
+                android:numColumns="2"
+                android:scrollbarSize="10dp"
+                android:scrollbars="none" />
+
+            <!-- GridView 5 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/product_title_5"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_largest"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/add_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@xml/add_bg"
+                    android:gravity="center"
+                    android:text="@string/add"
+                    android:textColor="@color/list_background"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+
+            <com.android.nso.extras.ExpandableHeightGridView
+                android:id="@+id/gridView_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:dividerHeight="0dp"
+                android:horizontalSpacing="7dp"
+                android:verticalSpacing="7dp"
+                android:numColumns="2"
+                android:scrollbarSize="10dp"
+                android:scrollbars="none" />
+
+            <!-- GridView 6 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/product_title_6"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_largest"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/add_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@xml/add_bg"
+                    android:gravity="center"
+                    android:text="@string/add"
+                    android:textColor="@color/list_background"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+            <com.android.nso.extras.ExpandableHeightGridView
+                android:id="@+id/gridView_6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:dividerHeight="0dp"
+                android:horizontalSpacing="7dp"
+                android:verticalSpacing="7dp"
+                android:numColumns="2"
+                android:scrollbarSize="10dp"
+                android:scrollbars="none" />
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.v4.widget.SwipeRefreshLayout>

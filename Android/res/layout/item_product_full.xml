@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@xml/item_full_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical" >
+
+        <!-- <View -->
+        <!-- android:layout_width="match_parent" -->
+        <!-- android:layout_height="1px" -->
+        <!-- android:background="@color/color_e0e0e0" /> -->
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/search_hint"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <com.android.nso.extras.StretchyImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_carot" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ProgressBar
+                    android:id="@+id/loading"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:indeterminateDrawable="@drawable/progressbar"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- <View -->
+        <!-- android:layout_width="match_parent" -->
+        <!-- android:layout_height="1dp" -->
+        <!-- android:layout_marginLeft="5dp" -->
+        <!-- android:layout_marginRight="5dp" -->
+        <!-- android:background="@color/color_e0e0e0" /> -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address"
+                    android:textColor="@color/text_color_disable"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="Cau Giay - Ha Noi"
+                    android:textColor="@color/text_color_disable"
+                    android:textSize="@dimen/text_medium"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="@string/price"
+                    android:textColor="@color/text_color_disable"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="16.000 VND"
+                    android:textColor="@color/secondary_action_bar"
+                    android:textSize="@dimen/text_medium"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="@string/updated_at"
+                    android:textColor="@color/text_color_disable"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/updated_at"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05-09-2015 9:00 AM"
+                    android:textColor="@color/action_bar"
+                    android:textSize="@dimen/text_medium"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="@string/region"
+                    android:textColor="@color/text_color_disable"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/region"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nam"
+                    android:textColor="@color/text_color_disable"
+                    android:textSize="@dimen/text_medium"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/test_des"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
+
+        <!-- <View -->
+        <!-- android:layout_width="match_parent" -->
+        <!-- android:layout_height="1px" -->
+        <!-- android:background="@color/color_e0e0e0" /> -->
+    </LinearLayout>
+
+</ScrollView>

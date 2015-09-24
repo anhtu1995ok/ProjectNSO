@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+<!--     <FrameLayout -->
+<!--         android:layout_width="match_parent" -->
+<!--         android:layout_height="wrap_content" > -->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="@string/trick_title_1"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_largest"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/add_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@xml/add_bg"
+                        android:gravity="center"
+                        android:text="@string/add"
+                        android:textColor="@color/list_background"
+                        android:textSize="@dimen/text_medium" />
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@xml/trick_listview_bg"
+                    android:divider="@color/color_e0e0e0"
+                    android:dividerHeight="1px"
+                    android:numColumns="1"
+                    android:scrollbars="none" />
+                <!-- 2 -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="@string/trick_title_2"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_largest"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/add_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@xml/add_bg"
+                        android:gravity="center"
+                        android:text="@string/add"
+                        android:textColor="@color/list_background"
+                        android:textSize="@dimen/text_medium" />
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/listView_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@xml/trick_listview_bg"
+                    android:divider="@color/color_e0e0e0"
+                    android:dividerHeight="1px"
+                    android:numColumns="1"
+                    android:scrollbars="none" />
+                <!-- 3 -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="@string/trick_title_3"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_largest"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/add_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@xml/add_bg"
+                        android:gravity="center"
+                        android:text="@string/add"
+                        android:textColor="@color/list_background"
+                        android:textSize="@dimen/text_medium" />
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/listView_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@xml/trick_listview_bg"
+                    android:divider="@color/color_e0e0e0"
+                    android:dividerHeight="1px"
+                    android:numColumns="1"
+                    android:scrollbars="none" />
+                <!-- 4 -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="@string/trick_title_4"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_largest"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/add_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@xml/add_bg"
+                        android:gravity="center"
+                        android:text="@string/add"
+                        android:textColor="@color/list_background"
+                        android:textSize="@dimen/text_medium" />
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/listView_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@xml/trick_listview_bg"
+                    android:divider="@color/color_e0e0e0"
+                    android:dividerHeight="1px"
+                    android:numColumns="1"
+                    android:scrollbars="none" />
+            </LinearLayout>
+        </ScrollView>
+
+<!--         <LinearLayout -->
+<!--             android:id="@+id/add_layout" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:layout_gravity="bottom|right" -->
+<!--             android:layout_marginBottom="30dp" -->
+<!--             android:layout_marginRight="30dp" > -->
+
+<!--             <ImageView -->
+<!--                 android:layout_width="50dp" -->
+<!--                 android:layout_height="50dp" -->
+<!--                 android:background="@xml/trick_add_bg" -->
+<!--                 android:src="@drawable/ic_search" /> -->
+<!--         </LinearLayout> -->
+<!--     </FrameLayout> -->
+
+</android.support.v4.widget.SwipeRefreshLayout>

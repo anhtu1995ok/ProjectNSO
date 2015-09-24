@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondary_action_bar"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingRight="15dp" 
+    android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_onclick"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp" >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_search" />
+
+        <TextView
+            android:id="@+id/input"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:hint="@string/search_hint"
+            android:background="@null"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:textColor="@color/list_background"
+            android:textColorHint="@drawable/text_search_selector"
+            android:textSize="@dimen/text_medium" />
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_close"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/sep_light"
+        android:layout_marginTop="5dp" />
+
+</LinearLayout>
