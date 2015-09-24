@@ -235,27 +235,27 @@ public class SanPhamView implements Serializable{
             activeIndexTabView = 1;
             MessageUtil.addErrorMessage("Có vẻ như bạn chưa điền đầy đủ thông tin.");
         }
-        
+        String path = "/resource/uploads/sanpham/";
         ArrayList<Anh> arrAnh = new ArrayList<>();
         if(!error){
             if(file1!=null){
                 if(!file1.getFileName().isEmpty()){
                     String fileName1 = System.currentTimeMillis()+file1.getFileName();
-                    if(FileUploadUtil.copyFile(fileName1, file1.getInputstream()))
+                    if(FileUploadUtil.copyFile(path, fileName1, file1.getInputstream()))
                         arrAnh.add(new Anh(-1, fileName1, -1));
                 }
             }
             if(file2!=null){
                 if(!file2.getFileName().isEmpty()){
                     String fileName2 = System.currentTimeMillis()+file2.getFileName();
-                    if(FileUploadUtil.copyFile(fileName2, file2.getInputstream()))
+                    if(FileUploadUtil.copyFile(path, fileName2, file2.getInputstream()))
                         arrAnh.add(new Anh(-1, fileName2, -1));
                 }
             }
             if(file3!=null){
                 if(!file3.getFileName().isEmpty()){
                     String fileName3 = System.currentTimeMillis()+file3.getFileName();
-                    if(FileUploadUtil.copyFile(fileName3, file3.getInputstream()))
+                    if(FileUploadUtil.copyFile(path, fileName3, file3.getInputstream()))
                         arrAnh.add(new Anh(-1, fileName3, -1));
                 }
             }
@@ -288,7 +288,7 @@ public class SanPhamView implements Serializable{
                 activeIndexTabView = 0;
             }else{
                 activeIndexTabView = 1;
-                MessageUtil.addSuccessMessage((String)result.get("error_msg"));
+                MessageUtil.addErrorMessage((String)result.get("error_msg"));
             }
         }
     }

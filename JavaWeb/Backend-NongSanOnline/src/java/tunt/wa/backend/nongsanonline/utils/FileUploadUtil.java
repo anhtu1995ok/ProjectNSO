@@ -83,4 +83,18 @@ public class FileUploadUtil {
             return false;
         }
     }
+    
+    public static boolean deleteFile(String path, String fileName){
+        ExternalContext extContext=FacesContext.getCurrentInstance().getExternalContext();
+        String destination = extContext.getRealPath(path);
+        try {
+            File file = new File(destination+"/"+fileName);
+            if(file.delete())
+                return true;
+            else
+                return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

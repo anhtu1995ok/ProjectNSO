@@ -14,7 +14,7 @@
         <ui:include src="template/header.xhtml"/>
         <p:layout style="min-width:400px; height:550px; margin-top: 5px;" id="layout" >
             <!--LEFT-->
-            <p:layoutUnit position="west" resizable="true" size="200" minSize="200" maxSize="300" header="Quản lý quản trị viên" collapsible="true">
+            <p:layoutUnit position="west" resizable="true" size="200" minSize="200" maxSize="300" header="Quản lý quản trị viên" collapsible="true" visible="false">
                 <h:form>
                     <p:panelMenu>
                         <p:submenu label="Trạng thái">
@@ -51,7 +51,7 @@
                                     <p:commandLink value="#{sanPham.ten}" action="#{sanPhamView.setSelectedSP(sanPham)}" update="form-detail" oncomplete="PF('dialogDetailItem').show();"/>
                                 </p:column>
                                 <p:column headerText="Ảnh">
-                                    <h:graphicImage url="#{sanPham.anh.get(0).url}" height="30">
+                                    <h:graphicImage url="/resource/uploads/sanpham/#{sanPham.anh.get(0).addUrl}" height="30">
                                         <p:ajax event="click" listener="#{sanPhamView.setSelectedSP(sanPham)}" update="form-zoom-image" oncomplete="PF('dialogZoomImage').show()"/>
                                     </h:graphicImage>
                                 </p:column>
@@ -153,7 +153,7 @@
                 <p:layout style="width: 600px; height: 400px">
                     <p:layoutUnit position="west" resizable="false" size="262" style="width: 260px; height: 160px">
                         <p:galleria value="#{sanPhamView.selectedSP.anh}" var="anh" panelHeight="150" panelWidth="250"  showCaption="false">
-                            <p:graphicImage url="#{anh.url}" alt="#{anh.url}" title="#{anh.url}" height="150"/>
+                            <p:graphicImage url="/resource/uploads/sanpham/#{anh.addUrl}" alt="#{anh.addUrl}" title="#{anh.addUrl}" height="150"/>
                         </p:galleria>
                     </p:layoutUnit>
 
@@ -187,7 +187,7 @@
         <!--Show dialog chi tiet-->
         <h:form id="form-zoom-image">
         <p:dialog widgetVar="dialogZoomImage" modal="true" header="Ảnh - #{sanPhamView.selectedSP.ten}" resizable="false" draggable="false">
-            <h:graphicImage height="400" url="#{sanPhamView.selectedSP.anh.get(0).url}"/>
+            <h:graphicImage height="400" url="/resource/uploads/sanpham/#{sanPhamView.selectedSP.anh.get(0).addUrl}"/>
         </p:dialog>
         </h:form>
     </h:body>

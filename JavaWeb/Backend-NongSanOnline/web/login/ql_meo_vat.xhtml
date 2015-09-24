@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Nông sản Online - Quản lý mẹo vặt</title>
+        <link rel="stylesheet" href="../css/fileupload.css" type="text/css"/>
+        <link rel="stylesheet" href="../css/default.css" type="text/css"/>
+    </h:head>
+    <h:body>
+        <ui:include src="template/header.xhtml"/>
+        <p:layout style="min-width:400px; height:550px; margin-top: 5px;" id="layout" >
+            <!--LEFT-->
+            <p:layoutUnit position="west" resizable="true" size="200" minSize="200" maxSize="300" header="Quản lý quản trị viên" collapsible="true" visible="false">
+                <h:form>
+                    <p:panelMenu>
+                        <p:submenu label="Trạng thái">
+                            <p:menuitem value="Tất cả" actionListener="#{quanTriVienView.loc('all')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search" />
+                            <p:menuitem value="Kích hoạt" actionListener="#{quanTriVienView.loc('kichhoat')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search"/>
+                            <p:menuitem value="Tạm dừng" actionListener="#{quanTriVienView.loc('tamdung')}" update=":tabview:form-list" ajax="true" icon="ui-icon-search"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+            <!--CENTER-->
+            <p:layoutUnit position="center">
+                <p:growl autoUpdate="true"/>
+                <p:tabView id="tabview" activeIndex="#{meoVatView.activeIndexTabView}">
+                    <p:tab title="Danh sách mẹo vặt">
+                        <h:form id="form-list">
+                            <p:dataTable var="meoVat"
+                                        resizableColumns="true"
+                                        scrollable="true" scrollHeight="410"
+                                        id="list"
+                                        rowIndexVar="rowIndex"
+                                        value="#{meoVatView.arrMeoVat}"
+                                        rowKey="#{meoVat.id}"
+                                        rows="20"
+                                        paginator="true"
+                                        paginatorPosition="bottom"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="20,50,100">
+                                <p:column headerText="STT" width="30">
+                                    <h:outputText value="#{rowIndex+1}" />
+                                </p:column>
+
+                                <p:column headerText="Tiêu đề">
+                                    <p:commandLink value="#{meoVat.tieuDe}" action="#{meoVatView.setSelectedMV(meoVat)}" update="form-detail" oncomplete="PF('dialogDetailItem').show();"/>
+                                </p:column>
+                                <p:column headerText="Mô tả">
+                                    <h:outputText value="#{meoVat.noiDung}"/>
+                                </p:column>
+                                <p:column headerText="Kiểu">
+                                    <h:outputText value="#{meoVat.tenKieu}"/>
+                                </p:column>
+                                <p:column headerText="Trạng thái" width="120">
+                                    <p:commandButton icon="#{meoVat.iconTrangThai}" value="#{meoVat.tenTrangThai}" action="#{meoVatView.setSelectedMV(meoVat)}" oncomplete="PF('dialogChangeStatus').show();" update="form-change-status"/>
+                                </p:column>
+
+                                <p:column headerText="Hành động" style="width: 120px;">
+                                    <p:commandButton action="#{meoVatView.setSelectedMV(meoVat)}" icon="ui-icon ui-icon-pencil" update="form-update" oncomplete="PF('dialogUpdateItem').show();"/>
+                                    <p:commandButton action="#{meoVatView.setSelectedMV(meoVat)}" icon="ui-icon-trash" update="form-delete" oncomplete="PF('dialogDelOneItem').show();"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </p:tab>
+                    <p:tab title="Thêm mẹo vặt">
+                        <h:form id="form-insert" enctype="multipart/form-data">
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Tiêu đề *:"/>
+                                <p:inputText value="#{meoVatView.tieuDe}" placeholder="Nhập tiêu đề"  style="width: 600px"/>
+                                <h:outputText value="Nội dung *:"/>
+                                <p:inputTextarea value="#{meoVatView.noiDung}" placeholder="Nhập nội dung" style="width: 600px"/>
+                                <h:outputText value="Ảnh mô tả *:"/>
+                                <h:panelGrid columns="1">
+                                    <p:fileUpload value="#{meoVatView.uploadedFile1}" label="Chọn tệp tin" multiple="false" mode="simple" skinSimple="true" accept=".png,.jpeg,.jpg,.gif"/>
+                                    <p:fileUpload value="#{meoVatView.uploadedFile2}" label="Chọn tệp tin" multiple="false" mode="simple" skinSimple="true" accept=".png,.jpeg,.jpg,.gif"/>
+                                    <p:fileUpload value="#{meoVatView.uploadedFile3}" label="Chọn tệp tin" multiple="false" mode="simple" skinSimple="true" accept=".png,.jpeg,.jpg,.gif"/>
+                                </h:panelGrid>
+                                <h:outputText value="Kiểu *:"/>
+                                <p:selectOneMenu value="#{meoVatView.kieu}">
+                                    <f:selectItem itemLabel="Chọn kiểu" itemValue="" />
+                                    <f:selectItem itemLabel="Sản xuất" itemValue="sanxuat" />
+                                    <f:selectItem itemLabel="Chế biến" itemValue="chebien" />
+                                </p:selectOneMenu>
+                                <p:commandButton value="Thêm" actionListener="#{meoVatView.them()}" update="form-insert :tabview:form-list" ajax="false"></p:commandButton>
+                                <p:commandButton value="Nhập lại" type="reset"  onclick="PF('editorWidget').clear();"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </p:tab>
+                </p:tabView>
+            </p:layoutUnit>
+        </p:layout>
+        <ui:include src="template/footer.xhtml"/>
+        <!--Show dialog xac nhan xoa 1 item-->
+        <p:dialog widgetVar="dialogDelOneItem" modal="true" header="Xác nhận xóa" resizable="false" draggable="false">
+            <h:form id="form-delete">
+                <p:outputPanel id="itemDetail" style="text-align:center;">
+                    <h:outputText value="Bạn có thật sự muốn xóa #{meoVatView.selectedMV.tieuDe}?"/>
+                </p:outputPanel>
+                <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 10px" action="#{meoVatView.xoa()}" update=":tabview:form-list" oncomplete="PF('dialogDelOneItem').hide();"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogDelOneItem').hide();"/>
+            </h:form>
+        </p:dialog>
+        <!--Show dialog chinh sua-->
+        <p:dialog widgetVar="dialogUpdateItem" modal="true" header="Cập nhật thông tin" resizable="false" draggable="false">
+            <h:form id="form-update">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Tiêu đề *:"/>
+                        <p:inputText value="#{meoVatView.tieuDe}" placeholder="Nhập tiêu đề"  style="width: 600px"/>
+                        <h:outputText value="Nội dung *:"/>
+                        <p:inputTextarea value="#{meoVatView.noiDung}" placeholder="Nhập nội dung" style="width: 600px" autoResize="false"/>
+                        <h:outputText value="Kiểu *:"/>
+                        <p:selectOneMenu value="#{meoVatView.kieu}">
+                            <f:selectItem itemLabel="Chọn kiểu" itemValue="" />
+                            <f:selectItem itemLabel="Sản xuất" itemValue="sanxuat" />
+                            <f:selectItem itemLabel="Chế biến" itemValue="chebien" />
+                        </p:selectOneMenu>
+                </h:panelGrid>
+                <p:commandButton value="Cập nhật" icon="ui-icon-check" style="margin-top: 10px" action="#{meoVatView.sua()}" update=":tabview:form-list"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogUpdateItem').hide();"/>
+            </h:form>
+        </p:dialog>
+        <!--Show dialog chi tiet-->
+        <h:form id="form-detail">
+            <p:dialog widgetVar="dialogDetailItem" modal="true" header="Chi tiết: #{meoVatView.selectedMV.tieuDe}" resizable="false" draggable="false" position="center" dynamic = "true">
+                <p:layout style="width: 600px; height: 400px">
+                    <p:layoutUnit position="west" resizable="false" size="262" style="width: 260px; height: 160px">
+                        <p:galleria value="#{meoVatView.selectedMV.anh}" var="anh" panelHeight="150" panelWidth="250"  showCaption="false">
+                            <p:graphicImage url="/resource/uploads/meovat/#{anh.addUrl}" alt="#{anh.addUrl}" title="#{anh.addUrl}" height="150"/>
+                        </p:galleria>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Tiêu đề:"/>
+                            <h:outputText value="#{meoVatView.selectedMV.tieuDe}"/>
+                            <h:outputText value="Kiểu:"/>
+                            <h:outputText value="#{meoVatView.selectedMV.tenKieu}"/>
+                            <h:outputText value="Trạng thái:"/>
+                            <h:outputText value="#{meoVatView.selectedMV.tenTrangThai}"/>
+                        </h:panelGrid>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" size="175">
+                        <h:outputText value="Nội dung: "/>
+                        <h:outputText value="#{meoVatView.selectedMV.noiDung}"/>
+                    </p:layoutUnit>
+                </p:layout>
+            </p:dialog>
+        </h:form>
+        <!--Show dialog xac nhan xoa 1 item-->
+        <p:dialog widgetVar="dialogChangeStatus" modal="true" header="Thay đổi trạng thái" resizable="false" draggable="false">
+            <h:form id="form-change-status">
+                <p:outputPanel id="itemDetail" style="text-align:center;">
+                    <h:outputText value="Đổi trạng thái sang #{meoVatView.selectedMV.doiTrangThai}?"/>
+                </p:outputPanel>
+                <p:commandButton value="Xác nhận" icon="ui-icon-check" style="margin-top: 10px" action="#{meoVatView.thayDoiTrangThai()}" update=":tabview:form-list" oncomplete="PF('dialogChangeStatus').hide();"/>
+                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('dialogChangeStatus').hide();"/>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

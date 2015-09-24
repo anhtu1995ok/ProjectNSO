@@ -96,3 +96,27 @@ INNER JOIN nguoidung c
 ON a.taoboi = c.id
 WHERE kiemduyet = 'chuaduyet'
 ORDER BY id ASC;
+
+INSERT INTO meovat VALUES (N'Tiêu đề 1', N'Nội dung 1', 'sanxuat', 'kichhoat');
+INSERT INTO meovat VALUES (N'Tiêu đề 2', N'Nội dung 2', 'chebien', 'kichhoat');
+INSERT INTO meovat VALUES (N'Tiêu đề 3', N'Nội dung 3', 'sanxuat', 'kichhoat');
+INSERT INTO meovat VALUES (N'Tiêu đề 4', N'Nội dung 4', 'chebien', 'kichhoat');
+INSERT INTO meovat VALUES (N'Tiêu đề 5', N'Nội dung 5', 'sanxuat', 'kichhoat');
+INSERT INTO meovat VALUES (N'Tiêu đề 6', N'Nội dung 6', 'sanxuat', 'kichhoat');
+
+SELECT * FROM meovat;
+
+INSERT INTO meovat_anh VALUES ('aa.jpg', 1);
+INSERT INTO meovat_anh VALUES ('aa.jpg', 1);
+INSERT INTO meovat_anh VALUES ('aa.jpg', 1);
+INSERT INTO meovat_anh VALUES ('aa.jpg', 2);
+INSERT INTO meovat_anh VALUES ('aa.jpg', 2);
+INSERT INTO meovat_anh VALUES ('aa.jpg', 3);
+INSERT INTO meovat_anh VALUES ('aa.jpg', 3);
+INSERT INTO meovat_anh VALUES ('aa.jpg', 4);
+INSERT INTO meovat_anh VALUES ('aa.jpg', 5);
+INSERT INTO meovat_anh VALUES ('aa.jpg', 6);
+INSERT INTO meovat_anh VALUES ('aa.jpg', 6);
+INSERT INTO meovat_anh VALUES ('aa.jpg', 6);
+
+SELECT * FROM meovat_anh;
