@@ -3,7 +3,10 @@ package com.android.nso.adapter;
 import java.util.ArrayList;
 
 import com.android.nso.R;
+import com.android.nso.extras.StretchyImageView;
 import com.android.nso.model.News;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,10 +14,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class NewsAdapter extends BaseAdapter {
 	private Context context;
@@ -53,21 +54,15 @@ public class NewsAdapter extends BaseAdapter {
 		} else {
 			convertView = LayoutInflater.from(context).inflate(resource, null, false);
 			viewHolder = new ViewHolder();
-			viewHolder.image = (ImageView) convertView.findViewById(R.id.image);
 
 			viewHolder.title = (TextView) convertView.findViewById(R.id.title);
 			viewHolder.description = (TextView) convertView.findViewById(R.id.description);
 			viewHolder.time = (TextView) convertView.findViewById(R.id.time);
 			viewHolder.readmore = (TextView) convertView.findViewById(R.id.readmore);
+			viewHolder.image = (StretchyImageView) convertView.findViewById(R.id.image);
 
 			convertView.setTag(viewHolder);
 		}
-
-		// if (convertView == null) {
-		// LayoutInflater mInflater = (LayoutInflater) context
-		// .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-		// convertView = mInflater.inflate(resource, parent, false);
-		// }
 
 		try {
 
@@ -90,42 +85,34 @@ public class NewsAdapter extends BaseAdapter {
 		} else if (url_image.equals("test_1")) {
 			viewHolder.image.setImageResource(R.drawable.ic_test_new_1);
 		}
-		// if (viewHolder.description.getText().toString().equals(des)) {
-		// viewHolder.description.setText(des);
-		// } else {
-		// viewHolder.description.setText(des.substring(0, 200) + "...");
-		// }
 
-		// image.setImageResource(news.getUrl_image());
+		viewHolder.loadingImage = (ProgressBar) convertView.findViewById(R.id.loading);
 
-		ProgressBar loadingImage = (ProgressBar) convertView.findViewById(R.id.loading);
+		String imageUrl = news.getUrl_image();
+		if (!imageUrl.startsWith("http://") && !imageUrl.startsWith("https://"))
+			imageUrl = "http://" + imageUrl;
+		Picasso.with(context).load(imageUrl).placeholder(R.drawable.no_image).error(R.drawable.no_image)
+				.into(viewHolder.image, new Callback() {
 
-		// String imageUrl = news.getUrl_image();
-		// if (!imageUrl.startsWith("http://") &&
-		// !imageUrl.startsWith("https://"))
-		// imageUrl = "http://" + imageUrl;
-		// Picasso.with(context).load(imageUrl).placeholder(R.drawable.no_image)
-		// .error(R.drawable.no_image).into(image, new Callback() {
-		//
-		// @Override
-		// public void onSuccess() {
-		// loadingImage.setVisibility(View.INVISIBLE);
-		// image.setVisibility(View.VISIBLE);
-		//
-		// }
-		//
-		// @Override
-		// public void onError() {
-		// loadingImage.setVisibility(View.INVISIBLE);
-		// image.setVisibility(View.VISIBLE);
-		// }
-		// });
+					@Override
+					public void onSuccess() {
+						viewHolder.loadingImage.setVisibility(View.INVISIBLE);
+						viewHolder.image.setVisibility(View.VISIBLE);
+
+					}
+
+					@Override
+					public void onError() {
+						viewHolder.loadingImage.setVisibility(View.INVISIBLE);
+						viewHolder.image.setVisibility(View.VISIBLE);
+					}
+				});
 
 		viewHolder.image.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(context, "onImageClick", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(context, "onImageClick", Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -134,7 +121,7 @@ public class NewsAdapter extends BaseAdapter {
 
 	private class ViewHolder {
 
-		ImageView image;
+		StretchyImageView image;
 		TextView title, description, time, readmore;
 		ProgressBar loadingImage;
 
