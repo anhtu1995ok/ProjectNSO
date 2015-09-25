@@ -52,9 +52,9 @@ public class HorizontalListViewAdapter extends ArrayAdapter<Product> {
 			convertView.setTag(viewHolder);
 		}
 		
-		viewHolder.title.setText(product.getName());
+		viewHolder.title.setText(product.getTen());
 		String vnd = context.getResources().getString(R.string.vnd);
-		viewHolder.price.setText(product.getPrice() + " " + vnd);
+		viewHolder.price.setText(product.getGia() + " " + vnd);
 		// image.setImageResource(news.getUrl_image());
 
 		ProgressBar loadingImage = (ProgressBar) convertView.findViewById(R.id.loading);

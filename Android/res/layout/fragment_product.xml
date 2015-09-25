@@ -19,7 +19,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp" >
+                android:layout_margin="15dp"
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -44,6 +45,7 @@
             </LinearLayout>
 
             <com.android.nso.extras.ExpandableHeightGridView
+                android:paddingTop="8dp"
                 android:id="@+id/gridView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -62,7 +64,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp" >
+                android:layout_margin="15dp"
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -98,13 +101,15 @@
                 android:verticalSpacing="7dp"
                 android:numColumns="2"
                 android:scrollbarSize="10dp"
-                android:scrollbars="none" />
+                android:scrollbars="none"
+                android:visibility="gone" />
             <!-- GridView 3 -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp" >
+                android:layout_margin="15dp" 
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -140,14 +145,16 @@
                 android:verticalSpacing="7dp"
                 android:numColumns="2"
                 android:scrollbarSize="10dp"
-                android:scrollbars="none" />
+                android:scrollbars="none" 
+                android:visibility="gone"/>
 
             <!-- GridView 4 -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp" >
+                android:layout_margin="15dp"
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -183,14 +190,16 @@
                 android:verticalSpacing="7dp"
                 android:numColumns="2"
                 android:scrollbarSize="10dp"
-                android:scrollbars="none" />
+                android:scrollbars="none"
+                android:visibility="gone" />
 
             <!-- GridView 5 -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp" >
+                android:layout_margin="15dp"
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -226,14 +235,16 @@
                 android:verticalSpacing="7dp"
                 android:numColumns="2"
                 android:scrollbarSize="10dp"
-                android:scrollbars="none" />
+                android:scrollbars="none"
+                android:visibility="gone" />
 
             <!-- GridView 6 -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp" >
+                android:layout_margin="15dp"
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -268,7 +279,8 @@
                 android:verticalSpacing="7dp"
                 android:numColumns="2"
                 android:scrollbarSize="10dp"
-                android:scrollbars="none" />
+                android:scrollbars="none"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 

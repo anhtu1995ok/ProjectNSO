@@ -18,71 +18,24 @@ public class Product implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private String name, description, price, quantity, created_at, updated_at, url_image, address, province, state;
+	private String ten, gia, moTa, ngayTao, ngayCapNhat, diaChi, tinhThanhId,
+			tenTinhThanh, tenVungMien;
+	private ArrayList<String> arrAnh;
 
-	public Product() {
-
-	}
-
-	public Product(int id, String name, String description, String price
-//			, String quantity
-			, String created_at,
-			String updated_at, String url_image, String address, String province, String state) {
+	public Product(int id, String ten, String gia, String moTa, String ngayTao,
+			String ngayCapNhat, String diaChi, String tinhThanhId,
+			String tenTinhThanh, String tenVungMien, ArrayList<String> arrAnh) {
 		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.price = price;
-//		this.quantity = quantity;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-		this.url_image = url_image;
-		this.address = address;
-		this.province = province;
-		this.state = state;
-	}
-
-	public ArrayList<Product> getData(Context context, ArrayList<Product> data, ListView listView,
-			ProductAdapter adapter) {
-		int max = 10;
-		Log.d("ToanNM", "int max : ===== : " + max);
-		data = new ArrayList<Product>();
-		for (int i = 0; i < max; i++) {
-			data.add(new Product(i, "San pham thu " + i, "", "16.000", "", "", "", "", "", ""));
-		}
-		adapter = new ProductAdapter(context, R.layout.item_product_full, data);
-		listView.setAdapter(adapter);
-		adapter.notifyDataSetChanged();
-
-		return data;
-	}
-
-	public ArrayList<Product> getData(Context context, ArrayList<Product> data, SwipeRefreshLayout swipeRefreshLayout,
-			ListView listView, ProductAdapter adapter) {
-		swipeRefreshLayout.setRefreshing(true);
-
-		int max = 10;
-		Log.d("ToanNM", "int max : ===== : " + max);
-		data = new ArrayList<Product>();
-		String time = Time.getCurrentDate();
-		for (int i = 0; i < max; i++) {
-			data.add(
-					new Product(i, "San pham thu " + i, "", "16.000", "", time, "", "Cau giay - HaNoi", "Nam", ""));
-		}
-		adapter = new ProductAdapter(context, R.layout.item_product_full, data);
-		listView.setAdapter(adapter);
-		adapter.notifyDataSetChanged();
-
-		// stopping swipe refresh
-		swipeRefreshLayout.setRefreshing(false);
-		return data;
-	}
-
-	public String getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
+		this.ten = ten;
+		this.gia = gia;
+		this.moTa = moTa;
+		this.ngayTao = ngayTao;
+		this.ngayCapNhat = ngayCapNhat;
+		this.diaChi = diaChi;
+		this.tinhThanhId = tinhThanhId;
+		this.tenTinhThanh = tenTinhThanh;
+		this.tenVungMien = tenVungMien;
+		this.arrAnh = arrAnh;
 	}
 
 	public int getId() {
@@ -93,76 +46,84 @@ public class Product implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTen() {
+		return ten;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTen(String ten) {
+		this.ten = ten;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getGia() {
+		return gia;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setGia(String gia) {
+		this.gia = gia;
 	}
 
-	public String getPrice() {
-		return price;
+	public String getMoTa() {
+		return moTa;
 	}
 
-	public void setPrice(String price) {
-		this.price = price;
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
 	}
 
-	public String getCreated_at() {
-		return created_at;
+	public String getNgayTao() {
+		return ngayTao;
 	}
 
-	public void setCreated_at(String created_at) {
-		this.created_at = created_at;
+	public void setNgayTao(String ngayTao) {
+		this.ngayTao = ngayTao;
 	}
 
-	public String getUpdated_at() {
-		return updated_at;
+	public String getNgayCapNhat() {
+		return ngayCapNhat;
 	}
 
-	public void setUpdated_at(String updated_at) {
-		this.updated_at = updated_at;
+	public void setNgayCapNhat(String ngayCapNhat) {
+		this.ngayCapNhat = ngayCapNhat;
 	}
 
-	public String getUrl_image() {
-		return url_image;
+	public String getDiaChi() {
+		return diaChi;
 	}
 
-	public void setUrl_image(String url_image) {
-		this.url_image = url_image;
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getTinhThanhId() {
+		return tinhThanhId;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setTinhThanhId(String tinhThanhId) {
+		this.tinhThanhId = tinhThanhId;
 	}
 
-	public String getProvince() {
-		return province;
+	public String getTenTinhThanh() {
+		return tenTinhThanh;
 	}
 
-	public void setProvince(String province) {
-		this.province = province;
+	public void setTenTinhThanh(String tenTinhThanh) {
+		this.tenTinhThanh = tenTinhThanh;
 	}
 
-	public String getState() {
-		return state;
+	public String getTenVungMien() {
+		return tenVungMien;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setTenVungMien(String tenVungMien) {
+		this.tenVungMien = tenVungMien;
+	}
+
+	public ArrayList<String> getArrAnh() {
+		return arrAnh;
+	}
+
+	public void setArrAnh(ArrayList<String> arrAnh) {
+		this.arrAnh = arrAnh;
 	}
 
 }

@@ -4,8 +4,13 @@ import java.util.ArrayList;
 
 import com.android.nso.R;
 import com.android.nso.model.Product;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +30,13 @@ public class ProductAdapter extends BaseAdapter {
 		this.resource = resource;
 		this.data = data;
 	}
-	
+
 	public void notifyDataSetChanged(ArrayList<Product> data) {
 		this.data = data;
-		Log.d("TuNT", "size: "+this.data.size());
+		Log.d("TuNT", "size: " + this.data.size());
 		super.notifyDataSetChanged();
 	}
+
 	@Override
 	public int getCount() {
 		return data.size();
@@ -55,31 +61,53 @@ public class ProductAdapter extends BaseAdapter {
 		if (convertView != null) {
 			viewHolder = (ViewHolder) convertView.getTag();
 		} else {
-			convertView = LayoutInflater.from(context).inflate(resource, null, false);
+			convertView = LayoutInflater.from(context).inflate(resource, null,
+					false);
 			viewHolder = new ViewHolder();
 			viewHolder.image = (ImageView) convertView.findViewById(R.id.image);
 
 			viewHolder.title = (TextView) convertView.findViewById(R.id.title);
 			viewHolder.price = (TextView) convertView.findViewById(R.id.price);
-			viewHolder.address = (TextView) convertView.findViewById(R.id.address);
-			
+			viewHolder.address = (TextView) convertView
+					.findViewById(R.id.address);
+
 			convertView.setTag(viewHolder);
 		}
-		
-		viewHolder.title.setText(product.getName());
-		String vnd = context.getResources().getString(R.string.vnd);
-		viewHolder.price.setText(product.getPrice() + " " + vnd + "/" + product.getQuantity());
-		viewHolder.address.setText(product.getAddress());
-		// image.setImageResource(news.getUrl_image());
-		
-		String url_image = product.getUrl_image();
-		if(url_image.equals("test1")){
-			viewHolder.image.setImageResource(R.drawable.ic_test_product_1);
-		}else if(url_image.equals("test2")){
-			viewHolder.image.setImageResource(R.drawable.ic_test_product_2);
-		}
 
-		ProgressBar loadingImage = (ProgressBar) convertView.findViewById(R.id.loading);
+		viewHolder.title.setText(product.getTen());
+		String vnd = context.getResources().getString(R.string.vnd);
+		viewHolder.price.setText(product.getGia() + " " + vnd);
+		viewHolder.address.setText(product.getDiaChi());
+
+		final ProgressBar loadingImage = (ProgressBar) convertView
+				.findViewById(R.id.loading);
+		loadingImage.setVisibility(View.VISIBLE);
+		
+		if (product.getArrAnh().size() > 0) {
+			String url_image = product.getArrAnh().get(0);
+			Glide.with(context).load(url_image)
+					.placeholder(R.drawable.ic_launcher)
+					.error(R.drawable.ic_launcher)
+					.into(new GlideDrawableImageViewTarget(viewHolder.image) {
+						@Override
+						public void onResourceReady(GlideDrawable drawable,
+								GlideAnimation anim) {
+							super.onResourceReady(drawable, anim);
+							loadingImage.setVisibility(View.GONE);
+						}
+
+						@Override
+						public void onLoadFailed(Exception e,
+								Drawable errorDrawable) {
+							loadingImage.setVisibility(View.GONE);
+							super.onLoadFailed(e, errorDrawable);
+						}
+					});
+
+		} else {
+			viewHolder.image.setImageResource(R.drawable.ic_launcher);
+			loadingImage.setVisibility(View.GONE);
+		}
 
 		// String imageUrl = news.getUrl_image();
 		// if (!imageUrl.startsWith("http://") &&

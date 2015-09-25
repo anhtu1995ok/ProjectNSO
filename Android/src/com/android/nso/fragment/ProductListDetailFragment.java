@@ -32,7 +32,7 @@ public class ProductListDetailFragment extends Fragment {
 		data = new ArrayList<Product>();
 		listView = (ListView) view.findViewById(R.id.listView);
 
-		Product product = new Product();
-		product.getData(getActivity(), data, listView, adapter);
+//		Product product = new Product();
+//		product.getData(getActivity(), data, listView, adapter);
 	}
 }

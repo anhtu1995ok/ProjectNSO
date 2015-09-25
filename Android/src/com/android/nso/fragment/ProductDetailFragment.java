@@ -3,10 +3,12 @@ package com.android.nso.fragment;
 import com.android.nso.R;
 import com.android.nso.extras.StretchyImageView;
 import com.android.nso.model.Product;
+import com.bumptech.glide.Glide;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,18 +46,22 @@ public class ProductDetailFragment extends Fragment {
 
 		String vnd = getActivity().getResources().getString(R.string.vnd);
 
-		title.setText(product.getName());
-		// description.setText(product.getDescription());
-		address.setText(product.getAddress());
-		price.setText(product.getPrice() + " " + vnd + "/" + product.getQuantity());
-		updated_at.setText(product.getUpdated_at());
-		region.setText(product.getProvince());
+		title.setText(product.getTen());
+		description.setText(product.getMoTa());
+		address.setText(product.getDiaChi());
+		price.setText(product.getGia() + " "+vnd);
+		updated_at.setText(product.getNgayCapNhat());
+		region.setText(product.getTenTinhThanh());
 
-		String url_image = product.getUrl_image();
-		if (url_image.equals("test1")) {
-			image.setImageResource(R.drawable.ic_test_product_1);
-		} else if (url_image.equals("test2")) {
-			image.setImageResource(R.drawable.ic_test_product_2);
+		if (product.getArrAnh().size() > 0) {
+			String url_image = product.getArrAnh().get(0);
+			Glide.with(getActivity())
+				.load(url_image)
+				.placeholder(getResources().getDrawable(R.drawable.ic_launcher))
+				.error(R.drawable.ic_launcher)
+				.into(image);
+		}else{
+			image.setImageResource(R.drawable.ic_launcher);
 		}
 	}
 }

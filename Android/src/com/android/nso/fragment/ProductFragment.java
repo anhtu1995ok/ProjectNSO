@@ -60,34 +60,16 @@ public class ProductFragment extends Fragment
 			@Override
 			public void run() {
 				swipeRefreshLayout.setRefreshing(true);
-				initData();
+				data = getDSSanPham();
 			}
 		});
 
 		// init View + Data
 		initGridView(view);
-		initData();
-
+		initView();
 		return view;
 	}
-
-	private void initData() {
-		data = initData(data);
-		// data_2 = initData(data_2);
-		// data_3 = initData(data_3);
-		// data_4 = initData(data_4);
-		// data_5 = initData(data_5);
-		// data_6 = initData(data_6);
-
-		//
-		// resizeArrayList(4, data, gridView, adapter);
-		// resizeArrayList(3, data_2, gridView_2, adapter_2);
-		// resizeArrayList(3, data_3, gridView_3, adapter_3);
-		// resizeArrayList(3, data_4, gridView_4, adapter_4);
-		// resizeArrayList(3, data_5, gridView_5, adapter_5);
-		// resizeArrayList(0, data_6, gridView_6, adapter_6);
-	}
-
+	
 	private void initGridView(View view) {
 		// GridView
 		gridView = (ExpandableHeightGridView) view.findViewById(R.id.gridView);
@@ -140,27 +122,11 @@ public class ProductFragment extends Fragment
 		add_6.setOnClickListener(this);
 	}
 
-	private ArrayList<Product> initData(ArrayList<Product> data) {
-		swipeRefreshLayout.setRefreshing(true);
-		data = getDSSanPham();
-		// int max = 10;
-		// Log.d("ToanNM", "int max : ===== : " + max);
-		// data = new ArrayList<Product>();
-		// String time = Time.getCurrentDate();
-		//
-		// test(data);
-		// for (int i = 0; i < max; i++) {
-		// data.add(new Product(i, "Carot", "", "16.000", "kg", time, "", "",
-		// "Cau giay - HaNoi", "Nam", ""));
-		// }
-
+	private void initView() {
+		data = new ArrayList<Product>();
 		adapter = new ProductAdapter(getActivity(), R.layout.item_product, data);
 		gridView.setAdapter(adapter);
 		scrollView.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_in_bottom));
-		adapter.notifyDataSetChanged();
-		// stopping swipe refresh
-		swipeRefreshLayout.setRefreshing(false);
-		return data;
 	}
 
 	@Override
@@ -188,7 +154,7 @@ public class ProductFragment extends Fragment
 
 	@Override
 	public void onRefresh() {
-		initData();
+		data = getDSSanPham();
 	}
 
 	private void resizeArrayList(int resize, ArrayList<Product> data, ExpandableHeightGridView gridView,
@@ -214,28 +180,6 @@ public class ProductFragment extends Fragment
 
 	}
 
-	// void test(ArrayList<Product> data){
-	// String time = Time.getCurrentDate();
-	// String testTitle_1 =
-	// getActivity().getResources().getString(R.string.test_product_title_1);
-	// String testTitle_2 =
-	// getActivity().getResources().getString(R.string.test_product_title_2);
-	// String testTitle_3 =
-	// getActivity().getResources().getString(R.string.test_product_title_3);
-	// String testAdress_1 =
-	// getActivity().getResources().getString(R.string.test_product_address_1);
-	// String testAdress_2 =
-	// getActivity().getResources().getString(R.string.test_product_address_2);
-	// String testPrice_1 =
-	// getActivity().getResources().getString(R.string.test_product_price_1);
-	// data.add(new Product(11, testTitle_1, "", "16.000", time, "", "test1",
-	// testAdress_1, "Nam", ""));
-	// data.add(new Product(12, testTitle_2, "", "27.000", time, "", "test2",
-	// testAdress_2, "Nam", ""));
-	// data.add(new Product(13, testTitle_3, "", "12.000", time, "test3", "",
-	// testAdress_1, "Nam", ""));
-	// }
-
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		Intent intent = new Intent(getActivity(), SwipeBackActivity.class);
@@ -246,48 +190,43 @@ public class ProductFragment extends Fragment
 	}
 
 	private ArrayList<Product> getDSSanPham() {
-		Log.d("TuNT", "getDSSanPham");
 		String url = getResources().getString(R.string.url_product);
 		final ArrayList<Product> data = new ArrayList<Product>();
 		AsyncHttpClient client = new AsyncHttpClient();
-		RequestParams params = new RequestParams();
-
-		client.get(url, params, new JsonHttpResponseHandler() {
+		client.get(url, null, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				String jsonRead = response.toString();
-				Log.d("ToanNM", "json  : " + jsonRead);
 				if (!jsonRead.isEmpty()) {
 					try {
-						Log.d("TuNT", "okkk");
 						JSONObject object = new JSONObject(jsonRead);
 						JSONArray rows = object.getJSONArray("row");
 
 						for (int i = 0; i < rows.length(); i++) {
 							JSONObject row = rows.getJSONObject(i);
 							int id = row.getInt("id");
-							String ten_vung_mien = row.getString("ten_vung_mien");
-							int tinh_thanh = row.getInt("tinh_thanh");
-							String ngay_tao = row.getString("ngay_tao");
 							String ten = row.getString("ten");
 							String gia = row.getString("gia");
-							String mota = row.getString("mota");
-							String dia_chi = row.getString("dia_chi");
-							String ngay_cap_nhat = row.getString("ngay_cap_nhat");
-							String ten_tinh_thanh = row.getString("ten_tinh_thanh");
+							String moTa = row.getString("mo_ta");
+							String diaChi = row.getString("dia_chi");
+							String ngayTao = row.getString("ngay_tao");
+							String ngayCapNhat = row.getString("ngay_cap_nhat");
+							String tinhThanhId = row.getString("tinh_thanh");
+							String tenTinhThanh = row.getString("ten_tinh_thanh");
+							String tenVungMien = row.getString("ten_vung_mien");
 
-							JSONArray rowss = row.getJSONArray("anh");
-							for (int j = 0; j < rows.length(); j++) {
-								JSONObject rowsss = rowss.getJSONObject(i);
-								url_image = rowsss.getString("url");
+							ArrayList<String> arrAnh = new ArrayList<String>();
+							JSONArray jArrAnh = row.getJSONArray("anh");
+							for (int j = 0; j < jArrAnh.length(); j++) {
+								JSONObject rowsss = jArrAnh.getJSONObject(j);
+								String url_image = rowsss.getString("url");
+								arrAnh.add(url_image);
 							}
-
-							data.add(new Product(id, ten, mota, gia, ngay_tao, ngay_cap_nhat, url_image, dia_chi,
-									ten_tinh_thanh, ""));
+							Product product = new Product(id, ten, gia, moTa, ngayTao, ngayCapNhat, diaChi, tinhThanhId, tenTinhThanh, tenVungMien, arrAnh);
+							data.add(product);
 						}
-						Log.d("TuNT", "notifyDataSetChanged");
 						adapter.notifyDataSetChanged(data);
-
+						swipeRefreshLayout.setRefreshing(false);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -298,12 +237,14 @@ public class ProductFragment extends Fragment
 			@Override
 			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
 				Log.d("TuNT", "onFailure");
+				swipeRefreshLayout.setRefreshing(false);
 				super.onFailure(statusCode, headers, throwable, errorResponse);
 			}
 
 			@Override
 			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 				Log.d("TuNT", "onFailure2");
+				swipeRefreshLayout.setRefreshing(false);
 				super.onFailure(statusCode, headers, responseString, throwable);
 			}
 		});
