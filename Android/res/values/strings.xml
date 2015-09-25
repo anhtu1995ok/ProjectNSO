@@ -2,10 +2,12 @@
 <resources>
 
     <!-- App -->
-    <string name="url_product">http://192.168.2.100:8084/Webservice-NongSanOnline/webresources/frontend/danhsachsanpham</string>
-    <string name="url_news">http://192.168.2.100:8084/Webservice-NongSanOnline/webresources/frontend/danhsachtintuc</string>
-    <string name="url_trading">http://192.168.2.100:8084/Webservice-NongSanOnline/webresources/frontend/danhsachmuaban</string>
-    <string name="url_login">http://192.168.2.100:8084/Webservice-NongSanOnline/webresources/frontend/dangnhap</string>
+    <string name="url_product">http://192.168.56.1:8084/Webservice-NongSanOnline/webresources/frontend/danhsachsanpham</string>
+    <string name="url_news">http://192.168.56.1:8084/Webservice-NongSanOnline/webresources/frontend/danhsachtintuc</string>
+    <string name="url_trading">http://192.168.56.1:8084/Webservice-NongSanOnline/webresources/frontend/danhsachmuaban</string>
+    <string name="url_login">http://192.168.56.1:8084/Webservice-NongSanOnline/webresources/frontend/dangnhap</string>
+    <string name="url_trick1">http://192.168.56.1:8084/Webservice-NongSanOnline/webresources/frontend/danhsachmeovatsanxuat</string>
+    <string name="url_trick2">http://192.168.56.1:8084/Webservice-NongSanOnline/webresources/frontend/danhsachmeovatchebien</string>
     <string name="app_name">Nông sản Online</string>
     <string name="activity_news">Tin tức Nông sản</string>
     <string name="activity_product">Sản phẩm Nông sản</string>

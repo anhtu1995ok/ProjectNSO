@@ -1,6 +1,7 @@
 package com.android.nso.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Trick implements Serializable{
 	/**
@@ -8,63 +9,40 @@ public class Trick implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private String name, content, type, url_image, state;
-
-	public Trick(int id, String name, String content, String type, String url_image, String state) {
+	private String tieuDe, noiDung;
+	private ArrayList<String> arrAnh;
+	
+	public Trick(int id, String tieuDe, String noiDung, ArrayList<String> arrAnh) {
 		this.id = id;
-		this.name = name;
-		this.content = content;
-		this.type = type;
-		this.url_image = url_image;
-		this.state = state;
+		this.tieuDe = tieuDe;
+		this.noiDung = noiDung;
+		this.arrAnh = arrAnh;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getName() {
-		return name;
+	public String getTieuDe() {
+		return tieuDe;
+	}
+	public void setTieuDe(String tieuDe) {
+		this.tieuDe = tieuDe;
+	}
+	public String getNoiDung() {
+		return noiDung;
+	}
+	public void setNoiDung(String noiDung) {
+		this.noiDung = noiDung;
+	}
+	public ArrayList<String> getArrAnh() {
+		return arrAnh;
+	}
+	public void setArrAnh(ArrayList<String> arrAnh) {
+		this.arrAnh = arrAnh;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getUrl_image() {
-		return url_image;
-	}
-
-	public void setUrl_image(String url_image) {
-		this.url_image = url_image;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
+	
 }

@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import com.android.nso.R;
 import com.android.nso.model.Trading;
 import com.android.nso.model.Trick;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +29,11 @@ public class TrickAdapter extends BaseAdapter {
 		this.context = context;
 		this.resource = resource;
 		this.data = data;
+	}
+
+	public void notifyDataSetChanged(ArrayList<Trick> data) {
+		this.data = data;
+		super.notifyDataSetChanged();
 	}
 
 	@Override
@@ -50,53 +60,49 @@ public class TrickAdapter extends BaseAdapter {
 		if (convertView != null) {
 			viewHolder = (ViewHolder) convertView.getTag();
 		} else {
-			convertView = LayoutInflater.from(context).inflate(R.layout.item_trick, null, false);
+			convertView = LayoutInflater.from(context).inflate(
+					R.layout.item_trick, null, false);
 			viewHolder = new ViewHolder();
 			viewHolder.image = (ImageView) convertView.findViewById(R.id.image);
 
 			viewHolder.title = (TextView) convertView.findViewById(R.id.title);
-			viewHolder.content = (TextView) convertView.findViewById(R.id.content);
+			viewHolder.content = (TextView) convertView
+					.findViewById(R.id.content);
 
 			convertView.setTag(viewHolder);
 		}
-		viewHolder.title.setText(trick.getName());
-		viewHolder.content.setText(trick.getContent());
-		// image.setImageResource(news.getUrl_image());
+		viewHolder.title.setText(trick.getTieuDe());
+		viewHolder.content.setText(trick.getNoiDung());
 
-		String url_image = trick.getUrl_image();
-		String type = trick.getType();
-		if (url_image.equals("test1") && type.equals("1")) {
-			viewHolder.image.setImageResource(R.drawable.ic_trick_1);
-		} else if (url_image.equals("test2") && type.equals("1")) {
-			viewHolder.image.setImageResource(R.drawable.ic_trick_2);
-		} else if (url_image.equals("test3") && type.equals("2")) {
-			viewHolder.image.setImageResource(R.drawable.ic_trick_3);
-		} else if (url_image.equals("test4") && type.equals("2")) {
-			viewHolder.image.setImageResource(R.drawable.ic_trick_4);
+		final ProgressBar loadingImage = (ProgressBar) convertView
+				.findViewById(R.id.loading);
+		loadingImage.setVisibility(View.VISIBLE);
+
+		if (trick.getArrAnh().size() > 0) {
+			String url_image = trick.getArrAnh().get(0);
+			Glide.with(context).load(url_image)
+					.placeholder(R.drawable.ic_launcher)
+					.error(R.drawable.ic_launcher)
+					.into(new GlideDrawableImageViewTarget(viewHolder.image) {
+						@Override
+						public void onResourceReady(GlideDrawable drawable,
+								GlideAnimation anim) {
+							super.onResourceReady(drawable, anim);
+							loadingImage.setVisibility(View.GONE);
+						}
+						
+						@Override
+						public void onLoadFailed(Exception e,
+								Drawable errorDrawable) {
+							loadingImage.setVisibility(View.GONE);
+							super.onLoadFailed(e, errorDrawable);
+						}
+					});
+
+		} else {
+			viewHolder.image.setImageResource(R.drawable.ic_launcher);
+			loadingImage.setVisibility(View.GONE);
 		}
-
-		ProgressBar loadingImage = (ProgressBar) convertView.findViewById(R.id.loading);
-
-		// String imageUrl = news.getUrl_image();
-		// if (!imageUrl.startsWith("http://") &&
-		// !imageUrl.startsWith("https://"))
-		// imageUrl = "http://" + imageUrl;
-		// Picasso.with(context).load(imageUrl).placeholder(R.drawable.no_image)
-		// .error(R.drawable.no_image).into(image, new Callback() {
-		//
-		// @Override
-		// public void onSuccess() {
-		// loadingImage.setVisibility(View.INVISIBLE);
-		// image.setVisibility(View.VISIBLE);
-		//
-		// }
-		//
-		// @Override
-		// public void onError() {
-		// loadingImage.setVisibility(View.INVISIBLE);
-		// image.setVisibility(View.VISIBLE);
-		// }
-		// });
 
 		return convertView;
 	}
