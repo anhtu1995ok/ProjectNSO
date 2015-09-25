@@ -58,6 +58,7 @@ public class UserFragment extends Fragment implements OnClickListener, OnFocusCh
 		loginLayout = (LinearLayout) view.findViewById(R.id.login_layout);
 		loggedin_layout = (LinearLayout) view.findViewById(R.id.loggedin_layout);
 		logoutLayout = (FrameLayout) view.findViewById(R.id.logout_layout);
+		logoutLayout.setOnClickListener(this);
 
 		input_name = (EditText) view.findViewById(R.id.input_name);
 		input_password = (EditText) view.findViewById(R.id.input_password);
@@ -89,6 +90,10 @@ public class UserFragment extends Fragment implements OnClickListener, OnFocusCh
 		// if (checkInternet()) {
 		// MyAsync();
 		// }
+		boolean loggedin = Utils.getBoolean(getActivity(), "LOGGEDIN", false);
+		if (loggedin) {
+			loggedin();
+		}
 	}
 
 	@Override
@@ -115,6 +120,12 @@ public class UserFragment extends Fragment implements OnClickListener, OnFocusCh
 			}
 
 			break;
+		case R.id.logout_layout:
+			getActivity().finish();
+			session.logoutUser();
+			Utils.saveBoolean(getActivity(), "LOGGEDIN", false);
+
+			break;
 		default:
 			break;
 		}
@@ -131,6 +142,7 @@ public class UserFragment extends Fragment implements OnClickListener, OnFocusCh
 			setEditTextBorder(R.id.input_password);
 			break;
 		}
+
 	}
 
 	private void setEditTextBorder(int seleteced) {
@@ -204,10 +216,12 @@ public class UserFragment extends Fragment implements OnClickListener, OnFocusCh
 						sdt = object.getString("sdt");
 						mail = object.getString("email");
 
+						Long phone = Long.parseLong(sdt);
+
 						Utils.saveString(getActivity(), "USERNAME", ten_dang_nhap);
 						Utils.saveString(getActivity(), "FULLNAME", hovaten);
 						Utils.saveString(getActivity(), "ADDRESS", diachi);
-						Utils.saveString(getActivity(), "PHONE", sdt);
+						Utils.saveLong(getActivity(), "PHONE", phone);
 						Utils.saveString(getActivity(), "EMAIL", mail);
 						Utils.saveBoolean(getActivity(), "LOGGEDIN", true);
 						// }
@@ -233,6 +247,7 @@ public class UserFragment extends Fragment implements OnClickListener, OnFocusCh
 	void loggedin() {
 		loginLayout.setVisibility(View.GONE);
 		loggedin_layout.setVisibility(View.VISIBLE);
+		logoutLayout.setVisibility(View.VISIBLE);
 
 		fName.setText(Utils.getString(getActivity(), "FULLNAME", ""));
 		uName.setText(Utils.getString(getActivity(), "USERNAME", ""));

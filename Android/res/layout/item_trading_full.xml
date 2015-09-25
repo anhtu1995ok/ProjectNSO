@@ -245,6 +245,11 @@
                 android:textSize="@dimen/text_medium" />
         </LinearLayout>
 
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_e0e0e0" />
+
         <LinearLayout
             android:id="@+id/mail_layout"
             android:layout_width="match_parent"
@@ -267,27 +272,30 @@
                 android:textSize="@dimen/text_medium" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/user_layout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal" >
+        <!-- <LinearLayout -->
+        <!-- android:id="@+id/user_layout" -->
+        <!-- android:layout_width="match_parent" -->
+        <!-- android:layout_height="50dp" -->
+        <!-- android:layout_weight="1" -->
+        <!-- android:gravity="center" -->
+        <!-- android:orientation="horizontal" > -->
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_user_filled" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/user_profile"
-                android:textColor="@color/color_bdbdbd"
-                android:textSize="@dimen/text_medium" />
-        </LinearLayout>
+        <!-- <ImageView -->
+        <!-- android:layout_width="20dp" -->
+        <!-- android:layout_height="20dp" -->
+        <!-- android:layout_marginRight="5dp" -->
+        <!-- android:src="@drawable/ic_user_filled" /> -->
+
+
+        <!-- <TextView -->
+        <!-- android:layout_width="wrap_content" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:text="@string/user_profile" -->
+        <!-- android:textColor="@color/color_bdbdbd" -->
+        <!-- android:textSize="@dimen/text_medium" /> -->
+        <!-- </LinearLayout> -->
+
     </LinearLayout>
     <!-- <View -->
     <!-- android:layout_width="match_parent" -->

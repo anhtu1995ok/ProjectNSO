@@ -14,6 +14,7 @@ public class Validation {
 	private static final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	private static final String NAME_REGEX = "^[_A-Za-z0-9-\\+]{4,20}$";
 	private static final String PASS_REGEX = "^[A-Za-z0-9\\+]{4,20}$";
+	private static final String ADDRESS_REGEX = "^([a-zA-Z\\s]|á|à|ã|ả|ạ|ă|ằ|ắ|ẳ|ẵ|ặ|â|ấ|ầ|ẫ|ẩ|ậ|é|è|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ|ó|ò|õ|ỏ|ọ|ô|ố|ồ|ỗ|ổ|ộ|ơ|ớ|ỡ|ở|ợ|í|ỉ|ĩ|ị|ú|ũ|ủ|ù|ụ|ý|ỳ|ỷ|ỹ|ỵ|Á|À|Ã|Ả|Ạ|Ă|Ắ|Ằ|Ẵ|Ẳ|Ặ|Â|Ấ|Ầ|Ẫ|Ẩ|Ậ|É|È|Ẽ|Ẻ|Ẹ|Ê|Ế|Ễ|Ể|Ệ|Ó|Ò|Õ|Ỏ|Ọ|Ô|Ố|Ồ|Ỗ|Ổ|Ộ|Ơ|Ớ|Ờ|Ỡ|Ở|Ợ|Í|Ì|Ĩ|Ỉ|Ị|Ú|Ù|Ũ|Ủ|Ụ|Ý|Ỳ|Ỹ|Ỷ|Ỵ){1,50}$";
 	private static final String FULLNAME_REGEX = "^([a-zA-Z\\s]|á|à|ã|ả|ạ|ă|ằ|ắ|ẳ|ẵ|ặ|â|ấ|ầ|ẫ|ẩ|ậ|é|è|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ|ó|ò|õ|ỏ|ọ|ô|ố|ồ|ỗ|ổ|ộ|ơ|ớ|ỡ|ở|ợ|í|ỉ|ĩ|ị|ú|ũ|ủ|ù|ụ|ý|ỳ|ỷ|ỹ|ỵ|Á|À|Ã|Ả|Ạ|Ă|Ắ|Ằ|Ẵ|Ẳ|Ặ|Â|Ấ|Ầ|Ẫ|Ẩ|Ậ|É|È|Ẽ|Ẻ|Ẹ|Ê|Ế|Ễ|Ể|Ệ|Ó|Ò|Õ|Ỏ|Ọ|Ô|Ố|Ồ|Ỗ|Ổ|Ộ|Ơ|Ớ|Ờ|Ỡ|Ở|Ợ|Í|Ì|Ĩ|Ỉ|Ị|Ú|Ù|Ũ|Ủ|Ụ|Ý|Ỳ|Ỹ|Ỷ|Ỵ){3,25}$";
 	// "^[_A-Za-z0-9-\\+] +(\\s[_A-Za-z0-9-]+)";
 	// private static final String PHONE_REGEX = "\\d{3}-\\d{7}";
@@ -45,7 +46,7 @@ public class Validation {
 	
 	public static boolean isAddress(Context context, EditText editText, boolean required) {
 		String ADDRESS_MSG = context.getResources().getString(R.string.address_error);
-		return isValid(context, editText, NAME_REGEX, ADDRESS_MSG, 5, required);
+		return isValid(context, editText, ADDRESS_REGEX, ADDRESS_MSG, 5, required);
 	}
 
 	public static boolean isFullName(Context context, EditText editText, boolean required) {
