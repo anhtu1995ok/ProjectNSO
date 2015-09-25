@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import com.android.nso.R;
 import com.android.nso.model.Product;
 import com.android.nso.model.Trading;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +29,11 @@ public class TradingAdapter extends BaseAdapter {
 		this.context = context;
 		this.resource = resource;
 		this.data = data;
+	}
+	
+	public void notifyDataSetChanged(ArrayList<Trading> data) {
+		this.data = data;
+		super.notifyDataSetChanged();
 	}
 
 	@Override
@@ -62,37 +72,42 @@ public class TradingAdapter extends BaseAdapter {
  
 			convertView.setTag(viewHolder);
 		}
-		String region = trading.getRegion();
+		String region = trading.getTenTinhThanh();
 		viewHolder.region.setText(region);
-		viewHolder.title.setText(trading.getName());
+		viewHolder.title.setText(trading.getTieuDe());
 
-		viewHolder.user.setText(trading.getCreated_by());
-		viewHolder.time.setText(trading.getCreated_at());
-		viewHolder.type.setText(trading.getType());
-		// image.setImageResource(news.getUrl_image());
+		viewHolder.user.setText(trading.getTaoBoiTen());
+		viewHolder.time.setText(trading.getNgayTao());
+		viewHolder.type.setText(trading.getTenLoai());
 
-		ProgressBar loadingImage = (ProgressBar) convertView.findViewById(R.id.loading);
+		final ProgressBar loadingImage = (ProgressBar) convertView.findViewById(R.id.loading);
+		loadingImage.setVisibility(View.VISIBLE);
 
-		// String imageUrl = news.getUrl_image();
-		// if (!imageUrl.startsWith("http://") &&
-		// !imageUrl.startsWith("https://"))
-		// imageUrl = "http://" + imageUrl;
-		// Picasso.with(context).load(imageUrl).placeholder(R.drawable.no_image)
-		// .error(R.drawable.no_image).into(image, new Callback() {
-		//
-		// @Override
-		// public void onSuccess() {
-		// loadingImage.setVisibility(View.INVISIBLE);
-		// image.setVisibility(View.VISIBLE);
-		//
-		// }
-		//
-		// @Override
-		// public void onError() {
-		// loadingImage.setVisibility(View.INVISIBLE);
-		// image.setVisibility(View.VISIBLE);
-		// }
-		// });
+		if (trading.getArrAnh().size() > 0) {
+			String url_image = trading.getArrAnh().get(0);
+			Glide.with(context).load(url_image)
+					.placeholder(R.drawable.ic_launcher)
+					.error(R.drawable.ic_launcher)
+					.into(new GlideDrawableImageViewTarget(viewHolder.image) {
+						@Override
+						public void onResourceReady(GlideDrawable drawable,
+								GlideAnimation anim) {
+							super.onResourceReady(drawable, anim);
+							loadingImage.setVisibility(View.GONE);
+						}
+						
+						@Override
+						public void onLoadFailed(Exception e,
+								Drawable errorDrawable) {
+							loadingImage.setVisibility(View.GONE);
+							super.onLoadFailed(e, errorDrawable);
+						}
+					});
+
+		} else {
+			viewHolder.image.setImageResource(R.drawable.ic_launcher);
+			loadingImage.setVisibility(View.GONE);
+		}
 
 		return convertView;
 	}

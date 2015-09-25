@@ -1,125 +1,158 @@
 package com.android.nso.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Trading implements Serializable{
+public class Trading implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private String name, region, created_by, target, type, content, url_image, created_at, expired_at, state, censored;
-
-	public Trading(int id, String name, String region, String created_by, String target, String type, String content,
-			String url_image, String created_at, String expired_at, String state, String censored) {
+	private String tieuDe, gia, donVi, tenDonVi, diaChi, tinhThanhId, tenTinhThanh,
+			tenVungMien, taoBoiId, taoBoiTen, doiTuong, tenDoiTuong, loai,
+			tenLoai, noiDung, ngayTao, ngayHetHan;
+	private ArrayList<String> arrAnh;
+	public Trading(int id, String tieuDe, String gia, String donVi,
+			String tenDonVi, String diaChi, String tinhThanhId,
+			String tenTinhThanh, String tenVungMien, String taoBoiId,
+			String taoBoiTen, String doiTuong, String tenDoiTuong, String loai,
+			String tenLoai, String noiDung, String ngayTao, String ngayHetHan,
+			ArrayList<String> arrAnh) {
+		super();
 		this.id = id;
-		this.name = name;
-		this.region = region;
-		this.created_by = created_by;
-		this.target = target;
-		this.type = type;
-		this.content = content;
-		this.url_image = url_image;
-		this.created_at = created_at;
-		this.expired_at = expired_at;
-		this.state = state;
-		this.censored = censored;
+		this.tieuDe = tieuDe;
+		this.gia = gia;
+		this.donVi = donVi;
+		this.tenDonVi = tenDonVi;
+		this.diaChi = diaChi;
+		this.tinhThanhId = tinhThanhId;
+		this.tenTinhThanh = tenTinhThanh;
+		this.tenVungMien = tenVungMien;
+		this.taoBoiId = taoBoiId;
+		this.taoBoiTen = taoBoiTen;
+		this.doiTuong = doiTuong;
+		this.tenDoiTuong = tenDoiTuong;
+		this.loai = loai;
+		this.tenLoai = tenLoai;
+		this.noiDung = noiDung;
+		this.ngayTao = ngayTao;
+		this.ngayHetHan = ngayHetHan;
+		this.arrAnh = arrAnh;
 	}
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getName() {
-		return name;
+	public String getTieuDe() {
+		return tieuDe;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setTieuDe(String tieuDe) {
+		this.tieuDe = tieuDe;
 	}
-
-	public String getRegion() {
-		return region;
+	public String getGia() {
+		return gia;
 	}
-
-	public void setRegion(String region) {
-		this.region = region;
+	public void setGia(String gia) {
+		this.gia = gia;
 	}
-
-	public String getCreated_by() {
-		return created_by;
+	public String getDonVi() {
+		return donVi;
 	}
-
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
+	public void setDonVi(String donVi) {
+		this.donVi = donVi;
 	}
-
-	public String getTarget() {
-		return target;
+	public String getTenDonVi() {
+		return tenDonVi;
 	}
-
-	public void setTarget(String target) {
-		this.target = target;
+	public void setTenDonVi(String tenDonVi) {
+		this.tenDonVi = tenDonVi;
 	}
-
-	public String getType() {
-		return type;
+	public String getDiaChi() {
+		return diaChi;
 	}
-
-	public void setType(String type) {
-		this.type = type;
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
 	}
-
-	public String getContent() {
-		return content;
+	public String getTinhThanhId() {
+		return tinhThanhId;
 	}
-
-	public void setContent(String content) {
-		this.content = content;
+	public void setTinhThanhId(String tinhThanhId) {
+		this.tinhThanhId = tinhThanhId;
 	}
-
-	public String getUrl_image() {
-		return url_image;
+	public String getTenTinhThanh() {
+		return tenTinhThanh;
 	}
-
-	public void setUrl_image(String url_image) {
-		this.url_image = url_image;
+	public void setTenTinhThanh(String tenTinhThanh) {
+		this.tenTinhThanh = tenTinhThanh;
 	}
-
-	public String getCreated_at() {
-		return created_at;
+	public String getTenVungMien() {
+		return tenVungMien;
 	}
-
-	public void setCreated_at(String created_at) {
-		this.created_at = created_at;
+	public void setTenVungMien(String tenVungMien) {
+		this.tenVungMien = tenVungMien;
 	}
-
-	public String getExpired_at() {
-		return expired_at;
+	public String getTaoBoiId() {
+		return taoBoiId;
 	}
-
-	public void setExpired_at(String expired_at) {
-		this.expired_at = expired_at;
+	public void setTaoBoiId(String taoBoiId) {
+		this.taoBoiId = taoBoiId;
 	}
-
-	public String getState() {
-		return state;
+	public String getTaoBoiTen() {
+		return taoBoiTen;
 	}
-
-	public void setState(String state) {
-		this.state = state;
+	public void setTaoBoiTen(String taoBoiTen) {
+		this.taoBoiTen = taoBoiTen;
 	}
-
-	public String getCensored() {
-		return censored;
+	public String getDoiTuong() {
+		return doiTuong;
 	}
-
-	public void setCensored(String censored) {
-		this.censored = censored;
+	public void setDoiTuong(String doiTuong) {
+		this.doiTuong = doiTuong;
+	}
+	public String getTenDoiTuong() {
+		return tenDoiTuong;
+	}
+	public void setTenDoiTuong(String tenDoiTuong) {
+		this.tenDoiTuong = tenDoiTuong;
+	}
+	public String getLoai() {
+		return loai;
+	}
+	public void setLoai(String loai) {
+		this.loai = loai;
+	}
+	public String getTenLoai() {
+		return tenLoai;
+	}
+	public void setTenLoai(String tenLoai) {
+		this.tenLoai = tenLoai;
+	}
+	public String getNoiDung() {
+		return noiDung;
+	}
+	public void setNoiDung(String noiDung) {
+		this.noiDung = noiDung;
+	}
+	public String getNgayTao() {
+		return ngayTao;
+	}
+	public void setNgayTao(String ngayTao) {
+		this.ngayTao = ngayTao;
+	}
+	public String getNgayHetHan() {
+		return ngayHetHan;
+	}
+	public void setNgayHetHan(String ngayHetHan) {
+		this.ngayHetHan = ngayHetHan;
+	}
+	public ArrayList<String> getArrAnh() {
+		return arrAnh;
+	}
+	public void setArrAnh(ArrayList<String> arrAnh) {
+		this.arrAnh = arrAnh;
 	}
 
 }

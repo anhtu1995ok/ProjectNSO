@@ -7,26 +7,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.android.nso.R;
-import com.android.nso.SwipeBackActivity;
-import com.android.nso.adapter.TradingAdapter;
-import com.android.nso.model.Trading;
-import com.android.nso.utils.Time;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -36,8 +28,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class TradingFragment extends Fragment
-		implements SwipeRefreshLayout.OnRefreshListener, OnClickListener, OnItemClickListener {
+import com.android.nso.R;
+import com.android.nso.SwipeBackActivity;
+import com.android.nso.adapter.TradingAdapter;
+import com.android.nso.model.Trading;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+public class TradingFragment extends Fragment implements
+		SwipeRefreshLayout.OnRefreshListener, OnClickListener,
+		OnItemClickListener {
 
 	private SwipeRefreshLayout swipeRefreshLayout;
 	private ArrayList<Trading> data, data_2, data_3, data_4, newData;
@@ -50,54 +50,42 @@ public class TradingFragment extends Fragment
 
 	private Spinner spinner;
 	private ArrayList<TradingSpinnerData> sData;
-	
+
 	View empty_view;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_trading, container, false);
 		empty_view = inflater.inflate(R.layout.empty_view, null);
-		
+
 		initView(view);
 
 		return view;
 	}
 
 	private void initView(View view) {
-		swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+		swipeRefreshLayout = (SwipeRefreshLayout) view
+				.findViewById(R.id.swipe_refresh_layout);
 		swipeRefreshLayout.setOnRefreshListener(this);
-
+		
 		swipeRefreshLayout.post(new Runnable() {
 			@Override
 			public void run() {
 				swipeRefreshLayout.setRefreshing(true);
-				initData();
-				initSpinnerData();
+				data = getDSRaoVat();
 			}
 		});
 
 		listView = (ListView) view.findViewById(R.id.listView);
 		listView.setEmptyView(empty_view);
 		listView.setOnItemClickListener(this);
-		// listView_2 = (ListView) view.findViewById(R.id.listView_2);
-		// listView_3 = (ListView) view.findViewById(R.id.listView_3);
-		// listView_4 = (ListView) view.findViewById(R.id.listView_4);
-
-		// Add Button
-		// add_1 = (TextView) view.findViewById(R.id.add_1);
-		// add_1.setOnClickListener(this);
-		//
-		// add_2 = (TextView) view.findViewById(R.id.add_2);
-		// add_2.setOnClickListener(this);
-		//
-		// add_3 = (TextView) view.findViewById(R.id.add_3);
-		// add_3.setOnClickListener(this);
-		//
-		// add_4 = (TextView) view.findViewById(R.id.add_4);
-		// add_4.setOnClickListener(this);
-
-		// add_layout = (LinearLayout) view.findViewById(R.id.add_layout);
-		// add_layout.setOnClickListener(this);
+		
+		data = new ArrayList<Trading>();
+		adapter = new TradingAdapter(getActivity(), R.layout.item_trading, data);
+		listView.setAdapter(adapter);
+		listView.startAnimation(
+				AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_in_bottom));
 
 		spinner = (Spinner) view.findViewById(R.id.spinner);
 
@@ -105,115 +93,31 @@ public class TradingFragment extends Fragment
 		add_layout.setOnClickListener(this);
 
 		result = (TextView) view.findViewById(R.id.spinner_result);
-
-	}
-
-	// private void setListViewHeightBasedOnChildren(ListView listView) {
-	// ListAdapter listAdapter = listView.getAdapter();
-	// if (listAdapter == null)
-	// return;
-	//
-	// int desiredWidth = MeasureSpec.makeMeasureSpec(listView.getWidth(),
-	// MeasureSpec.UNSPECIFIED);
-	// int totalHeight = 0;
-	// View view = null;
-	// for (int i = 0; i < listAdapter.getCount(); i++) {
-	// view = listAdapter.getView(i, view, listView);
-	// if (i == 0)
-	// view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth,
-	// LayoutParams.WRAP_CONTENT));
-	//
-	// view.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
-	// totalHeight += view.getMeasuredHeight();
-	// }
-	// ViewGroup.LayoutParams params = listView.getLayoutParams();
-	// params.height = totalHeight + (listView.getDividerHeight() *
-	// (listAdapter.getCount() - 1) + 20);
-	// listView.setLayoutParams(params);
-	// listView.requestLayout();
-	// }
-
-	private void initData() {
-		data = initData(data, listView, adapter);
-		// data_2 = initData(data_2, listView_2, adapter);
-		// data_3 = initData(data_3, listView_3, adapter);
-		// data_4 = initData(data_4, listView_4, adapter);
-		//
-		// setListViewHeightBasedOnChildren(listView);
-		// setListViewHeightBasedOnChildren(listView_2);
-		// setListViewHeightBasedOnChildren(listView_3);
-		// setListViewHeightBasedOnChildren(listView_4);
+		initSpinnerData();
 	}
 
 	private void initSpinnerData() {
-		String[] array = getActivity().getResources().getStringArray(R.array.trick_spinner_array);
+		String[] array = getActivity().getResources().getStringArray(
+				R.array.trick_spinner_array);
 		sData = new ArrayList<TradingSpinnerData>();
 		int max = array.length;
 		for (int i = 0; i < max; i++) {
 			TradingSpinnerData tsd = new TradingSpinnerData(array[i]);
 			sData.add(tsd);
 		}
-		SpinnerAdapter sAdapter = new SpinnerAdapter(getActivity(), R.layout.item_spinner, sData);
+		SpinnerAdapter sAdapter = new SpinnerAdapter(getActivity(),
+				R.layout.item_spinner, sData);
 		spinner.setAdapter(sAdapter);
-	}
-
-	private ArrayList<Trading> initData(ArrayList<Trading> data, ListView listView, TradingAdapter adapter) {
-		swipeRefreshLayout.setRefreshing(true);
-		// Random rand = new Random();
-		// int max = rand.nextInt(10) + 5;
-		data = new ArrayList<Trading>();
-		MyAsync();
-		// String time = Time.getCurrentDate();
-		// test(data);
-		// for (int i = 0; i < max; i++) {
-		// data.add(new Trading(i, "Tin rao vat so " + i, "Tp.HCM", "Admin", "Ca
-		// nhan", "Can ban",
-		// "Noi dung Tin rao vat so " + i, "", time, time, "", ""));
-		// }
-		//
-		// adapter = new TradingAdapter(getActivity(), R.layout.item_trading,
-		// data);
-		// listView.setAdapter(adapter);
-		// listView.startAnimation(AnimationUtils.loadAnimation(getActivity(),
-		// R.anim.abc_slide_in_bottom));
-		// adapter.notifyDataSetChanged();
-		// result.setText("" + data.size());
-
-		// stopping swipe refresh
-		swipeRefreshLayout.setRefreshing(false);
-		return data;
 	}
 
 	@Override
 	public void onRefresh() {
-		initData();
+		data = getDSRaoVat();
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		// // case R.id.add_layout:
-		// // Toast.makeText(getActivity(), "You need to login first!!!",
-		// // Toast.LENGTH_SHORT).show();
-		// // break;
-		// case R.id.add_1:
-		// Toast.makeText(getActivity(), "Add_1.onclick",
-		// Toast.LENGTH_SHORT).show();
-		// break;
-		// case R.id.add_2:
-		// Toast.makeText(getActivity(), "Add_2.onclick",
-		// Toast.LENGTH_SHORT).show();
-		// break;
-		// case R.id.add_3:
-		// Toast.makeText(getActivity(), "Add_3.onclick",
-		// Toast.LENGTH_SHORT).show();
-		// break;
-		// case R.id.add_4:
-		// Toast.makeText(getActivity(), "Add_4.onclick",
-		// Toast.LENGTH_SHORT).show();
-		// break;
-		// default:
-		// break;
 		case R.id.add_layout:
 			Intent intent = new Intent(getActivity(), SwipeBackActivity.class);
 			intent.putExtra("TYPE", 44);
@@ -238,7 +142,8 @@ public class TradingFragment extends Fragment
 	private class SpinnerAdapter extends ArrayAdapter<TradingSpinnerData> {
 		Context context;
 
-		public SpinnerAdapter(Context context, int textViewResourceId, ArrayList<TradingSpinnerData> data) {
+		public SpinnerAdapter(Context context, int textViewResourceId,
+				ArrayList<TradingSpinnerData> data) {
 			super(context, textViewResourceId, data);
 			this.context = context;
 			sData = data;
@@ -247,19 +152,24 @@ public class TradingFragment extends Fragment
 		@SuppressLint("ViewHolder")
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View mView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+			View mView = ((LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
 					.inflate(R.layout.item_spinner, parent, false);
-			TextView textView = (TextView) mView.findViewById(R.id.spinner_text);
+			TextView textView = (TextView) mView
+					.findViewById(R.id.spinner_text);
 			TradingSpinnerData tsd = sData.get(position);
 			textView.setText(tsd.getName());
 			return mView;
 		}
 
 		@Override
-		public View getDropDownView(int position, View convertView, ViewGroup parent) {
-			View mView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+		public View getDropDownView(int position, View convertView,
+				ViewGroup parent) {
+			View mView = ((LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
 					.inflate(R.layout.item_spinner_dropdown, parent, false);
-			TextView textView = (TextView) mView.findViewById(R.id.spinner_dropdown_text);
+			TextView textView = (TextView) mView
+					.findViewById(R.id.spinner_dropdown_text);
 			TradingSpinnerData tsd = sData.get(position);
 			textView.setText(tsd.getName());
 			return mView;
@@ -277,74 +187,62 @@ public class TradingFragment extends Fragment
 		startActivity(intent);
 	}
 
-	void test(ArrayList<Trading> data) {
-		String time = Time.getCurrentDate();
-		String need_to_sell = getActivity().getResources().getString(R.string.need_to_sell);
-		String need_to_buy = getActivity().getResources().getString(R.string.need_to_buy);
-
-		String testTitle_1 = getActivity().getResources().getString(R.string.trading_title_1);
-		String testTitle_2 = getActivity().getResources().getString(R.string.trading_title_2);
-		String testContent_1 = getActivity().getResources().getString(R.string.trading_content_1);
-		String testContent_2 = getActivity().getResources().getString(R.string.trading_content_2);
-		data.add(new Trading(11, testTitle_1, "Tp.HCM", "Admin", "Ca nhan", need_to_sell, testContent_1, "", time, time,
-				"", ""));
-		data.add(new Trading(12, testTitle_2, "Tp.HCM", "Mod", "Doanh nghiep", need_to_buy, testContent_2, "", time,
-				time, "", ""));
-		data.add(new Trading(13, testTitle_1, "Tp.HCM", "SMod", "Ca nhan", need_to_sell, testContent_1, "", time, time,
-				"", ""));
-		data.add(new Trading(14, testTitle_2, "Tp.HCM", "Admin", "Doanh nghiep", need_to_buy, testContent_2, "", time,
-				time, "", ""));
-	}
-
-	void MyAsync() {
+	private ArrayList<Trading> getDSRaoVat() {
+		final ArrayList<Trading> data = new ArrayList<Trading>();
 		String url = getResources().getString(R.string.url_trading);
-
 		AsyncHttpClient client = new AsyncHttpClient();
-		RequestParams params = new RequestParams();
-
-		client.post(url, params, new JsonHttpResponseHandler() {
+		client.get(url, null, new JsonHttpResponseHandler() {
 			@Override
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
 				String jsonRead = response.toString();
 				if (!jsonRead.isEmpty()) {
-
 					try {
 						JSONObject object = new JSONObject(jsonRead);
 						JSONArray rows = object.getJSONArray("row");
+						Log.d("TuNT", "Json: " + jsonRead);
 						for (int i = 0; i < rows.length(); i++) {
 							JSONObject row = rows.getJSONObject(i);
-							int id = object.getInt("id");
-							String tieude = object.getString("tieu_de");
-							String ten_vung_mien = object.getString("ten_vung_mien");
-							String doi_tuong = object.getString("doi_tuong");
-							String noi_dung = object.getString("noi_dung");
-							int tao_boi_id = object.getInt("tao_boi_id");
-							String ngay_tao = object.getString("ngay_tao");
-							String tao_boi_ten = object.getString("tao_boi_ten");
-							String ten_tinh_thanh = object.getString("ten_tinh_thanh");
-							int tinh_thanh_id = object.getInt("tinh_thanh_id");
-							String loai = object.getString("loai");
-							String ngay_het_han = object.getString("ngay_het_han");
-							String don_vi = object.getString("don_vi");
-							String gia = object.getString("gia");
-							String dia_chi = object.getString("dia_chi");
+							int id = row.getInt("id");
+							String tieuDe = row.getString("tieu_de");
+							String gia = row.getString("gia");
+							String donVi = row.getString("don_vi");
+							String tenDonVi = row.getString("ten_don_vi");
+							String diaChi = row.getString("dia_chi");
+							String tinhThanhId = row.getString("tinh_thanh_id");
+							String tenTinhThanh = row
+									.getString("ten_tinh_thanh");
+							String tenVungMien = row.getString("ten_vung_mien");
+							String taoBoiId = row.getString("tao_boi_id");
+							String taoBoiTen = row.getString("tao_boi_ten");
+							String doiTuong = row.getString("doi_tuong");
+							String tenDoiTuong = row.getString("ten_doi_tuong");
+							String loai = row.getString("loai");
+							String tenLoai = row.getString("ten_loai");
+							String noiDung = row.getString("noi_dung");
+							String ngayTao = row.getString("ngay_tao");
+							String ngayHetHan = row.getString("ngay_het_han");
 
-							String url = "";
-							JSONArray rowss = object.getJSONArray("anh");
-							for (int j = 0; j < rows.length(); j++) {
-								JSONObject rowsss = rowss.getJSONObject(j);
-								url = rowsss.getString("url");
+							ArrayList<String> arrAnh = new ArrayList<String>();
+							JSONArray jArrAnh = row.getJSONArray("anh");
+							for (int j = 0; j < jArrAnh.length(); j++) {
+								JSONObject anh = jArrAnh.getJSONObject(j);
+								String url_image = anh.getString("url");
+								arrAnh.add(url_image);
 							}
 
-							data.add(new Trading(id, tieude, dia_chi, tao_boi_ten, doi_tuong, loai, noi_dung, url,
-									ngay_tao, ngay_het_han, "", ""));
-
+							Trading trading = new Trading(id, tieuDe, gia,
+									donVi, tenDonVi, diaChi, tinhThanhId,
+									tenTinhThanh, tenVungMien, taoBoiId,
+									taoBoiTen, doiTuong, tenDoiTuong, loai,
+									tenLoai, noiDung, ngayTao, ngayHetHan,
+									arrAnh);
+							data.add(trading);
 						}
-						adapter = new TradingAdapter(getActivity(), R.layout.item_trading, data);
-						listView.setAdapter(adapter);
-						listView.startAnimation(
-								AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_in_bottom));
-						// }
+						Log.d("TuNT", "refresh");
+						// stopping swipe refresh
+						swipeRefreshLayout.setRefreshing(false);
+						adapter.notifyDataSetChanged(data);
 
 					} catch (JSONException e) {
 						e.printStackTrace();
@@ -354,12 +252,25 @@ public class TradingFragment extends Fragment
 			}
 
 			@Override
-			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-				String s = getActivity().getResources().getString(R.string.login_error);
-				Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				Toast.makeText(getActivity(), "Khong the tai du lieu.",
+						Toast.LENGTH_SHORT).show();
+				// stopping swipe refresh
+				swipeRefreshLayout.setRefreshing(false);
 				super.onFailure(statusCode, headers, throwable, errorResponse);
 			}
-		});
 
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				Toast.makeText(getActivity(), "Khong the tai du lieu.",
+						Toast.LENGTH_SHORT).show();
+				// stopping swipe refresh
+				swipeRefreshLayout.setRefreshing(false);
+				super.onFailure(statusCode, headers, responseString, throwable);
+			}
+		});
+		return data;
 	}
 }

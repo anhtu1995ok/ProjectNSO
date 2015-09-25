@@ -8,6 +8,7 @@
     <string name="url_login">http://192.168.56.1:8084/Webservice-NongSanOnline/webresources/frontend/dangnhap</string>
     <string name="url_trick1">http://192.168.56.1:8084/Webservice-NongSanOnline/webresources/frontend/danhsachmeovatsanxuat</string>
     <string name="url_trick2">http://192.168.56.1:8084/Webservice-NongSanOnline/webresources/frontend/danhsachmeovatchebien</string>
+    <string name="url_signup">http://192.168.56.1:8084/Webservice-NongSanOnline/webresources/frontend/dangky</string>
     <string name="app_name">Nông sản Online</string>
     <string name="activity_news">Tin tức Nông sản</string>
     <string name="activity_product">Sản phẩm Nông sản</string>
@@ -75,6 +76,9 @@
     <string name="all">Tất cả</string>
     <string name="need_to_buy">Cần mua</string>
     <string name="need_to_sell">Cần bán</string>
+    <string name="single">Cá nhân</string>
+    <string name="business">Doanh nghiệp</string>
+	<string name="input_quantity_hint">Sản lượng</string>
     <!-- UserFragment -->
     <string name="or">hoặc</string>
     <string name="input_name_hint">Tên đăng nhập</string>
