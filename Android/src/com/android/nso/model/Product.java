@@ -24,13 +24,15 @@ public class Product implements Serializable {
 
 	}
 
-	public Product(int id, String name, String description, String price, String quantity, String created_at,
+	public Product(int id, String name, String description, String price
+//			, String quantity
+			, String created_at,
 			String updated_at, String url_image, String address, String province, String state) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
-		this.quantity = quantity;
+//		this.quantity = quantity;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 		this.url_image = url_image;
@@ -45,7 +47,7 @@ public class Product implements Serializable {
 		Log.d("ToanNM", "int max : ===== : " + max);
 		data = new ArrayList<Product>();
 		for (int i = 0; i < max; i++) {
-			data.add(new Product(i, "San pham thu " + i, "", "16.000", "", "", "", "", "", "", ""));
+			data.add(new Product(i, "San pham thu " + i, "", "16.000", "", "", "", "", "", ""));
 		}
 		adapter = new ProductAdapter(context, R.layout.item_product_full, data);
 		listView.setAdapter(adapter);
@@ -64,7 +66,7 @@ public class Product implements Serializable {
 		String time = Time.getCurrentDate();
 		for (int i = 0; i < max; i++) {
 			data.add(
-					new Product(i, "San pham thu " + i, "", "16.000", "", "", time, "", "Cau giay - HaNoi", "Nam", ""));
+					new Product(i, "San pham thu " + i, "", "16.000", "", time, "", "Cau giay - HaNoi", "Nam", ""));
 		}
 		adapter = new ProductAdapter(context, R.layout.item_product_full, data);
 		listView.setAdapter(adapter);

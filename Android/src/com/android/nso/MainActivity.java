@@ -10,6 +10,8 @@ import com.android.nso.fragment.TradingFragment;
 import com.android.nso.fragment.TrickFragment;
 import com.android.nso.fragment.UserFragment;
 import com.android.nso.utils.Keyboard;
+import com.android.nso.utils.NetworkUtil;
+import com.android.nso.utils.Utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -30,6 +32,7 @@ import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabContentFactory;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements OnTabChangeListener, OnPageChangeListener {
 
@@ -62,8 +65,13 @@ public class MainActivity extends ActionBarActivity implements OnTabChangeListen
 		pageAdapter = new PagerAdapter(getSupportFragmentManager(), fragments);
 		mViewPager.setAdapter(pageAdapter);
 		mViewPager.setOnPageChangeListener(MainActivity.this);
-		
+
 		onFirstRun();
+		if (checkInternet()) {
+		} else {
+			String s = getResources().getString(R.string.no_internet_access);
+			Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	// initActionbar
@@ -136,9 +144,13 @@ public class MainActivity extends ActionBarActivity implements OnTabChangeListen
 	}
 
 	private void onFirstRun() {
-		Intent intent = new Intent(getApplicationContext(), TipActivity.class);
-		intent.putExtra("FIRSTRUN_VALUE", 0);
-		startActivity(intent);
+		boolean firstRun = Utils.getBoolean(getApplicationContext(), "FIRSTRUN_MAIN", true);
+		if (firstRun) {
+			Utils.saveBoolean(getApplicationContext(), "FIRSTRUN_MAIN", true);
+			Intent intent = new Intent(getApplicationContext(), TipActivity.class);
+			intent.putExtra("FIRSTRUN_VALUE", 0);
+			startActivity(intent);
+		}
 	}
 
 	// Method to add a TabHost
@@ -259,4 +271,14 @@ public class MainActivity extends ActionBarActivity implements OnTabChangeListen
 	// mBackPressed = System.currentTimeMillis();
 	//
 	// }
+
+	boolean checkInternet() {
+		int conn = NetworkUtil.getConnectivityStatus(getApplicationContext());
+		if (conn == NetworkUtil.TYPE_WIFI || conn == NetworkUtil.TYPE_MOBILE) {
+			return true;
+		} else if (conn == NetworkUtil.TYPE_NOT_CONNECTED) {
+			return false;
+		}
+		return false;
+	}
 }

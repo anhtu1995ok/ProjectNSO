@@ -2,18 +2,22 @@ package com.android.nso.fragment;
 
 import java.lang.reflect.Field;
 
+import org.apache.http.Header;
+import org.json.JSONObject;
+
 import com.android.nso.R;
 import com.android.nso.utils.Validation;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -188,4 +192,5 @@ public class SignUpFragment extends Fragment implements OnClickListener, OnFocus
 			break;
 		}
 	}
+	
 }

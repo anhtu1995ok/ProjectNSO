@@ -14,6 +14,7 @@ import com.android.nso.fragment.TradingDetailFragment;
 import com.android.nso.fragment.TranslucentFragment;
 import com.android.nso.fragment.TrickDetailFragment;
 import com.android.nso.utils.Keyboard;
+import com.android.nso.utils.Utils;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,9 +51,13 @@ public class SwipeBackActivity extends FragmentActivity implements OnPageChangeL
 	}
 
 	private void onFirstRun() {
-		Intent intent = new Intent(getApplicationContext(), TipActivity.class);
-		intent.putExtra("FIRSTRUN_VALUE", 1);
-		startActivity(intent);
+		boolean firstRun = Utils.getBoolean(getApplicationContext(), "FIRSTRUN_SWIPE", true);
+		if (firstRun) {
+			Utils.saveBoolean(getApplicationContext(), "FIRSTRUN_SWIPE", true);
+			Intent intent = new Intent(getApplicationContext(), TipActivity.class);
+			intent.putExtra("FIRSTRUN_VALUE", 1);
+			startActivity(intent);
+		}
 	}
 
 	@Override

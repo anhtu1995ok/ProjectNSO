@@ -3,12 +3,20 @@ package com.android.nso.fragment;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.android.nso.R;
 import com.android.nso.SwipeBackActivity;
 import com.android.nso.adapter.TrickAdapter;
 import com.android.nso.model.Trading;
 import com.android.nso.model.Trick;
 import com.android.nso.utils.Time;
+import com.android.nso.utils.Utils;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +32,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TrickFragment extends Fragment
 		implements OnClickListener, SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
@@ -211,5 +220,47 @@ public class TrickFragment extends Fragment
 		data.add(new Trick(11, testTitle_2, testContent_2, "2", "test4", ""));
 		data.add(new Trick(12, testTitle_1, testContent_1, "2", "test3", ""));
 		data.add(new Trick(13, testTitle_2, testContent_2, "2", "test4", ""));
+	}
+	
+	void MyAsync() {
+		String url = getResources().getString(R.string.url_trading);
+
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+
+		client.post(url, params, new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				String jsonRead = response.toString();
+				if (!jsonRead.isEmpty()) {
+
+					try {
+						JSONObject object = new JSONObject(jsonRead);
+						// JSONArray rows = object.getJSONArray("row");
+						// for (int i = 0; i < rows.length(); i++) {
+						// JSONObject row = rows.getJSONObject(i);
+						String id = object.getString("id");
+						String ten_dang_nhap = object.getString("ten_dang_nhap");
+						String hovaten = object.getString("ho_va_ten");
+						String diachi = object.getString("dia_chi");
+						String sdt = object.getString("sdt");
+						String mail = object.getString("email");
+						// }
+
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+				super.onSuccess(statusCode, headers, response);
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+				String s = getActivity().getResources().getString(R.string.login_error);
+				Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+			}
+		});
+
 	}
 }

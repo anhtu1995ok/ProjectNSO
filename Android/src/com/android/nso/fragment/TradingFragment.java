@@ -1,14 +1,20 @@
 package com.android.nso.fragment;
 
 import java.util.ArrayList;
-import java.util.Random;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.android.nso.R;
 import com.android.nso.SwipeBackActivity;
 import com.android.nso.adapter.TradingAdapter;
-import com.android.nso.model.Product;
 import com.android.nso.model.Trading;
 import com.android.nso.utils.Time;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -19,8 +25,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -44,11 +50,14 @@ public class TradingFragment extends Fragment
 
 	private Spinner spinner;
 	private ArrayList<TradingSpinnerData> sData;
+	
+	View empty_view;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_trading, container, false);
-
+		empty_view = inflater.inflate(R.layout.empty_view, null);
+		
 		initView(view);
 
 		return view;
@@ -68,6 +77,7 @@ public class TradingFragment extends Fragment
 		});
 
 		listView = (ListView) view.findViewById(R.id.listView);
+		listView.setEmptyView(empty_view);
 		listView.setOnItemClickListener(this);
 		// listView_2 = (ListView) view.findViewById(R.id.listView_2);
 		// listView_3 = (ListView) view.findViewById(R.id.listView_3);
@@ -93,9 +103,9 @@ public class TradingFragment extends Fragment
 
 		add_layout = (LinearLayout) view.findViewById(R.id.add_layout);
 		add_layout.setOnClickListener(this);
-		
+
 		result = (TextView) view.findViewById(R.id.spinner_result);
-		
+
 	}
 
 	// private void setListViewHeightBasedOnChildren(ListView listView) {
@@ -149,22 +159,26 @@ public class TradingFragment extends Fragment
 
 	private ArrayList<Trading> initData(ArrayList<Trading> data, ListView listView, TradingAdapter adapter) {
 		swipeRefreshLayout.setRefreshing(true);
-		Random rand = new Random();
-		int max = rand.nextInt(10) + 5;
+		// Random rand = new Random();
+		// int max = rand.nextInt(10) + 5;
 		data = new ArrayList<Trading>();
-		String time = Time.getCurrentDate();
-		test(data);
-		for (int i = 0; i < max; i++) {
-			data.add(new Trading(i, "Tin rao vat so " + i, "Tp.HCM", "Admin", "Ca nhan", "Can ban", "Noi dung Tin rao vat so " + i, "",
-					time, time, "", ""));
-		}
+		MyAsync();
+		// String time = Time.getCurrentDate();
+		// test(data);
+		// for (int i = 0; i < max; i++) {
+		// data.add(new Trading(i, "Tin rao vat so " + i, "Tp.HCM", "Admin", "Ca
+		// nhan", "Can ban",
+		// "Noi dung Tin rao vat so " + i, "", time, time, "", ""));
+		// }
+		//
+		// adapter = new TradingAdapter(getActivity(), R.layout.item_trading,
+		// data);
+		// listView.setAdapter(adapter);
+		// listView.startAnimation(AnimationUtils.loadAnimation(getActivity(),
+		// R.anim.abc_slide_in_bottom));
+		// adapter.notifyDataSetChanged();
+		// result.setText("" + data.size());
 
-		adapter = new TradingAdapter(getActivity(), R.layout.item_trading, data);
-		listView.setAdapter(adapter);
-		listView.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_in_bottom));
-		adapter.notifyDataSetChanged();
-		result.setText("" + data.size());
-		
 		// stopping swipe refresh
 		swipeRefreshLayout.setRefreshing(false);
 		return data;
@@ -252,7 +266,7 @@ public class TradingFragment extends Fragment
 		}
 
 	}
-	
+
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		Intent intent = new Intent(getActivity(), SwipeBackActivity.class);
@@ -262,23 +276,90 @@ public class TradingFragment extends Fragment
 		intent.putExtra("TYPE", 4);
 		startActivity(intent);
 	}
-	
-	void test(ArrayList<Trading> data){
+
+	void test(ArrayList<Trading> data) {
 		String time = Time.getCurrentDate();
 		String need_to_sell = getActivity().getResources().getString(R.string.need_to_sell);
 		String need_to_buy = getActivity().getResources().getString(R.string.need_to_buy);
-		
+
 		String testTitle_1 = getActivity().getResources().getString(R.string.trading_title_1);
 		String testTitle_2 = getActivity().getResources().getString(R.string.trading_title_2);
 		String testContent_1 = getActivity().getResources().getString(R.string.trading_content_1);
 		String testContent_2 = getActivity().getResources().getString(R.string.trading_content_2);
-		data.add(new Trading(11, testTitle_1, "Tp.HCM", "Admin", "Ca nhan", need_to_sell, testContent_1, "",
-				time, time, "", ""));
-		data.add(new Trading(12, testTitle_2, "Tp.HCM", "Mod", "Doanh nghiep", need_to_buy, testContent_2, "",
-				time, time, "", ""));
-		data.add(new Trading(13, testTitle_1, "Tp.HCM", "SMod", "Ca nhan", need_to_sell, testContent_1, "",
-				time, time, "", ""));
-		data.add(new Trading(14, testTitle_2, "Tp.HCM", "Admin", "Doanh nghiep", need_to_buy, testContent_2, "",
-				time, time, "", ""));
+		data.add(new Trading(11, testTitle_1, "Tp.HCM", "Admin", "Ca nhan", need_to_sell, testContent_1, "", time, time,
+				"", ""));
+		data.add(new Trading(12, testTitle_2, "Tp.HCM", "Mod", "Doanh nghiep", need_to_buy, testContent_2, "", time,
+				time, "", ""));
+		data.add(new Trading(13, testTitle_1, "Tp.HCM", "SMod", "Ca nhan", need_to_sell, testContent_1, "", time, time,
+				"", ""));
+		data.add(new Trading(14, testTitle_2, "Tp.HCM", "Admin", "Doanh nghiep", need_to_buy, testContent_2, "", time,
+				time, "", ""));
+	}
+
+	void MyAsync() {
+		String url = getResources().getString(R.string.url_trading);
+
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+
+		client.post(url, params, new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				String jsonRead = response.toString();
+				if (!jsonRead.isEmpty()) {
+
+					try {
+						JSONObject object = new JSONObject(jsonRead);
+						JSONArray rows = object.getJSONArray("row");
+						for (int i = 0; i < rows.length(); i++) {
+							JSONObject row = rows.getJSONObject(i);
+							int id = object.getInt("id");
+							String tieude = object.getString("tieu_de");
+							String ten_vung_mien = object.getString("ten_vung_mien");
+							String doi_tuong = object.getString("doi_tuong");
+							String noi_dung = object.getString("noi_dung");
+							int tao_boi_id = object.getInt("tao_boi_id");
+							String ngay_tao = object.getString("ngay_tao");
+							String tao_boi_ten = object.getString("tao_boi_ten");
+							String ten_tinh_thanh = object.getString("ten_tinh_thanh");
+							int tinh_thanh_id = object.getInt("tinh_thanh_id");
+							String loai = object.getString("loai");
+							String ngay_het_han = object.getString("ngay_het_han");
+							String don_vi = object.getString("don_vi");
+							String gia = object.getString("gia");
+							String dia_chi = object.getString("dia_chi");
+
+							String url = "";
+							JSONArray rowss = object.getJSONArray("anh");
+							for (int j = 0; j < rows.length(); j++) {
+								JSONObject rowsss = rowss.getJSONObject(j);
+								url = rowsss.getString("url");
+							}
+
+							data.add(new Trading(id, tieude, dia_chi, tao_boi_ten, doi_tuong, loai, noi_dung, url,
+									ngay_tao, ngay_het_han, "", ""));
+
+						}
+						adapter = new TradingAdapter(getActivity(), R.layout.item_trading, data);
+						listView.setAdapter(adapter);
+						listView.startAnimation(
+								AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_in_bottom));
+						// }
+
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+				super.onSuccess(statusCode, headers, response);
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+				String s = getActivity().getResources().getString(R.string.login_error);
+				Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+			}
+		});
+
 	}
 }

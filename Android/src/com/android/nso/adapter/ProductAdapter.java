@@ -6,6 +6,7 @@ import com.android.nso.R;
 import com.android.nso.model.Product;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,12 @@ public class ProductAdapter extends BaseAdapter {
 		this.resource = resource;
 		this.data = data;
 	}
-
+	
+	public void notifyDataSetChanged(ArrayList<Product> data) {
+		this.data = data;
+		Log.d("TuNT", "size: "+this.data.size());
+		super.notifyDataSetChanged();
+	}
 	@Override
 	public int getCount() {
 		return data.size();

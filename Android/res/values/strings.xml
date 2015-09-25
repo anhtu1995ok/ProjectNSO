@@ -2,6 +2,10 @@
 <resources>
 
     <!-- App -->
+    <string name="url_product">http://192.168.2.100:8084/Webservice-NongSanOnline/webresources/frontend/danhsachsanpham</string>
+    <string name="url_news">http://192.168.2.100:8084/Webservice-NongSanOnline/webresources/frontend/danhsachtintuc</string>
+    <string name="url_trading">http://192.168.2.100:8084/Webservice-NongSanOnline/webresources/frontend/danhsachmuaban</string>
+    <string name="url_login">http://192.168.2.100:8084/Webservice-NongSanOnline/webresources/frontend/dangnhap</string>
     <string name="app_name">Nông sản Online</string>
     <string name="activity_news">Tin tức Nông sản</string>
     <string name="activity_product">Sản phẩm Nông sản</string>
@@ -14,9 +18,12 @@
     <string name="tip_1">Vuốt từ trên xuống để Tải lại Dữ liệu</string>
     <string name="tip_2">Vuốt từ trái qua phải để Quay lại</string>
     <string name="add">Thêm</string>
+    <string name="empty_view">Không có dữ liệu</string>
+    <string name="no_internet_access">Không có kết nối Internet</string>
     <string name="required">Xin hãy nhập đầy đủ thông tin</string>
     <string name="password_error_1">Mật khẩu bạn nhập lại chưa chính xác</string>
     <string name="email_error">Email bạn nhập chưa chính xác</string>
+    <string name="no_info_error">Vui lòng nhập đầy đủ Thông tin</string>
     <string name="login_error">Tên tài khoản bạn nhập chưa chính xác hoặc đã tồn tại</string>
     <string name="name_error">Tên tài khoản phải từ 5 đến 20 kí tự và không chứa kí tự đặc biệt</string>
     <string name="password_error">Mật tài khoản phải từ 6 đến 20 kí tự và không chứa kí tự đặc biệt</string>
