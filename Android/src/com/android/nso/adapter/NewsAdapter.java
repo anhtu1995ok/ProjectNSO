@@ -27,6 +27,11 @@ public class NewsAdapter extends BaseAdapter {
 		this.resource = resource;
 		this.data = data;
 	}
+	
+	public void notifyDataSetChanged(ArrayList<News> data) {
+		this.data = data;
+		super.notifyDataSetChanged();
+	}
 
 	@Override
 	public int getCount() {

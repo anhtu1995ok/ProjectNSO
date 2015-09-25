@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,7 +31,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
+public class NewsFragment extends Fragment implements
+		SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
 
 	private SwipeRefreshLayout swipeRefreshLayout;
 	ListView listView;
@@ -39,7 +41,8 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
 	@SuppressLint("InflateParams")
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_news, container, false);
 
 		View footer = inflater.inflate(R.layout.footer_newsfragment, null);
@@ -63,16 +66,22 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 			}
 		});
 
+		adapter = new NewsAdapter(getActivity(), R.layout.item_news, data);
+		listView.setAdapter(adapter);
+		listView.startAnimation(AnimationUtils.loadAnimation(getActivity(),
+				R.anim.abc_slide_in_bottom));
+
 		listView.setOnItemClickListener(this);
 
-		swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+		swipeRefreshLayout = (SwipeRefreshLayout) view
+				.findViewById(R.id.swipe_refresh_layout);
 		swipeRefreshLayout.setOnRefreshListener(this);
 
 		swipeRefreshLayout.post(new Runnable() {
 			@Override
 			public void run() {
 				swipeRefreshLayout.setRefreshing(true);
-				getData();
+				data = getDSTinTuc();
 			}
 		});
 
@@ -81,47 +90,7 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
 	@Override
 	public void onRefresh() {
-		getData();
-	}
-
-	private void getData() {
-		swipeRefreshLayout.setRefreshing(true);
-
-		MyAsync();
-
-		// int max = 10;
-		// String time = Time.getCurrentDate();
-		// // ======================== \\
-		// String test_title_1 =
-		// getActivity().getResources().getString(R.string.test_new_title);
-		// String test_title_2 =
-		// getActivity().getResources().getString(R.string.test_new_title_1);
-		// String test_des_1 =
-		// getActivity().getResources().getString(R.string.test_new_des);
-		// String test_des_2 =
-		// getActivity().getResources().getString(R.string.test_new_des_1);
-		// News news_1 = new News(11, test_title_1, test_des_1, " content ",
-		// "test_1", time, "");
-		// data.add(news_1);
-		// News news_2 = new News(12, test_title_2, test_des_2, " content ",
-		// "test_2", time, "");
-		// data.add(news_2);
-		// // ======================== \\
-		// for (int i = 0; i < max; i++) {
-		// News news = new News(i, "Tin moi thu : " + i,
-		// "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
-		// " content " + i,
-		// "", time, "");
-		// data.add(news);
-		// }
-		// adapter = new NewsAdapter(getActivity(), R.layout.item_news, data);
-		// listView.setAdapter(adapter);
-		// listView.startAnimation(AnimationUtils.loadAnimation(getActivity(),
-		// R.anim.abc_slide_in_bottom));
-		// adapter.notifyDataSetChanged();
-
-		// stopping swipe refresh
-		swipeRefreshLayout.setRefreshing(false);
+		data = getDSTinTuc();
 	}
 
 	@Override
@@ -139,15 +108,15 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
 	}
 
-	void MyAsync() {
+	private ArrayList<News> getDSTinTuc() {
+		final ArrayList<News> data = new ArrayList<News>();
 		String url = getResources().getString(R.string.url_news);
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		RequestParams params = new RequestParams();
-
-		client.post(url, params, new JsonHttpResponseHandler() {
+		client.get(url, null, new JsonHttpResponseHandler() {
 			@Override
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
 				String jsonRead = response.toString();
 				if (!jsonRead.isEmpty()) {
 
@@ -160,19 +129,16 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 							String tieude = row.getString("tieu_de");
 							String noi_dung = row.getString("noi_dung");
 							String ngay_tao = row.getString("ngay_tao");
-							String mota = row.getString("mota");
+							String mota = row.getString("mo_ta");
 
-							News news = new News(id, tieude, mota, noi_dung, "", ngay_tao, "");
+							News news = new News(id, tieude, mota, noi_dung,
+									"", ngay_tao, "");
 							data.add(news);
 
 						}
-
-						adapter = new NewsAdapter(getActivity(), R.layout.item_news, data);
-						listView.setAdapter(adapter);
-						listView.startAnimation(
-								AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_in_bottom));
-						adapter.notifyDataSetChanged();
-						
+						Log.d("TuNT", "no");
+						adapter.notifyDataSetChanged(data);
+						swipeRefreshLayout.setRefreshing(false);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -181,10 +147,19 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 			}
 
 			@Override
-			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				swipeRefreshLayout.setRefreshing(false);
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONArray errorResponse) {
+				swipeRefreshLayout.setRefreshing(false);
 				super.onFailure(statusCode, headers, throwable, errorResponse);
 			}
 		});
-
+		return data;
 	}
 }
