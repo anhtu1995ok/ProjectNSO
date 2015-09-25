@@ -3,6 +3,7 @@ package com.android.nso.fragment;
 import java.lang.reflect.Field;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.android.nso.R;
@@ -24,7 +25,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SignUpFragment extends Fragment implements OnClickListener, OnFocusChangeListener {
 
@@ -193,4 +193,44 @@ public class SignUpFragment extends Fragment implements OnClickListener, OnFocus
 		}
 	}
 	
+	void CongVanXuLyAsync() {
+		AsyncHttpClient handler = new AsyncHttpClient();
+		String url = getActivity().getResources().getString(R.string.url_signup);
+
+		RequestParams params = new RequestParams();
+		params.add("ten_dang_nhap", input_name.getText().toString());
+		params.add("matkhau", input_password.getText().toString());
+		params.add("email", input_email.getText().toString());
+		params.add("ho_va_ten", input_fullname.getText().toString());
+		params.add("diachi", input_address.getText().toString());
+		params.add("sdt", input_phone.getText().toString());
+
+		handler.post(getActivity(), url, params, new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				String st = response.toString();
+
+				try {
+					JSONObject json = new JSONObject(st);
+					JSONArray rows = json.getJSONArray("row");
+					for (int i = 0; i < rows.length(); i++) {
+
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				super.onSuccess(statusCode, headers, response);
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+			}
+
+		});
+
+	}
 }
