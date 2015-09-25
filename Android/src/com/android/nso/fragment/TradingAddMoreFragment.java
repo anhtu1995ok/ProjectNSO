@@ -1,6 +1,14 @@
 package com.android.nso.fragment;
 
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.android.nso.R;
+import com.android.nso.utils.Utils;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,21 +23,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class TradingAddMoreFragment extends Fragment implements OnClickListener, OnFocusChangeListener {
 
 	TextView address, phone, email;
-	EditText input_title, input_price, input_expired_at, input_content;
+	EditText input_title, input_quantity, input_price, input_expired_at, input_content;
 	LinearLayout profile;
 	Button publish;
 	ImageView image;
 	ProgressBar loading;
 
+	RadioGroup radioTypeGroup, radioTargetGroup;
+	RadioButton radioTypeButton, radioTargetButton;
+	View view;
+	String radioTypeText, radioTargetText;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.trading_addmore, container, false);
+		view = inflater.inflate(R.layout.trading_addmore, container, false);
 
 		initView(view);
 
@@ -43,6 +58,7 @@ public class TradingAddMoreFragment extends Fragment implements OnClickListener,
 
 		input_title = (EditText) view.findViewById(R.id.input_title);
 		input_price = (EditText) view.findViewById(R.id.input_price);
+		input_quantity = (EditText) view.findViewById(R.id.input_quantity);
 		input_expired_at = (EditText) view.findViewById(R.id.input_expired_at);
 		input_content = (EditText) view.findViewById(R.id.input_content);
 		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -56,6 +72,9 @@ public class TradingAddMoreFragment extends Fragment implements OnClickListener,
 
 		profile.setOnClickListener(this);
 		publish.setOnClickListener(this);
+
+		radioTypeGroup = (RadioGroup) view.findViewById(R.id.radioTypeGroup);
+		radioTargetGroup = (RadioGroup) view.findViewById(R.id.radioTargetGroup);
 	}
 
 	@Override
@@ -65,11 +84,21 @@ public class TradingAddMoreFragment extends Fragment implements OnClickListener,
 			Toast.makeText(getActivity(), "profile listener", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.publish:
-			Toast.makeText(getActivity(), "publish listener", Toast.LENGTH_SHORT).show();
+			MyAsync();			
 			break;
 		default:
 			break;
 		}
+	}
+	
+	private void getRadioData(){
+		int selectedTypeId = radioTypeGroup.getCheckedRadioButtonId();
+		radioTypeButton = (RadioButton) view.findViewById(selectedTypeId);
+		radioTypeText = radioTypeButton.getText().toString();
+		
+		int selectedTargetId = radioTargetGroup.getCheckedRadioButtonId();
+		radioTargetButton = (RadioButton) view.findViewById(selectedTargetId);
+		radioTargetText = radioTargetButton.getText().toString();
 	}
 
 	@Override
@@ -109,5 +138,55 @@ public class TradingAddMoreFragment extends Fragment implements OnClickListener,
 		} else if (seleteced == R.id.input_content) {
 			input_content.setBackgroundResource(selected);
 		}
+	}
+	
+	void MyAsync() {
+		AsyncHttpClient handler = new AsyncHttpClient();
+		String url = getActivity().getResources().getString(R.string.url_signup);
+		
+		getRadioData();
+		
+		RequestParams params = new RequestParams();
+		params.add("tieude", input_title.getText().toString());
+		params.add("gia", input_price.getText().toString());
+		params.add("donvi", input_quantity.getText().toString());
+//		params.add("ngay_het_han", input_expired_at.getText().toString());
+		params.add("diachi", Utils.getString(getActivity(), "ADDRESS", ""));
+		
+		params.add("tinh_thanh_id", "");
+		
+		params.add("taoboi", Utils.getString(getActivity(), "NAME", ""));
+		params.add("doituong", radioTypeText);
+		params.add("loai", radioTargetText);
+		params.add("noidung", input_content.getText().toString());
+		
+
+		handler.post(getActivity(), url, params, new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				String st = response.toString();
+
+				try {
+					JSONObject json = new JSONObject(st);
+					JSONArray rows = json.getJSONArray("row");
+					for (int i = 0; i < rows.length(); i++) {
+
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				super.onSuccess(statusCode, headers, response);
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+			}
+
+		});
+
 	}
 }
